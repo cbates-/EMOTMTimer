@@ -64,6 +64,37 @@ namespace EMOTM.ViewModel
             }
         }
 
+        /// <summary>
+        /// The <see cref="TotalTime" /> property's name.
+        /// </summary>
+        public const string TotalTimePropertyName = "TotalTime";
+
+        private int _totalTime = 10;
+
+        /// <summary>
+        /// Sets and gets the TotalTime property.
+        /// Changes to that property's value raise the PropertyChanged event. 
+        /// </summary>
+        public int TotalTime
+        {
+            get
+            {
+                return _totalTime;
+            }
+
+            set
+            {
+                if (_totalTime == value)
+                {
+                    return;
+                }
+
+                RaisePropertyChanging(TotalTimePropertyName);
+                _totalTime = value;
+                RaisePropertyChanged(TotalTimePropertyName);
+            }
+        }
+
         ////public override void Cleanup()
         ////{
         ////    // Clean up if needed

@@ -4,10 +4,12 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:converters="clr-namespace:EMOTM.Infrastructure"
+        xmlns:xtk="clr-namespace:Xceed;assembly=Xceed.Wpf.Toolkit"
         xmlns:ignore="http://www.ignore.com"
+        xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
         mc:Ignorable="d ignore"
-        Height="300"
-        Width="300"
+        Height="400"
+        Width="400"
         Title="MVVM Light Application"
         DataContext="{Binding Main, Source={StaticResource Locator}}">
     
@@ -23,24 +25,42 @@
     <Grid x:Name="LayoutRoot">
 
         <Grid.RowDefinitions>
-            <RowDefinition />
+            <RowDefinition Height="2*"/>
             <RowDefinition Height="3*" />
             <RowDefinition />
             <RowDefinition />
         </Grid.RowDefinitions>
         <Grid Grid.Row="0">
+            <Grid.RowDefinitions>
+                <RowDefinition />
+                <RowDefinition Height="2*" />
+            </Grid.RowDefinitions>
             <Grid.ColumnDefinitions>
                 <ColumnDefinition />
                 <ColumnDefinition />
             </Grid.ColumnDefinitions>
             <TextBlock x:Name="ThisMinTxt" Opacity="{Binding WhichMinute, Mode=TwoWay, Converter={StaticResource whichMinConverter}, ConverterParameter=ThisMinute}" HorizontalAlignment="Center" VerticalAlignment="Center" >This minute</TextBlock>
+            <TextBox Grid.Row="1" Opacity="{Binding WhichMinute, Mode=TwoWay, Converter={StaticResource whichMinConverter}, ConverterParameter=ThisMinute}" HorizontalContentAlignment="Center" >Enter activities</TextBox>
             <TextBlock x:Name="ThatMinTxt" Opacity="{Binding WhichMinute, Mode=TwoWay, Converter={StaticResource whichMinConverter}, ConverterParameter=ThatMinute}" Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Center" >That minute</TextBlock>
+            <TextBox Grid.Row="1" Grid.Column="1"  Opacity="{Binding WhichMinute, Mode=TwoWay, Converter={StaticResource whichMinConverter}, ConverterParameter=ThatMinute}" HorizontalContentAlignment="Center" >Enter activities</TextBox>
         </Grid>
 
         <TextBlock Grid.Row="1" x:Name="TimerDisplay" FontSize="48" HorizontalAlignment="Center" VerticalAlignment="Center">Placeholder</TextBlock>
         <TextBlock Grid.Row="2" HorizontalAlignment="Center" VerticalAlignment="Center">Placeholder</TextBlock>
         <!-- <TextBlock Grid.Row="3" HorizontalAlignment="Center" VerticalAlignment="Center">Placeholder</TextBlock> -->
-        <Button Grid.Row="3" Click="ButtonBase_OnClick" HorizontalAlignment="Center" VerticalAlignment="Center">Toggle Min</Button>
+        <Grid Grid.Row="3">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition />
+                <ColumnDefinition />
+                <ColumnDefinition />
+                <ColumnDefinition />
+            </Grid.ColumnDefinitions>
+            
+            <xctk:IntegerUpDown x:Name="TotalTime" Value="{Binding TotalTime, Mode=TwoWay}" Minimum="2"  HorizontalAlignment="Center" VerticalAlignment="Center" />
+            <Button x:Name="StartBtn" Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Center">Start</Button>
+            <Button x:Name="StopBtn" Grid.Column="2" HorizontalAlignment="Center" VerticalAlignment="Center" Content="Stop"/>
+            <Button Grid.Column="3" Click="ButtonBase_OnClick" HorizontalAlignment="Center" VerticalAlignment="Center">Toggle Min</Button>
+        </Grid>
 
     </Grid>
 </Window>
