@@ -1,4 +1,5 @@
-﻿using EMOTM.Infrastructure;
+﻿using System.Windows;
+using EMOTM.Infrastructure;
 using EMOTM.Model;
 using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Command;
@@ -36,7 +37,11 @@ namespace EMOTM.ViewModel
 
             StartTimerCmd = new RelayCommand(() => ExecuteStartTimer());
 
-            StopTimerCmd = new RelayCommand(() => TheTimer.Stop());
+            StopTimerCmd = new RelayCommand(() =>
+            {
+                TheTimer.Stop();
+                TimerState = TimerState.Stopped;
+            });
 
             TimerText = string.Format("{0}:00", TotalTime);
         }
@@ -52,14 +57,46 @@ namespace EMOTM.ViewModel
 
         private readonly string timerFormatString = @"m\:ss";
 
-        private void runTimer(TimeSpan ts)
-        {
+            private void runTimer(TimeSpan ts)
+            {
             TheTimer.Stop();
 
             TimerText = ts.ToString(timerFormatString);
 
+                TimerState = TimerState.Started;
             TheTimer.Start();
         }
+
+            /// <summary>
+            /// The <see cref="TimerState" /> property's name.
+            /// </summary>
+            public const string TimerStatePropertyName = "TimerState";
+
+            private TimerState _timerState = Infrastructure.TimerState.Stopped;
+
+            /// <summary>
+            /// Sets and gets the TimerState property.
+            /// Changes to that property's value raise the PropertyChanged event. 
+            /// </summary>
+            public TimerState TimerState
+            {
+                get
+                {
+                    return _timerState;
+                }
+
+                set
+                {
+                    if (_timerState == value)
+                    {
+                        return;
+                    }
+
+                    RaisePropertyChanging(TimerStatePropertyName);
+                    _timerState = value;
+                    RaisePropertyChanged(TimerStatePropertyName);
+                }
+            }
 
         /// <summary>
         /// The <see cref="WhichMinute" /> property's name.
@@ -156,6 +193,35 @@ namespace EMOTM.ViewModel
             }
         }
 
+        /// <summary>
+        /// The <see cref="WindowState" /> property's name.
+        /// </summary>
+        public const string WindowStatePropertyName = "WindowState";
+
+        private WindowState _windowState = System.Windows.WindowState.Normal;
+
+        /// <summary>
+        /// Sets and gets the WindowState property.
+        /// Changes to that property's value raise the PropertyChanged event. 
+        /// </summary>
+        public WindowState WindowState
+        {
+            get
+            {
+                return _windowState;
+            }
+
+            set
+            {
+                if (_windowState == value)
+                {
+                    return;
+                }
+
+                _windowState = value;
+                RaisePropertyChanged(WindowStatePropertyName);
+            }
+        }
 
         /// <summary>
         /// The <see cref="TimerText" /> property's name.

@@ -79,7 +79,10 @@
     <Compile Include="Infrastructure\ListCntEnums.cs" />
     <Compile Include="Infrastructure\ThatMinVisConverter.cs" />
     <Compile Include="Infrastructure\ThisThatMin.cs" />
+    <Compile Include="Infrastructure\TimerState.cs" />
+    <Compile Include="Infrastructure\TimerStateToEnabledConverter.cs" />
     <Compile Include="Infrastructure\WhichMinOpacityConverter.cs" />
+    <Compile Include="Infrastructure\WindowStateFontSizeConverter.cs" />
     <Compile Include="Model\DataItem.cs" />
     <Compile Include="Model\DataService.cs" />
     <Compile Include="Model\IDataService.cs" />
