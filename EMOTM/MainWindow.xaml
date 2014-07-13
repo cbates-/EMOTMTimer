@@ -8,22 +8,33 @@
         xmlns:xtk="clr-namespace:Xceed;assembly=Xceed.Wpf.Toolkit"
         xmlns:ignore="http://www.ignore.com"
         xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
+        x:Class="EMOTM.MainWindow"
         mc:Ignorable="d ignore"
         Height="400"
         Width="400"
         Title="EMOTM"
-        DataContext="{Binding Main, Source={StaticResource Locator}}">
+        >
 
-    <Window.Resources>
+    <controls:MetroWindow.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary Source="Skins/MainSkin.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Colors.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Fonts.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Controls.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Accents/Blue.xaml" />
+                <ResourceDictionary
+                    Source="pack://application:,,,/MahApps.Metro;component/Styles/Accents/BaseLight.xaml" />
             </ResourceDictionary.MergedDictionaries>
             <converters:WhichMinOpacityConverter x:Key="whichMinConverter" />
             <converters:ThatMinVisConverter x:Key="ThatMinVisConverter" />
             <converters:ColumnSpanConverter x:Key="colSpanConverter" />
         </ResourceDictionary>
-    </Window.Resources>
+    </controls:MetroWindow.Resources>
+
+    <controls:MetroWindow.DataContext>
+        <Binding Path="Main" Source="{StaticResource Locator}" />
+    </controls:MetroWindow.DataContext>
 
     <Grid x:Name="LayoutRoot">
 
@@ -70,22 +81,23 @@
                 <RowDefinition />
             </Grid.RowDefinitions>
             <Grid.ColumnDefinitions>
-                <ColumnDefinition />
+                <ColumnDefinition Width="2*" />
                 <ColumnDefinition />
                 <ColumnDefinition />
                 <ColumnDefinition />
             </Grid.ColumnDefinitions>
 
-            <TextBlock Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Center">Tasks</TextBlock>
-            <xctk:IntegerUpDown Grid.Column="2" Minimum="1" Maximum="2" Value="{Binding CntWorkItems, Mode=TwoWay}" HorizontalAlignment="Center" VerticalAlignment="Center" />
-            <StackPanel Orientation="Horizontal" Grid.Row="1">
-
-                <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center">Total Time:</TextBlock>
+            <StackPanel Orientation="Horizontal" Grid.ColumnSpan="4" HorizontalAlignment="Center" VerticalAlignment="Center">
+                <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center" Grid.ColumnSpan="4" Margin="0,0,6,0">Work Lists</TextBlock>
+                <xctk:IntegerUpDown Grid.Column="2" Minimum="1" Maximum="2" Value="{Binding CntWorkItems, Mode=TwoWay}" HorizontalAlignment="Center" VerticalAlignment="Center" />
+            </StackPanel>
+            <StackPanel Orientation="Horizontal" Grid.Row="1" HorizontalAlignment="Center">
+                <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center" Text="Total Time:" Margin="0,0,6,0" />
                 <xctk:IntegerUpDown x:Name="TotalTime" Value="{Binding TotalTime, Mode=TwoWay}" Minimum="2"  HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Row="1" />
             </StackPanel>
-            <Button x:Name="StartBtn" Command="{Binding StartTimerCmd}" Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Row="1">Start</Button>
+            <Button x:Name="StartBtn" Command="{Binding StartTimerCmd}" Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Row="1" IsDefault="True">Start</Button>
             <Button x:Name="StopBtn" Command="{Binding StopTimerCmd}" Grid.Column="2" HorizontalAlignment="Center" VerticalAlignment="Center" Content="Stop" Grid.Row="1" />
-            <Button Grid.Column="3" Click="ButtonBase_OnClick" HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Row="1">Toggle Min</Button>
+            <Button Grid.Column="3" IsEnabled="False"  HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Row="1">Test</Button>
         </Grid>
     </Grid>
 </controls:MetroWindow>

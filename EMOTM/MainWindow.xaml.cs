@@ -7,7 +7,7 @@ namespace EMOTM
     /// <summary>
     /// Interaction logic for MainWindow.xaml
     /// </summary>
-    public partial class MainWindow : Window
+    public partial class MainWindow
     {
         /// <summary>
         /// Initializes a new instance of the MainWindow class.
@@ -18,15 +18,5 @@ namespace EMOTM
             Closing += (s, e) => ViewModelLocator.Cleanup();
         }
 
-        private void ButtonBase_OnClick(object sender, RoutedEventArgs e)
-        {
-            MainViewModel vm = (this.DataContext as MainViewModel);
-            if (vm != null)
-            {
-                vm.WhichMinute = (vm.WhichMinute == ThisThatMin.ThisMinute)
-                    ? ThisThatMin.ThatMinute
-                    : ThisThatMin.ThisMinute;
-            }
-        }
     }
 }
