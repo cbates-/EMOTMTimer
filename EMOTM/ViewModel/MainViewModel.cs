@@ -50,7 +50,7 @@ namespace EMOTM.ViewModel
         }
 
 
-        private readonly string timerFormatString = @"mm\:ss";
+        private readonly string timerFormatString = @"m\:ss";
 
         private void runTimer(TimeSpan ts)
         {

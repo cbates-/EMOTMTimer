@@ -58,7 +58,9 @@
                     <RowDefinition />
                     <RowDefinition Height="2*" />
                 </Grid.RowDefinitions>
-                <TextBlock x:Name="ThisMinTxt" Opacity="{Binding WhichMinute, Mode=TwoWay, Converter={StaticResource whichMinConverter}, ConverterParameter=ThisMinute}" HorizontalAlignment="Center" VerticalAlignment="Center" >This minute</TextBlock>
+                <TextBlock x:Name="ThisMinTxt" Opacity="{Binding WhichMinute, Mode=TwoWay, Converter={StaticResource whichMinConverter}, ConverterParameter=ThisMinute}" HorizontalAlignment="Center" VerticalAlignment="Center" >
+                    <Bold>This</Bold> minute
+                </TextBlock>
                 <xctk:WatermarkTextBox Watermark="List work to do This minute" Grid.Row="1" Opacity="{Binding WhichMinute, Mode=TwoWay, Converter={StaticResource whichMinConverter}, ConverterParameter=ThisMinute}" HorizontalContentAlignment="Center" AcceptsReturn="True" />
             </Grid>
             <!-- ThatMinute -->
@@ -67,7 +69,7 @@
                     <RowDefinition />
                     <RowDefinition Height="2*" />
                 </Grid.RowDefinitions>
-                <TextBlock x:Name="ThatMinTxt" Opacity="{Binding WhichMinute, Mode=TwoWay, Converter={StaticResource whichMinConverter}, ConverterParameter=ThatMinute}" Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Center" >That minute</TextBlock>
+                <TextBlock x:Name="ThatMinTxt" Opacity="{Binding WhichMinute, Mode=TwoWay, Converter={StaticResource whichMinConverter}, ConverterParameter=ThatMinute}" Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Center" ><Bold>That</Bold> minute</TextBlock>
                 <xctk:WatermarkTextBox Watermark="List work to do That minute" Grid.Row="1" Grid.Column="1"  Opacity="{Binding WhichMinute, Mode=TwoWay, Converter={StaticResource whichMinConverter}, ConverterParameter=ThatMinute}" HorizontalContentAlignment="Center" AcceptsReturn="True" />
             </Grid>
         </Grid>
