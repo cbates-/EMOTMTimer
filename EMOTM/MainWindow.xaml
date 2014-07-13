@@ -12,13 +12,15 @@
         Width="400"
         Title="MVVM Light Application"
         DataContext="{Binding Main, Source={StaticResource Locator}}">
-    
+
     <Window.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary Source="Skins/MainSkin.xaml" />
             </ResourceDictionary.MergedDictionaries>
             <converters:WhichMinOpacityConverter x:Key="whichMinConverter" />
+            <converters:ThatMinVisConverter x:Key="ThatMinVisConverter" />
+            <converters:ColumnSpanConverter x:Key="colSpanConverter" />
         </ResourceDictionary>
     </Window.Resources>
 
@@ -28,38 +30,61 @@
             <RowDefinition Height="2*"/>
             <RowDefinition Height="3*" />
             <RowDefinition />
-            <RowDefinition />
+            <RowDefinition Height="2*"/>
         </Grid.RowDefinitions>
         <Grid Grid.Row="0">
             <Grid.RowDefinitions>
                 <RowDefinition />
-                <RowDefinition Height="2*" />
             </Grid.RowDefinitions>
             <Grid.ColumnDefinitions>
                 <ColumnDefinition />
                 <ColumnDefinition />
             </Grid.ColumnDefinitions>
-            <TextBlock x:Name="ThisMinTxt" Opacity="{Binding WhichMinute, Mode=TwoWay, Converter={StaticResource whichMinConverter}, ConverterParameter=ThisMinute}" HorizontalAlignment="Center" VerticalAlignment="Center" >This minute</TextBlock>
-            <TextBox Grid.Row="1" Opacity="{Binding WhichMinute, Mode=TwoWay, Converter={StaticResource whichMinConverter}, ConverterParameter=ThisMinute}" HorizontalContentAlignment="Center" >Enter activities</TextBox>
-            <TextBlock x:Name="ThatMinTxt" Opacity="{Binding WhichMinute, Mode=TwoWay, Converter={StaticResource whichMinConverter}, ConverterParameter=ThatMinute}" Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Center" >That minute</TextBlock>
-            <TextBox Grid.Row="1" Grid.Column="1"  Opacity="{Binding WhichMinute, Mode=TwoWay, Converter={StaticResource whichMinConverter}, ConverterParameter=ThatMinute}" HorizontalContentAlignment="Center" >Enter activities</TextBox>
+            <!-- ThisMinute -->
+            <Grid ColumnSpan="{Binding CntWorkItems, Converter={StaticResource colSpanConverter}}" >
+                <Grid.RowDefinitions>
+                    <RowDefinition />
+                    <RowDefinition Height="2*" />
+                </Grid.RowDefinitions>
+                <TextBlock x:Name="ThisMinTxt" Opacity="{Binding WhichMinute, Mode=TwoWay, Converter={StaticResource whichMinConverter}, ConverterParameter=ThisMinute}" HorizontalAlignment="Center" VerticalAlignment="Center" >This minute</TextBlock>
+                <xctk:WatermarkTextBox Watermark="List work" Grid.Row="1" Opacity="{Binding WhichMinute, Mode=TwoWay, Converter={StaticResource whichMinConverter}, ConverterParameter=ThisMinute}" HorizontalContentAlignment="Center" AcceptsReturn="True" />
+            </Grid>
+            <!-- ThatMinute -->
+            <Grid Grid.Column="1"  Visibility="{Binding CntWorkItems, Converter={StaticResource ThatMinVisConverter}}">
+                <Grid.RowDefinitions>
+                    <RowDefinition />
+                    <RowDefinition Height="2*" />
+                </Grid.RowDefinitions>
+                <TextBlock x:Name="ThatMinTxt" Opacity="{Binding WhichMinute, Mode=TwoWay, Converter={StaticResource whichMinConverter}, ConverterParameter=ThatMinute}" Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Center" >That minute</TextBlock>
+                <xctk:WatermarkTextBox Watermark="List work" Grid.Row="1" Grid.Column="1"  Opacity="{Binding WhichMinute, Mode=TwoWay, Converter={StaticResource whichMinConverter}, ConverterParameter=ThatMinute}" HorizontalContentAlignment="Center" AcceptsReturn="True" />
+            </Grid>
         </Grid>
 
-        <TextBlock Grid.Row="1" x:Name="TimerDisplay" FontSize="48" HorizontalAlignment="Center" VerticalAlignment="Center">Placeholder</TextBlock>
+        <TextBlock Grid.Row="1" x:Name="TimerDisplay" Text="{Binding TimerText, Mode=TwoWay}" FontSize="48" HorizontalAlignment="Center" VerticalAlignment="Center" />
         <TextBlock Grid.Row="2" HorizontalAlignment="Center" VerticalAlignment="Center">Placeholder</TextBlock>
         <!-- <TextBlock Grid.Row="3" HorizontalAlignment="Center" VerticalAlignment="Center">Placeholder</TextBlock> -->
         <Grid Grid.Row="3">
+            <Grid.RowDefinitions>
+                <RowDefinition />
+                <RowDefinition />
+            </Grid.RowDefinitions>
             <Grid.ColumnDefinitions>
                 <ColumnDefinition />
                 <ColumnDefinition />
                 <ColumnDefinition />
                 <ColumnDefinition />
             </Grid.ColumnDefinitions>
-            
-            <xctk:IntegerUpDown x:Name="TotalTime" Value="{Binding TotalTime, Mode=TwoWay}" Minimum="2"  HorizontalAlignment="Center" VerticalAlignment="Center" />
-            <Button x:Name="StartBtn" Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Center">Start</Button>
-            <Button x:Name="StopBtn" Grid.Column="2" HorizontalAlignment="Center" VerticalAlignment="Center" Content="Stop"/>
-            <Button Grid.Column="3" Click="ButtonBase_OnClick" HorizontalAlignment="Center" VerticalAlignment="Center">Toggle Min</Button>
+
+            <TextBlock Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Center">Tasks</TextBlock>
+            <xctk:IntegerUpDown Grid.Column="2" Minimum="1" Maximum="2" Value="{Binding CntWorkItems, Mode=TwoWay}" HorizontalAlignment="Center" VerticalAlignment="Center" />
+            <StackPanel Orientation="Horizontal" Grid.Row="1">
+
+                <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center">Total Time:</TextBlock>
+                <xctk:IntegerUpDown x:Name="TotalTime" Value="{Binding TotalTime, Mode=TwoWay}" Minimum="2"  HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Row="1" />
+            </StackPanel>
+            <Button x:Name="StartBtn" Command="{Binding StartTimerCmd}" Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Row="1">Start</Button>
+            <Button x:Name="StopBtn" Command="{Binding StopTimerCmd}" Grid.Column="2" HorizontalAlignment="Center" VerticalAlignment="Center" Content="Stop" Grid.Row="1"/>
+            <Button Grid.Column="3" Click="ButtonBase_OnClick" HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Row="1">Toggle Min</Button>
         </Grid>
 
     </Grid>

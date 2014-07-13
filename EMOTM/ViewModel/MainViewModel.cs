@@ -1,6 +1,9 @@
-﻿using EMOTM.Infrastructure;
+﻿using System;
+using System.Timers;
+using EMOTM.Infrastructure;
 using GalaSoft.MvvmLight;
 using EMOTM.Model;
+using GalaSoft.MvvmLight.Command;
 
 namespace EMOTM.ViewModel
 {
@@ -31,6 +34,28 @@ namespace EMOTM.ViewModel
                     }
 
                 });
+
+            StartTimerCmd = new RelayCommand(() => ExecuteStartTimer());
+
+            StopTimerCmd = new RelayCommand(() => TheTimer.Stop());
+        }
+
+        private TimeSpan timeSpan;
+        private void ExecuteStartTimer()
+        {
+            timeSpan = new TimeSpan(0, TotalTime, 0);
+            runTimer(timeSpan);
+        }
+
+        
+        private readonly string timerFormatString = @"mm\:ss";
+        private void runTimer(TimeSpan ts)
+        {
+            TheTimer.Stop();
+
+            TimerText = ts.ToString(timerFormatString);
+
+            TheTimer.Start();
         }
 
         /// <summary>
@@ -94,6 +119,98 @@ namespace EMOTM.ViewModel
                 RaisePropertyChanged(TotalTimePropertyName);
             }
         }
+
+        /// <summary>
+        /// The <see cref="CntWorkItems" /> property's name.
+        /// </summary>
+        public const string CntWorkItemsPropertyName = "CntWorkItems";
+
+        private int _cntWorkItems = 1;
+
+        /// <summary>
+        /// Sets and gets the CntWorkItems property.
+        /// Changes to that property's value raise the PropertyChanged event. 
+        /// </summary>
+        public int CntWorkItems
+        {
+            get
+            {
+                return _cntWorkItems;
+            }
+
+            set
+            {
+                if (_cntWorkItems == value)
+                {
+                    return;
+                }
+
+                _cntWorkItems = value;
+                RaisePropertyChanged(CntWorkItemsPropertyName);
+            }
+        }
+
+        /// <summary>
+        /// The <see cref="TimerText" /> property's name.
+        /// </summary>
+        public const string TimerTextPropertyName = "TimerText";
+
+        private string _timerText = "0:00";
+        
+        /// <summary>
+        /// Sets and gets the TimerText property.
+        /// Changes to that property's value raise the PropertyChanged event. 
+        /// </summary>
+        public string TimerText
+        {
+            get
+            {
+                return _timerText;
+            }
+
+            set
+            {
+                if (_timerText == value)
+                {
+                    return;
+                }
+
+                _timerText = value;
+                RaisePropertyChanged(TimerTextPropertyName);
+            }
+        }
+
+        private Timer _theTimer;
+
+        protected Timer TheTimer
+        {
+            get
+            {
+                if (_theTimer == null)
+                {
+                    _theTimer = new Timer() { Interval = 1000 };
+                    _theTimer.Elapsed += TheTimerOnElapsed;
+                }
+                return _theTimer;
+            }
+        }
+
+        private readonly TimeSpan oneSecond = new TimeSpan(0, 0, 1);
+        private void TheTimerOnElapsed(object sender, ElapsedEventArgs elapsedEventArgs)
+        {
+            // Use this to avoid comparing the time on every tick when AutoMinimize is true.
+
+            timeSpan = timeSpan.Subtract(oneSecond);
+            TimerText = timeSpan.ToString(timerFormatString);
+
+            if (timeSpan.Seconds == 0 && timeSpan.Minutes == 0)
+            {
+                // timerExpired();
+            }
+        }
+
+        public RelayCommand StartTimerCmd { get; private set; }
+        public RelayCommand StopTimerCmd { get; private set; }
 
         ////public override void Cleanup()
         ////{
