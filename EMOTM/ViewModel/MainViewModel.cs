@@ -210,9 +210,22 @@ namespace EMOTM.ViewModel
             timeSpan = timeSpan.Subtract(oneSecond);
             TimerText = timeSpan.ToString(timerFormatString);
 
-            if (timeSpan.Seconds == 0 && timeSpan.Minutes == 0)
+            if (timeSpan.Seconds == 0)
             {
-                // timerExpired();
+                if (timeSpan.Minutes == 0)
+                {
+                    // timerExpired();
+                    TheTimer.Stop();
+                }
+                else
+                {
+                    if (CntWorkItems > 1)
+                    {
+                        WhichMinute = _whichMinute == ThisThatMin.ThisMinute
+                            ? ThisThatMin.ThatMinute
+                            : ThisThatMin.ThisMinute;
+                    }
+                }
             }
         }
 
