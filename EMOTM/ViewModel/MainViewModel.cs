@@ -1,4 +1,5 @@
-﻿using GalaSoft.MvvmLight;
+﻿using EMOTM.Infrastructure;
+using GalaSoft.MvvmLight;
 using EMOTM.Model;
 
 namespace EMOTM.ViewModel
@@ -32,7 +33,36 @@ namespace EMOTM.ViewModel
                 });
         }
 
-	
+        /// <summary>
+        /// The <see cref="WhichMinute" /> property's name.
+        /// </summary>
+        public const string WhichMinutePropertyName = "WhichMinute";
+
+        private ThisThatMin _whichMinute = ThisThatMin.ThisMinute;
+
+        /// <summary>
+        /// Sets and gets the WhichMinute property.
+        /// Changes to that property's value raise the PropertyChanged event. 
+        /// </summary>
+        public ThisThatMin WhichMinute
+        {
+            get
+            {
+                return _whichMinute;
+            }
+
+            set
+            {
+                if (_whichMinute == value)
+                {
+                    return;
+                }
+
+                // RaisePropertyChanging(WhichMinutePropertyName);
+                _whichMinute = value;
+                RaisePropertyChanged(WhichMinutePropertyName);
+            }
+        }
 
         ////public override void Cleanup()
         ////{

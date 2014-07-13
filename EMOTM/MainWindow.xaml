@@ -3,6 +3,7 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:converters="clr-namespace:EMOTM.Infrastructure"
         xmlns:ignore="http://www.ignore.com"
         mc:Ignorable="d ignore"
         Height="300"
@@ -15,6 +16,7 @@
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary Source="Skins/MainSkin.xaml" />
             </ResourceDictionary.MergedDictionaries>
+            <converters:WhichMinOpacityConverter x:Key="whichMinConverter" />
         </ResourceDictionary>
     </Window.Resources>
 
@@ -31,13 +33,14 @@
                 <ColumnDefinition />
                 <ColumnDefinition />
             </Grid.ColumnDefinitions>
-            <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center" >This minute</TextBlock>
-            <TextBlock Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Center" >That minute</TextBlock>
+            <TextBlock x:Name="ThisMinTxt" Opacity="{Binding WhichMinute, Mode=TwoWay, Converter={StaticResource whichMinConverter}, ConverterParameter=ThisMinute}" HorizontalAlignment="Center" VerticalAlignment="Center" >This minute</TextBlock>
+            <TextBlock x:Name="ThatMinTxt" Opacity="{Binding WhichMinute, Mode=TwoWay, Converter={StaticResource whichMinConverter}, ConverterParameter=ThatMinute}" Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Center" >That minute</TextBlock>
         </Grid>
 
         <TextBlock Grid.Row="1" x:Name="TimerDisplay" FontSize="48" HorizontalAlignment="Center" VerticalAlignment="Center">Placeholder</TextBlock>
         <TextBlock Grid.Row="2" HorizontalAlignment="Center" VerticalAlignment="Center">Placeholder</TextBlock>
-        <TextBlock Grid.Row="3" HorizontalAlignment="Center" VerticalAlignment="Center">Placeholder</TextBlock>
+        <!-- <TextBlock Grid.Row="3" HorizontalAlignment="Center" VerticalAlignment="Center">Placeholder</TextBlock> -->
+        <Button Grid.Row="3" Click="ButtonBase_OnClick" HorizontalAlignment="Center" VerticalAlignment="Center">Toggle Min</Button>
 
     </Grid>
 </Window>

@@ -1,4 +1,5 @@
 ﻿using System.Windows;
+using EMOTM.Infrastructure;
 using EMOTM.ViewModel;
 
 namespace EMOTM
@@ -15,6 +16,17 @@ namespace EMOTM
         {
             InitializeComponent();
             Closing += (s, e) => ViewModelLocator.Cleanup();
+        }
+
+        private void ButtonBase_OnClick(object sender, RoutedEventArgs e)
+        {
+            MainViewModel vm = (this.DataContext as MainViewModel);
+            if (vm != null)
+            {
+                vm.WhichMinute = (vm.WhichMinute == ThisThatMin.ThisMinute)
+                    ? ThisThatMin.ThatMinute
+                    : ThisThatMin.ThisMinute;
+            }
         }
     }
 }
