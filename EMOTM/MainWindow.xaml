@@ -29,6 +29,7 @@
             <converters:WhichMinOpacityConverter x:Key="whichMinConverter" />
             <converters:ThatMinVisConverter x:Key="ThatMinVisConverter" />
             <converters:ColumnSpanConverter x:Key="colSpanConverter" />
+            <converters:EnumBooleanConverter x:Key="enumBooleanConverter" />
         </ResourceDictionary>
     </controls:MetroWindow.Resources>
 
@@ -40,8 +41,8 @@
 
         <Grid.RowDefinitions>
             <RowDefinition Height="2*" />
+            <RowDefinition Height="0.5*" />
             <RowDefinition Height="3*" />
-            <RowDefinition />
             <RowDefinition Height="2*" />
         </Grid.RowDefinitions>
         <Grid Grid.Row="0">
@@ -53,7 +54,7 @@
                 <ColumnDefinition />
             </Grid.ColumnDefinitions>
             <!-- ThisMinute -->
-            <Grid ColumnSpan="{Binding CntWorkItems, Converter={StaticResource colSpanConverter}}">
+            <Grid ColumnSpan="{Binding ListCnt, Converter={StaticResource colSpanConverter}}">
                 <Grid.RowDefinitions>
                     <RowDefinition />
                     <RowDefinition Height="2*" />
@@ -64,18 +65,21 @@
                 <xctk:WatermarkTextBox Watermark="List work to do This minute" Grid.Row="1" Opacity="{Binding WhichMinute, Mode=TwoWay, Converter={StaticResource whichMinConverter}, ConverterParameter=ThisMinute}" HorizontalContentAlignment="Center" AcceptsReturn="True" />
             </Grid>
             <!-- ThatMinute -->
-            <Grid Grid.Column="1"  Visibility="{Binding CntWorkItems, Converter={StaticResource ThatMinVisConverter}}">
+            <Grid Grid.Column="1"  Visibility="{Binding ListCnt, Converter={StaticResource ThatMinVisConverter}}">
                 <Grid.RowDefinitions>
                     <RowDefinition />
                     <RowDefinition Height="2*" />
                 </Grid.RowDefinitions>
-                <TextBlock x:Name="ThatMinTxt" Opacity="{Binding WhichMinute, Mode=TwoWay, Converter={StaticResource whichMinConverter}, ConverterParameter=ThatMinute}" Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Center" ><Bold>That</Bold> minute</TextBlock>
+                <TextBlock x:Name="ThatMinTxt" Opacity="{Binding WhichMinute, Mode=TwoWay, Converter={StaticResource whichMinConverter}, ConverterParameter=ThatMinute}"  HorizontalAlignment="Center" VerticalAlignment="Center" ><Bold>That</Bold> minute</TextBlock>
                 <xctk:WatermarkTextBox Watermark="List work to do That minute" Grid.Row="1" Grid.Column="1"  Opacity="{Binding WhichMinute, Mode=TwoWay, Converter={StaticResource whichMinConverter}, ConverterParameter=ThatMinute}" HorizontalContentAlignment="Center" AcceptsReturn="True" />
             </Grid>
         </Grid>
 
-        <TextBlock Grid.Row="1" x:Name="TimerDisplay" Text="{Binding TimerText, Mode=TwoWay}" FontSize="54" HorizontalAlignment="Center" VerticalAlignment="Center" />
-        <TextBlock Grid.Row="2" HorizontalAlignment="Center" VerticalAlignment="Center">Placeholder</TextBlock>
+        <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Grid.Row="1">
+            <RadioButton x:Name="OneListRB" IsChecked="{Binding Path=ListCnt, Converter={StaticResource enumBooleanConverter}, ConverterParameter=One}" GroupName="CntListsGroup" Margin="3,0" >One</RadioButton>
+            <RadioButton x:Name="TwoListRB" IsChecked="{Binding Path=ListCnt, Converter={StaticResource enumBooleanConverter}, ConverterParameter=Two}" GroupName="CntListsGroup" Margin="3,0">Two</RadioButton>
+        </StackPanel>
+        <TextBlock Grid.Row="2" x:Name="TimerDisplay" Text="{Binding TimerText, Mode=TwoWay}" FontSize="64" HorizontalAlignment="Center" VerticalAlignment="Center" />
         <!-- <TextBlock Grid.Row="3" HorizontalAlignment="Center" VerticalAlignment="Center">Placeholder</TextBlock> -->
         <Grid Grid.Row="3">
             <Grid.RowDefinitions>
@@ -89,10 +93,7 @@
                 <ColumnDefinition />
             </Grid.ColumnDefinitions>
 
-            <StackPanel Orientation="Horizontal" Grid.ColumnSpan="4" HorizontalAlignment="Center" VerticalAlignment="Center">
-                <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center" Grid.ColumnSpan="4" Margin="0,0,6,0">Work Lists</TextBlock>
-                <xctk:IntegerUpDown Grid.Column="2" Minimum="1" Maximum="2" Value="{Binding CntWorkItems, Mode=TwoWay}" HorizontalAlignment="Center" VerticalAlignment="Center" />
-            </StackPanel>
+            <StackPanel Orientation="Horizontal" Grid.ColumnSpan="4" HorizontalAlignment="Center" VerticalAlignment="Center"/>
             <StackPanel Orientation="Horizontal" Grid.Row="1" HorizontalAlignment="Center">
                 <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center" Text="Total Time:" Margin="0,0,6,0" />
                 <xctk:IntegerUpDown x:Name="TotalTime" Value="{Binding TotalTime, Mode=TwoWay}" Minimum="2"  HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Row="1" />

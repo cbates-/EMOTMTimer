@@ -9,7 +9,7 @@ namespace EMOTM.Infrastructure
     {
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            return ((int)value == 1) ? Visibility.Collapsed : Visibility.Visible;
+            return ((ListCntEnums)value == ListCntEnums.One) ? Visibility.Collapsed : Visibility.Visible;
         }
 
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)

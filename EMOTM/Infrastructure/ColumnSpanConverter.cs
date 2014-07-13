@@ -8,8 +8,9 @@ namespace EMOTM.Infrastructure
     {
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            int cnt = (int)value;
-            return cnt == 1 ? 2 : 1;
+            int colSpan = 1;
+            ListCntEnums cnt = (ListCntEnums)value;
+            return cnt == ListCntEnums.One ? 2 : 1;
         }
 
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)

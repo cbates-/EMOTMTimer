@@ -93,6 +93,36 @@ namespace EMOTM.ViewModel
         }
 
         /// <summary>
+        /// The <see cref="ListCnt" /> property's name.
+        /// </summary>
+        public const string ListCntPropertyName = "ListCnt";
+
+        private ListCntEnums _listCnt = ListCntEnums.One;
+
+        /// <summary>
+        /// Sets and gets the ListCnt property.
+        /// Changes to that property's value raise the PropertyChanged event. 
+        /// </summary>
+        public ListCntEnums ListCnt
+        {
+            get
+            {
+                return _listCnt;
+            }
+
+            set
+            {
+                if (_listCnt == value)
+                {
+                    return;
+                }
+
+                _listCnt = value;
+                RaisePropertyChanged(ListCntPropertyName);
+            }
+        }
+
+        /// <summary>
         /// The <see cref="TotalTime" /> property's name.
         /// </summary>
         public const string TotalTimePropertyName = "TotalTime";
@@ -126,35 +156,6 @@ namespace EMOTM.ViewModel
             }
         }
 
-        /// <summary>
-        /// The <see cref="CntWorkItems" /> property's name.
-        /// </summary>
-        public const string CntWorkItemsPropertyName = "CntWorkItems";
-
-        private int _cntWorkItems = 1;
-
-        /// <summary>
-        /// Sets and gets the CntWorkItems property.
-        /// Changes to that property's value raise the PropertyChanged event.
-        /// </summary>
-        public int CntWorkItems
-        {
-            get
-            {
-                return _cntWorkItems;
-            }
-
-            set
-            {
-                if (_cntWorkItems == value)
-                {
-                    return;
-                }
-
-                _cntWorkItems = value;
-                RaisePropertyChanged(CntWorkItemsPropertyName);
-            }
-        }
 
         /// <summary>
         /// The <see cref="TimerText" /> property's name.
@@ -219,7 +220,7 @@ namespace EMOTM.ViewModel
                 }
                 else
                 {
-                    if (CntWorkItems > 1)
+                    if (ListCnt == ListCntEnums.Two)
                     {
                         WhichMinute = _whichMinute == ThisThatMin.ThisMinute
                             ? ThisThatMin.ThatMinute
