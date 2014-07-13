@@ -1,6 +1,6 @@
-﻿using System.Windows;
-using EMOTM.Infrastructure;
+﻿using EMOTM.Infrastructure;
 using EMOTM.ViewModel;
+using System.Windows;
 
 namespace EMOTM
 {

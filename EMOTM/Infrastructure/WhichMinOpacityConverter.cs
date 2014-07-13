@@ -4,10 +4,11 @@ using System.Windows.Data;
 
 namespace EMOTM.Infrastructure
 {
-    class WhichMinOpacityConverter : IValueConverter
+    internal class WhichMinOpacityConverter : IValueConverter
     {
         private readonly double activeOpacity = 1.0;
         private readonly double inActiveOpacity = 0.40;
+
         // Parameter is the name of the control
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
@@ -20,6 +21,7 @@ namespace EMOTM.Infrastructure
                 case ThisThatMin.ThisMinute:
                     ret = (String.Equals(s, ThisThatMin.ThisMinute.ToString())) ? activeOpacity : inActiveOpacity;
                     break;
+
                 case ThisThatMin.ThatMinute:
                     ret = (String.Equals(s, ThisThatMin.ThatMinute.ToString())) ? activeOpacity : inActiveOpacity;
                     break;

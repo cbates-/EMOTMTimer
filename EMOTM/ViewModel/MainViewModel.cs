@@ -1,9 +1,9 @@
-﻿using System;
-using System.Timers;
-using EMOTM.Infrastructure;
-using GalaSoft.MvvmLight;
+﻿using EMOTM.Infrastructure;
 using EMOTM.Model;
+using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Command;
+using System;
+using System.Timers;
 
 namespace EMOTM.ViewModel
 {
@@ -32,7 +32,6 @@ namespace EMOTM.ViewModel
                         // Report error here
                         return;
                     }
-
                 });
 
             StartTimerCmd = new RelayCommand(() => ExecuteStartTimer());
@@ -41,14 +40,16 @@ namespace EMOTM.ViewModel
         }
 
         private TimeSpan timeSpan;
+
         private void ExecuteStartTimer()
         {
             timeSpan = new TimeSpan(0, TotalTime, 0);
             runTimer(timeSpan);
         }
 
-        
+
         private readonly string timerFormatString = @"mm\:ss";
+
         private void runTimer(TimeSpan ts)
         {
             TheTimer.Stop();
@@ -67,7 +68,7 @@ namespace EMOTM.ViewModel
 
         /// <summary>
         /// Sets and gets the WhichMinute property.
-        /// Changes to that property's value raise the PropertyChanged event. 
+        /// Changes to that property's value raise the PropertyChanged event.
         /// </summary>
         public ThisThatMin WhichMinute
         {
@@ -98,7 +99,7 @@ namespace EMOTM.ViewModel
 
         /// <summary>
         /// Sets and gets the TotalTime property.
-        /// Changes to that property's value raise the PropertyChanged event. 
+        /// Changes to that property's value raise the PropertyChanged event.
         /// </summary>
         public int TotalTime
         {
@@ -129,7 +130,7 @@ namespace EMOTM.ViewModel
 
         /// <summary>
         /// Sets and gets the CntWorkItems property.
-        /// Changes to that property's value raise the PropertyChanged event. 
+        /// Changes to that property's value raise the PropertyChanged event.
         /// </summary>
         public int CntWorkItems
         {
@@ -156,10 +157,10 @@ namespace EMOTM.ViewModel
         public const string TimerTextPropertyName = "TimerText";
 
         private string _timerText = "0:00";
-        
+
         /// <summary>
         /// Sets and gets the TimerText property.
-        /// Changes to that property's value raise the PropertyChanged event. 
+        /// Changes to that property's value raise the PropertyChanged event.
         /// </summary>
         public string TimerText
         {
@@ -196,6 +197,7 @@ namespace EMOTM.ViewModel
         }
 
         private readonly TimeSpan oneSecond = new TimeSpan(0, 0, 1);
+
         private void TheTimerOnElapsed(object sender, ElapsedEventArgs elapsedEventArgs)
         {
             // Use this to avoid comparing the time on every tick when AutoMinimize is true.
@@ -210,6 +212,7 @@ namespace EMOTM.ViewModel
         }
 
         public RelayCommand StartTimerCmd { get; private set; }
+
         public RelayCommand StopTimerCmd { get; private set; }
 
         ////public override void Cleanup()

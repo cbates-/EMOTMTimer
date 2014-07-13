@@ -1,5 +1,5 @@
-﻿using System;
-using EMOTM.Model;
+﻿using EMOTM.Model;
+using System;
 
 namespace EMOTM.Design
 {

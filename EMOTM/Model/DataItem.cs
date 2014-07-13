@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-
-namespace EMOTM.Model
+﻿namespace EMOTM.Model
 {
     public class DataItem
     {

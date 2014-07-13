@@ -1,14 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace EMOTM.Infrastructure
+﻿namespace EMOTM.Infrastructure
 {
     public enum ThisThatMin
     {
-	ThisMinute,
-	ThatMinute
+        ThisMinute,
+        ThatMinute
     }
 }
