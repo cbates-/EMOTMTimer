@@ -37,6 +37,8 @@ namespace EMOTM.ViewModel
             StartTimerCmd = new RelayCommand(() => ExecuteStartTimer());
 
             StopTimerCmd = new RelayCommand(() => TheTimer.Stop());
+
+            TimerText = string.Format("{0}:00", TotalTime);
         }
 
         private TimeSpan timeSpan;
@@ -115,8 +117,11 @@ namespace EMOTM.ViewModel
                     return;
                 }
 
-                RaisePropertyChanging(TotalTimePropertyName);
                 _totalTime = value;
+                if (!TheTimer.Enabled)
+                {
+                    TimerText = string.Format("{0}:00", TotalTime);
+                }
                 RaisePropertyChanged(TotalTimePropertyName);
             }
         }

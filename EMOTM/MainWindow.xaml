@@ -10,7 +10,7 @@
         mc:Ignorable="d ignore"
         Height="400"
         Width="400"
-        Title="MVVM Light Application"
+        Title="EMOTM"
         DataContext="{Binding Main, Source={StaticResource Locator}}">
 
     <Window.Resources>
@@ -47,7 +47,7 @@
                     <RowDefinition Height="2*" />
                 </Grid.RowDefinitions>
                 <TextBlock x:Name="ThisMinTxt" Opacity="{Binding WhichMinute, Mode=TwoWay, Converter={StaticResource whichMinConverter}, ConverterParameter=ThisMinute}" HorizontalAlignment="Center" VerticalAlignment="Center" >This minute</TextBlock>
-                <xctk:WatermarkTextBox Watermark="List work" Grid.Row="1" Opacity="{Binding WhichMinute, Mode=TwoWay, Converter={StaticResource whichMinConverter}, ConverterParameter=ThisMinute}" HorizontalContentAlignment="Center" AcceptsReturn="True" />
+                <xctk:WatermarkTextBox Watermark="List work to do This minute" Grid.Row="1" Opacity="{Binding WhichMinute, Mode=TwoWay, Converter={StaticResource whichMinConverter}, ConverterParameter=ThisMinute}" HorizontalContentAlignment="Center" AcceptsReturn="True" />
             </Grid>
             <!-- ThatMinute -->
             <Grid Grid.Column="1"  Visibility="{Binding CntWorkItems, Converter={StaticResource ThatMinVisConverter}}">
@@ -56,11 +56,11 @@
                     <RowDefinition Height="2*" />
                 </Grid.RowDefinitions>
                 <TextBlock x:Name="ThatMinTxt" Opacity="{Binding WhichMinute, Mode=TwoWay, Converter={StaticResource whichMinConverter}, ConverterParameter=ThatMinute}" Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Center" >That minute</TextBlock>
-                <xctk:WatermarkTextBox Watermark="List work" Grid.Row="1" Grid.Column="1"  Opacity="{Binding WhichMinute, Mode=TwoWay, Converter={StaticResource whichMinConverter}, ConverterParameter=ThatMinute}" HorizontalContentAlignment="Center" AcceptsReturn="True" />
+                <xctk:WatermarkTextBox Watermark="List work to do That minute" Grid.Row="1" Grid.Column="1"  Opacity="{Binding WhichMinute, Mode=TwoWay, Converter={StaticResource whichMinConverter}, ConverterParameter=ThatMinute}" HorizontalContentAlignment="Center" AcceptsReturn="True" />
             </Grid>
         </Grid>
 
-        <TextBlock Grid.Row="1" x:Name="TimerDisplay" Text="{Binding TimerText, Mode=TwoWay}" FontSize="48" HorizontalAlignment="Center" VerticalAlignment="Center" />
+        <TextBlock Grid.Row="1" x:Name="TimerDisplay" Text="{Binding TimerText, Mode=TwoWay}" FontSize="54" HorizontalAlignment="Center" VerticalAlignment="Center" />
         <TextBlock Grid.Row="2" HorizontalAlignment="Center" VerticalAlignment="Center">Placeholder</TextBlock>
         <!-- <TextBlock Grid.Row="3" HorizontalAlignment="Center" VerticalAlignment="Center">Placeholder</TextBlock> -->
         <Grid Grid.Row="3">
