@@ -50,6 +50,7 @@ namespace EMOTM.ViewModel
 
         private void ExecuteStartTimer()
         {
+            WhichMinute = ThisThatMin.ThisMinute;
             timeSpan = new TimeSpan(0, TotalTime, 0);
             runTimer(timeSpan);
         }

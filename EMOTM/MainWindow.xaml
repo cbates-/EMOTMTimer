@@ -112,11 +112,11 @@
 
         <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Grid.Row="1">
             <RadioButton x:Name="OneListRB" IsEnabled="{Binding TimerState, Mode=TwoWay, Converter={StaticResource timerStateConverter}}" 
-                         IsChecked="{Binding Path=ListCnt, Converter={StaticResource enumBooleanConverter}, ConverterParameter=One}" GroupName="CntListsGroup" Margin="3,0" FontSize="9" >This Min</RadioButton>
+                         IsChecked="{Binding Path=ListCnt, Converter={StaticResource enumBooleanConverter}, ConverterParameter=One}" GroupName="CntListsGroup" Margin="4,0" FontSize="9" >This</RadioButton>
             <RadioButton x:Name="TwoListRB" IsEnabled="{Binding TimerState, Mode=TwoWay, Converter={StaticResource timerStateConverter}}" 
-                         IsChecked="{Binding Path=ListCnt, Converter={StaticResource enumBooleanConverter}, ConverterParameter=Two}" GroupName="CntListsGroup" Margin="3,0" FontSize="9" Content="This - That" />
+                         IsChecked="{Binding Path=ListCnt, Converter={StaticResource enumBooleanConverter}, ConverterParameter=Two}" GroupName="CntListsGroup" Margin="4,0" FontSize="9" Content="This - That" />
             <RadioButton x:Name="ThreeListRB" IsEnabled="{Binding TimerState, Mode=TwoWay, Converter={StaticResource timerStateConverter}}" 
-                         IsChecked="{Binding Path=ListCnt, Converter={StaticResource enumBooleanConverter}, ConverterParameter=Three}" GroupName="CntListsGroup" Margin="3,0" FontSize="9" Content="This - That - TheOther" />
+                         IsChecked="{Binding Path=ListCnt, Converter={StaticResource enumBooleanConverter}, ConverterParameter=Three}" GroupName="CntListsGroup" Margin="4,0" FontSize="9" Content="This - That - TheOther" />
         </StackPanel>
         <TextBlock Grid.Row="2" x:Name="TimerDisplay" Text="{Binding TimerText, Mode=TwoWay}" 
                    FontSize="{Binding WindowState, Mode=TwoWay, Converter={StaticResource winStateFontSizeConverter}}" 
