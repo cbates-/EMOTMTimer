@@ -1,51 +1,48 @@
 ﻿using System;
+using System.Diagnostics;
 using System.Globalization;
 using System.Windows;
 using System.Windows.Data;
 
 namespace EMOTM.Infrastructure
 {
-    class ThatMinVisConverter : IValueConverter
+    class ListsColumnWidthConverter : IValueConverter
     {
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            Visibility vis = Visibility.Collapsed;
             ListCntEnums cnt = (ListCntEnums)value;
             string whichCol = (string) parameter;
+            GridLength width = new GridLength(1, GridUnitType.Star);
 #if ZIGGY
             switch (cnt)
             {
                 case ListCntEnums.One:
-                    vis = Visibility.Visible;
                     break;
                 case ListCntEnums.Two:
-                    vis = (string.Equals(whichCol, "Two") || string.Equals(whichCol, "Three")) ? Visibility.Visible : Visibility.Collapsed;
                     break;
                 case ListCntEnums.Three:
-                    vis = (string.Equals(whichCol, "Three")) ? Visibility.Visible : Visibility.Collapsed;
                     break;
-
             }
 #else
             switch (whichCol)
             {
                 case "One":
-                    vis = Visibility.Visible;
+                    width = new GridLength(1, GridUnitType.Star);
                     break;
                 case "Two":
-                    vis = (cnt == ListCntEnums.Two) || (cnt == ListCntEnums.Three) ? Visibility.Visible : Visibility.Collapsed;
+                    width = (cnt != ListCntEnums.One) ? new GridLength(1, GridUnitType.Star) : new GridLength(0, GridUnitType.Star);
                     break;
                 case "Three":
-                    vis = (cnt == ListCntEnums.Three) ? Visibility.Visible : Visibility.Collapsed;
+                    width = (cnt == ListCntEnums.Three) ? new GridLength(1, GridUnitType.Star) : new GridLength(0, GridUnitType.Star);
                     break;
             }
 #endif
-            return vis;
+            return width;
         }
 
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            return Visibility.Visible;
+            return 1;
         }
     }
 }

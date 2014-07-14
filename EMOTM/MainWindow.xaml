@@ -12,7 +12,7 @@
         x:Class="EMOTM.MainWindow"
         mc:Ignorable="d ignore"
         Height="400"
-        Width="400"
+        Width="500"
         Title="EMOTM"
         >
 
@@ -29,10 +29,12 @@
             </ResourceDictionary.MergedDictionaries>
             <converters:WhichMinOpacityConverter x:Key="whichMinConverter" />
             <converters:ThatMinVisConverter x:Key="ThatMinVisConverter" />
-            <converters:ColumnSpanConverter x:Key="colSpanConverter" />
+            <!-- <converters:ColumnSpanConverter x:Key="colSpanConverter" /> -->
             <converters:EnumBooleanConverter x:Key="enumBooleanConverter" />
             <converters:WindowStateFontSizeConverter x:Key="winStateFontSizeConverter" />
             <converters:TimerStateToEnabledConverter x:Key="timerStateConverter" />
+            <converters:ListsColumnWidthConverter x:Key="listsColWidthConverter" />
+            <converters:WorkItemFontSizeConverter x:Key="workItemFontSizeConverter" />
         </ResourceDictionary>
     </controls:MetroWindow.Resources>
 
@@ -48,13 +50,24 @@
             <RowDefinition Height="3*" />
             <RowDefinition Height="1*" />
         </Grid.RowDefinitions>
-        <Grid Grid.Row="0">
+        <Grid Grid.Row="0" x:Name="WorkLists">
             <Grid.ColumnDefinitions>
-                <ColumnDefinition />
-                <ColumnDefinition />
+                <ColumnDefinition Width="{Binding ListCnt, Mode=TwoWay, Converter={StaticResource listsColWidthConverter}, ConverterParameter=One}"  />
+                <ColumnDefinition Width="{Binding ListCnt, Mode=TwoWay, Converter={StaticResource listsColWidthConverter}, ConverterParameter=Two}" />
+                <ColumnDefinition Width="{Binding ListCnt, Mode=TwoWay, Converter={StaticResource listsColWidthConverter}, ConverterParameter=Three}"  />
             </Grid.ColumnDefinitions>
+            <!--
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="1*"  />
+                <ColumnDefinition Width="0" />
+                <ColumnDefinition Width="0"  />
+            </Grid.ColumnDefinitions>
+            -->
             <!-- ThisMinute -->
+            <!--
             <Grid ColumnSpan="{Binding ListCnt, Converter={StaticResource colSpanConverter}}">
+            -->
+            <Grid ColumnSpan="1">
                 <Grid.RowDefinitions>
                     <RowDefinition />
                     <RowDefinition Height="2*" />
@@ -63,23 +76,47 @@
                     <Bold>This</Bold> minute
                 </TextBlock>
                 <xctk:WatermarkTextBox Watermark="List work to do This minute" 
- 
-                                       Grid.Row="1" Opacity="{Binding WhichMinute, Mode=TwoWay, Converter={StaticResource whichMinConverter}, ConverterParameter=ThisMinute}" HorizontalContentAlignment="Center" AcceptsReturn="True" />
+                            FontSize="{Binding WindowState, Mode=TwoWay, Converter={StaticResource workItemFontSizeConverter}}"
+                           Grid.Row="1" Opacity="{Binding WhichMinute, Mode=TwoWay, Converter={StaticResource whichMinConverter}, ConverterParameter=ThisMinute}" HorizontalContentAlignment="Center" AcceptsReturn="True" />
             </Grid>
             <!-- ThatMinute -->
-            <Grid Grid.Column="1"  Visibility="{Binding ListCnt, Converter={StaticResource ThatMinVisConverter}}">
+            <Grid Grid.Column="1"  
+                  Grid.ColumnSpan="{Binding ListCnt, Mode=TwoWay, Converter={StaticResource listsColWidthConverter}, ConverterParameter=Two}"
+                  Visibility="{Binding ListCnt, Converter={StaticResource ThatMinVisConverter}, ConverterParameter=Two}">
                 <Grid.RowDefinitions>
                     <RowDefinition />
                     <RowDefinition Height="2*" />
                 </Grid.RowDefinitions>
                 <TextBlock x:Name="ThatMinTxt" Opacity="{Binding WhichMinute, Mode=TwoWay, Converter={StaticResource whichMinConverter}, ConverterParameter=ThatMinute}"  HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="14" ><Bold>That</Bold> minute</TextBlock>
-                <xctk:WatermarkTextBox Watermark="List work to do That minute" Grid.Row="1" Opacity="{Binding WhichMinute, Mode=TwoWay, Converter={StaticResource whichMinConverter}, ConverterParameter=ThatMinute}" HorizontalContentAlignment="Center" AcceptsReturn="True" />
+                <xctk:WatermarkTextBox Watermark="List work to do That minute" Grid.Row="1" 
+                        FontSize="{Binding WindowState, Mode=TwoWay, Converter={StaticResource workItemFontSizeConverter}}"
+                       Opacity="{Binding WhichMinute, Mode=TwoWay, Converter={StaticResource whichMinConverter}, ConverterParameter=ThatMinute}" HorizontalContentAlignment="Center" AcceptsReturn="True" />
+            </Grid>
+            <!-- TheOtherMinute -->
+            <Grid Grid.Column="2"  
+                  Grid.ColumnSpan="{Binding ListCnt, Mode=TwoWay, Converter={StaticResource listsColWidthConverter}, ConverterParameter=Three}"
+                  Visibility="{Binding ListCnt, Converter={StaticResource ThatMinVisConverter}, ConverterParameter=Three}">
+                <Grid.RowDefinitions>
+                    <RowDefinition />
+                    <RowDefinition Height="2*" />
+                </Grid.RowDefinitions>
+                <TextBlock x:Name="TheOtherTxt" 
+                           Opacity="{Binding WhichMinute, Mode=TwoWay, Converter={StaticResource whichMinConverter}, ConverterParameter=TheOtherMinute}"  
+                           HorizontalAlignment="Center" VerticalAlignment="Center" 
+                           FontSize="14" ><Bold>The Other</Bold> minute</TextBlock>
+                <xctk:WatermarkTextBox Watermark="List work to do The Other minute" Grid.Row="1" 
+                       FontSize="{Binding WindowState, Mode=TwoWay, Converter={StaticResource workItemFontSizeConverter}}"
+                       Opacity="{Binding WhichMinute, Mode=TwoWay, Converter={StaticResource whichMinConverter}, ConverterParameter=TheOtherMinute}" HorizontalContentAlignment="Center" AcceptsReturn="True" />
             </Grid>
         </Grid>
 
         <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Grid.Row="1">
-            <RadioButton x:Name="OneListRB" IsEnabled="{Binding TimerState, Mode=TwoWay, Converter={StaticResource timerStateConverter}}" IsChecked="{Binding Path=ListCnt, Converter={StaticResource enumBooleanConverter}, ConverterParameter=One}" GroupName="CntListsGroup" Margin="3,0" FontSize="9" >One</RadioButton>
-            <RadioButton x:Name="TwoListRB" IsEnabled="{Binding TimerState, Mode=TwoWay, Converter={StaticResource timerStateConverter}}" IsChecked="{Binding Path=ListCnt, Converter={StaticResource enumBooleanConverter}, ConverterParameter=Two}" GroupName="CntListsGroup" Margin="3,0" FontSize="9">Two</RadioButton>
+            <RadioButton x:Name="OneListRB" IsEnabled="{Binding TimerState, Mode=TwoWay, Converter={StaticResource timerStateConverter}}" 
+                         IsChecked="{Binding Path=ListCnt, Converter={StaticResource enumBooleanConverter}, ConverterParameter=One}" GroupName="CntListsGroup" Margin="3,0" FontSize="9" >This Min</RadioButton>
+            <RadioButton x:Name="TwoListRB" IsEnabled="{Binding TimerState, Mode=TwoWay, Converter={StaticResource timerStateConverter}}" 
+                         IsChecked="{Binding Path=ListCnt, Converter={StaticResource enumBooleanConverter}, ConverterParameter=Two}" GroupName="CntListsGroup" Margin="3,0" FontSize="9" Content="This - That" />
+            <RadioButton x:Name="ThreeListRB" IsEnabled="{Binding TimerState, Mode=TwoWay, Converter={StaticResource timerStateConverter}}" 
+                         IsChecked="{Binding Path=ListCnt, Converter={StaticResource enumBooleanConverter}, ConverterParameter=Three}" GroupName="CntListsGroup" Margin="3,0" FontSize="9" Content="This - That - TheOther" />
         </StackPanel>
         <TextBlock Grid.Row="2" x:Name="TimerDisplay" Text="{Binding TimerText, Mode=TwoWay}" 
                    FontSize="{Binding WindowState, Mode=TwoWay, Converter={StaticResource winStateFontSizeConverter}}" 

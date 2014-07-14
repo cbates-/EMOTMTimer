@@ -25,6 +25,9 @@ namespace EMOTM.Infrastructure
                 case ThisThatMin.ThatMinute:
                     ret = (String.Equals(s, ThisThatMin.ThatMinute.ToString())) ? activeOpacity : inActiveOpacity;
                     break;
+                case ThisThatMin.TheOtherMinute:
+                    ret = (String.Equals(s, ThisThatMin.TheOtherMinute.ToString())) ? activeOpacity : inActiveOpacity;
+                    break;
             }
 
             return ret;

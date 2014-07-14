@@ -3,6 +3,7 @@
     public enum ThisThatMin
     {
         ThisMinute,
-        ThatMinute
+        ThatMinute,
+        TheOtherMinute
     }
 }

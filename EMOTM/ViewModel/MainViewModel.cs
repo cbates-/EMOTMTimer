@@ -57,46 +57,46 @@ namespace EMOTM.ViewModel
 
         private readonly string timerFormatString = @"m\:ss";
 
-            private void runTimer(TimeSpan ts)
-            {
+        private void runTimer(TimeSpan ts)
+        {
             TheTimer.Stop();
 
             TimerText = ts.ToString(timerFormatString);
 
-                TimerState = TimerState.Started;
+            TimerState = TimerState.Started;
             TheTimer.Start();
         }
 
-            /// <summary>
-            /// The <see cref="TimerState" /> property's name.
-            /// </summary>
-            public const string TimerStatePropertyName = "TimerState";
+        /// <summary>
+        /// The <see cref="TimerState" /> property's name.
+        /// </summary>
+        public const string TimerStatePropertyName = "TimerState";
 
-            private TimerState _timerState = Infrastructure.TimerState.Stopped;
+        private TimerState _timerState = Infrastructure.TimerState.Stopped;
 
-            /// <summary>
-            /// Sets and gets the TimerState property.
-            /// Changes to that property's value raise the PropertyChanged event. 
-            /// </summary>
-            public TimerState TimerState
+        /// <summary>
+        /// Sets and gets the TimerState property.
+        /// Changes to that property's value raise the PropertyChanged event. 
+        /// </summary>
+        public TimerState TimerState
+        {
+            get
             {
-                get
-                {
-                    return _timerState;
-                }
-
-                set
-                {
-                    if (_timerState == value)
-                    {
-                        return;
-                    }
-
-                    RaisePropertyChanging(TimerStatePropertyName);
-                    _timerState = value;
-                    RaisePropertyChanged(TimerStatePropertyName);
-                }
+                return _timerState;
             }
+
+            set
+            {
+                if (_timerState == value)
+                {
+                    return;
+                }
+
+                RaisePropertyChanging(TimerStatePropertyName);
+                _timerState = value;
+                RaisePropertyChanged(TimerStatePropertyName);
+            }
+        }
 
         /// <summary>
         /// The <see cref="WhichMinute" /> property's name.
@@ -134,7 +134,7 @@ namespace EMOTM.ViewModel
         /// </summary>
         public const string ListCntPropertyName = "ListCnt";
 
-        private ListCntEnums _listCnt = ListCntEnums.One;
+        private ListCntEnums _listCnt = ListCntEnums.Two;
 
         /// <summary>
         /// Sets and gets the ListCnt property.
@@ -286,11 +286,29 @@ namespace EMOTM.ViewModel
                 }
                 else
                 {
-                    if (ListCnt == ListCntEnums.Two)
+                    switch (ListCnt)
                     {
-                        WhichMinute = _whichMinute == ThisThatMin.ThisMinute
-                            ? ThisThatMin.ThatMinute
-                            : ThisThatMin.ThisMinute;
+                        case ListCntEnums.One:
+                            break;
+                        case ListCntEnums.Two:
+                            WhichMinute = _whichMinute == ThisThatMin.ThisMinute
+                                ? ThisThatMin.ThatMinute
+                                : ThisThatMin.ThisMinute;
+                            break;
+                        case ListCntEnums.Three:
+                            if (WhichMinute == ThisThatMin.ThisMinute)
+                            {
+                                WhichMinute = ThisThatMin.ThatMinute;
+                            }
+                            else if (WhichMinute == ThisThatMin.ThatMinute)
+                            {
+                                WhichMinute = ThisThatMin.TheOtherMinute;
+                            }
+                            else if (WhichMinute == ThisThatMin.TheOtherMinute)
+                            {
+                                WhichMinute = ThisThatMin.ThisMinute;
+                            }
+                            break;
                     }
                 }
             }

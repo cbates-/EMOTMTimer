@@ -9,6 +9,7 @@ namespace EMOTM.Infrastructure
     public enum ListCntEnums
     {
         One,
-        Two
+        Two,
+        Three
     }
 }
