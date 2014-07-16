@@ -132,9 +132,14 @@
 
             <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
                 <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center" Text="Total Time:" Margin="0,0,6,0" />
+                <!--
                 <xctk:IntegerUpDown x:Name="TotalTime" Value="{Binding TotalTime, Mode=TwoWay}" 
                     IsEnabled="{Binding TimerState, Mode=TwoWay, Converter={StaticResource timerStateConverter}}"  
                     Minimum="2"  HorizontalAlignment="Center" VerticalAlignment="Center"  />
+                    -->
+                <controls:NumericUpDown x:Name="TotalTime" Value="{Binding TotalTime, Mode=TwoWay}" 
+                    IsEnabled="{Binding TimerState, Mode=TwoWay, Converter={StaticResource timerStateConverter}}"  
+                    Minimum="2"  HorizontalAlignment="Center" VerticalAlignment="Center" Maximum="90"  />
             </StackPanel>
             <Button x:Name="StartBtn" Command="{Binding StartTimerCmd}" IsEnabled="{Binding TimerState, Mode=TwoWay, Converter={StaticResource timerStateConverter}}" Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Row="1" IsDefault="True">Start</Button>
             <Button x:Name="StopBtn" Command="{Binding StopTimerCmd}" Grid.Column="2" HorizontalAlignment="Center" VerticalAlignment="Center" Content="Stop" Grid.Row="1" />
