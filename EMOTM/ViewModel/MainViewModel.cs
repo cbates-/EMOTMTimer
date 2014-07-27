@@ -1,4 +1,5 @@
 ﻿using System.Windows;
+using System.Windows.Media;
 using EMOTM.Infrastructure;
 using EMOTM.Model;
 using GalaSoft.MvvmLight;
@@ -35,6 +36,7 @@ namespace EMOTM.ViewModel
                     }
                 });
 
+            TimerDisplayForeground = BlackBrush;
             StartTimerCmd = new RelayCommand(() => ExecuteStartTimer());
 
             StopTimerCmd = new RelayCommand(() =>
@@ -62,6 +64,7 @@ namespace EMOTM.ViewModel
         {
             TheTimer.Stop();
 
+            TimerDisplayForeground = BlackBrush;
             TimerText = ts.ToString(timerFormatString);
 
             TimerState = TimerState.Started;
@@ -225,6 +228,69 @@ namespace EMOTM.ViewModel
         }
 
         /// <summary>
+        /// The <see cref="DoTenSecondCountdown" /> property's name.
+        /// </summary>
+        public const string DoTenSecondCountdownPropertyName = "DoTenSecondCountdown";
+
+        private bool _doTenSecCountdown = false;
+
+        /// <summary>
+        /// Sets and gets the DoTenSecondCountdown property.
+        /// Changes to that property's value raise the PropertyChanged event. 
+        /// </summary>
+        public bool DoTenSecondCountdown
+        {
+            get
+            {
+                return _doTenSecCountdown;
+            }
+
+            set
+            {
+                if (_doTenSecCountdown == value)
+                {
+                    return;
+                }
+
+                _doTenSecCountdown = value;
+                RaisePropertyChanged(DoTenSecondCountdownPropertyName);
+            }
+        }
+
+        readonly SolidColorBrush BlackBrush = new SolidColorBrush(Colors.Black);
+        readonly SolidColorBrush OrangeBrush = new SolidColorBrush(Colors.DarkOrange);
+        readonly SolidColorBrush RedBrush = new SolidColorBrush(Colors.Red);
+        /// <summary>
+        /// The <see cref="TimerDisplayForeground" /> property's name.
+        /// </summary>
+        public const string TimerDisplayForegroundPropertyName = "TimerDisplayForeground";
+
+        private SolidColorBrush  _timerDisplayBrush = null;
+
+        /// <summary>
+        /// Sets and gets the TimerDisplayForeground property.
+        /// Changes to that property's value raise the PropertyChanged event. 
+        /// </summary>
+        public SolidColorBrush TimerDisplayForeground
+        {
+            get
+            {
+                return _timerDisplayBrush ;
+            }
+
+            set
+            {
+                if (_timerDisplayBrush == value)
+                {
+                    return;
+                }
+
+                _timerDisplayBrush = value;
+                RaisePropertyChanged(TimerDisplayForegroundPropertyName);
+            }
+        }
+
+        /// <summary>
         /// The <see cref="TimerText" /> property's name.
         /// </summary>
         public const string TimerTextPropertyName = "TimerText";
@@ -287,6 +353,7 @@ namespace EMOTM.ViewModel
                 }
                 else
                 {
+                    TimerDisplayForeground = BlackBrush;
                     switch (ListCnt)
                     {
                         case ListCntEnums.One:
@@ -312,6 +379,14 @@ namespace EMOTM.ViewModel
                             break;
                     }
                 }
+            }
+            else if (timeSpan.Seconds <= 5)
+            {
+                TimerDisplayForeground = RedBrush;
+            }
+            else if (timeSpan.Seconds <= 10)
+            {
+                TimerDisplayForeground = OrangeBrush;
             }
         }
 

@@ -43,6 +43,21 @@
     </controls:MetroWindow.DataContext>
 
     <Grid x:Name="LayoutRoot">
+    <Grid.Resources>
+            <!-- 
+                 From:  https://github.com/MahApps/MahApps.Metro/issues/676#issuecomment-25429570
+                 Fixes problem when tooltip is data-bound
+            -->
+            <Style TargetType="{x:Type ToolTip}" BasedOn="{StaticResource MetroToolTip}">
+                <Setter Property="ContentTemplate">
+                    <Setter.Value>
+                        <DataTemplate>
+                            <TextBlock Text="{Binding}" />
+                        </DataTemplate>
+                    </Setter.Value>
+                </Setter>
+            </Style>
+    </Grid.Resources>
 
         <Grid.RowDefinitions>
             <RowDefinition Height="2*" />
@@ -119,12 +134,14 @@
                          IsChecked="{Binding Path=ListCnt, Converter={StaticResource enumBooleanConverter}, ConverterParameter=Three}" GroupName="CntListsGroup" Margin="4,0" FontSize="9" Content="This - That - TheOther" />
         </StackPanel>
         <TextBlock Grid.Row="2" x:Name="TimerDisplay" Text="{Binding TimerText, Mode=TwoWay}" 
+                   Foreground="{Binding TimerDisplayForeground, Mode=TwoWay}"
                    FontSize="{Binding WindowState, Mode=TwoWay, Converter={StaticResource winStateFontSizeConverter}}" 
                    HorizontalAlignment="Center" VerticalAlignment="Center" />
         <!-- <TextBlock Grid.Row="3" HorizontalAlignment="Center" VerticalAlignment="Center">Placeholder</TextBlock> -->
         <Grid Grid.Row="3">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="2*" />
+                <ColumnDefinition/>
                 <ColumnDefinition />
                 <ColumnDefinition />
                 <ColumnDefinition />
@@ -136,9 +153,10 @@
                     IsEnabled="{Binding TimerState, Mode=TwoWay, Converter={StaticResource timerStateConverter}}"  
                     Minimum="2"  HorizontalAlignment="Center" VerticalAlignment="Center"  />
             </StackPanel>
-            <Button x:Name="StartBtn" Command="{Binding StartTimerCmd}" IsEnabled="{Binding TimerState, Mode=TwoWay, Converter={StaticResource timerStateConverter}}" Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Row="1" IsDefault="True">Start</Button>
-            <Button x:Name="StopBtn" Command="{Binding StopTimerCmd}" Grid.Column="2" HorizontalAlignment="Center" VerticalAlignment="Center" Content="Stop" Grid.Row="1" />
-            <Button Grid.Column="3" IsEnabled="False"  HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Row="1">Test</Button>
+            <CheckBox x:Name="tenSecChk" IsEnabled="False" IsChecked="{Binding DoTenSecondCountdown, Mode=TwoWay}" ToolTip="Count down last 10 secs." Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Center">10 sec.</CheckBox>
+            <Button x:Name="StartBtn" Command="{Binding StartTimerCmd}" IsEnabled="{Binding TimerState, Mode=TwoWay, Converter={StaticResource timerStateConverter}}" Grid.Column="2" HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Row="1" IsDefault="True">Start</Button>
+            <Button x:Name="StopBtn" Command="{Binding StopTimerCmd}" Grid.Column="3" HorizontalAlignment="Center" VerticalAlignment="Center" Content="Stop" Grid.Row="1" />
+            <Button Grid.Column="4" IsEnabled="False"  HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Row="1">Test</Button>
         </Grid>
     </Grid>
 </controls:MetroWindow>
