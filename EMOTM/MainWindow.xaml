@@ -154,7 +154,7 @@
                     Minimum="2"  HorizontalAlignment="Center" VerticalAlignment="Center"  />
             </StackPanel>
             <CheckBox x:Name="tenSecChk" IsChecked="{Binding DoTenSecondCountdown, Mode=TwoWay}" IsEnabled="False" ToolTip="Count down last 10 secs." Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Center">10 sec.</CheckBox>
-            <Button x:Name="StartBtn" Command="{Binding StartTimerCmd}" IsEnabled="{Binding TimerState, Mode=TwoWay, Converter={StaticResource timerStateConverter}}" Grid.Column="2" HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Row="1" IsDefault="True">Start</Button>
+            <Button x:Name="StartBtn" Command="{Binding StartTimerCmd}" Grid.Column="2" HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Row="1" IsDefault="True">Start</Button>
             <Button x:Name="StopBtn" Command="{Binding StopTimerCmd}" Grid.Column="3" HorizontalAlignment="Center" VerticalAlignment="Center" Content="Stop"  />
             <!-- <Button x:Name="PauseBtn" Command="{Binding PauseTimerCmd}" IsEnabled="{Binding TimerState, Mode=TwoWay, Converter={StaticResource timerStateConverter}, ConverterParameter=false}"   Grid.Column="4"  HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Row="1">Pause</Button> 
             -->

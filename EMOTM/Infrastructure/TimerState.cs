@@ -9,6 +9,7 @@ namespace EMOTM.Infrastructure
     public enum TimerState
     {
         Started, 
-        Stopped
+        Stopped,
+        Paused
     }
 }

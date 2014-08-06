@@ -48,18 +48,20 @@ namespace EMOTM.ViewModel
 
         private bool CanStopTimer()
         {
-            return TimerState == Infrastructure.TimerState.Started;
+            return (TimerState == Infrastructure.TimerState.Started || TimerState == TimerState.Paused);
         }
 
         private void StopTimer()
         {
             TheTimer.Stop();
             TimerState = TimerState.Stopped;
+            TimerDisplayForeground = GrayBrush;
         }
 
         private bool CanStartTimer()
         {
-            return TimerState == TimerState.Stopped;
+            System.Diagnostics.Debug.WriteLine("CanStartTimer: {0}", (TimerState == TimerState.Stopped || TimerState == TimerState.Paused));
+            return (TimerState == TimerState.Stopped || TimerState == TimerState.Paused);
         }
 
         private bool CanPauseTimer()
@@ -70,14 +72,20 @@ namespace EMOTM.ViewModel
         private void PauseTimer()
         {
             //throw new NotImplementedException();
+            TheTimer.Stop();
+            TimerState = TimerState.Paused;
+            TimerDisplayForeground = BlueBrush;
         }
 
         private TimeSpan timeSpan;
-
+        
         private void ExecuteStartTimer()
         {
-            WhichMinute = ThisThatMin.ThisMinute;
-            timeSpan = new TimeSpan(0, TotalTime, 0);
+            if (TimerState == TimerState.Stopped)
+            {
+                WhichMinute = ThisThatMin.ThisMinute;
+                timeSpan = new TimeSpan(0, TotalTime, 0);
+            }
             runTimer(timeSpan);
         }
 
@@ -287,41 +295,12 @@ namespace EMOTM.ViewModel
             }
         }
 
-        /// <summary>
-        /// The <see cref="IsTimerRunning" /> property's name.
-        /// </summary>
-        public const string IsTimerRunningPropertyName = "IsTimerRunning";
-
-        private bool _isTimerRunning = false;
-
-        /// <summary>
-        /// Sets and gets the IsTimerRunning property.
-        /// Changes to that property's value raise the PropertyChanged event. 
-        /// </summary>
-        public bool IsTimerRunning
-        {
-            get
-            {
-                return _isTimerRunning;
-            }
-
-            set
-            {
-                if (_isTimerRunning == value)
-                {
-                    return;
-                }
-
-                RaisePropertyChanging(IsTimerRunningPropertyName);
-                _isTimerRunning = value;
-                RaisePropertyChanged(IsTimerRunningPropertyName);
-            }
-        }
-
-
         readonly SolidColorBrush BlackBrush = new SolidColorBrush(Colors.Black);
         readonly SolidColorBrush OrangeBrush = new SolidColorBrush(Colors.DarkOrange);
         readonly SolidColorBrush RedBrush = new SolidColorBrush(Colors.Red);
+        readonly SolidColorBrush BlueBrush = new SolidColorBrush(Colors.Blue);
+        readonly SolidColorBrush GrayBrush = new SolidColorBrush(Colors.LightGray);
+
         /// <summary>
         /// The <see cref="TimerDisplayForeground" /> property's name.
         /// </summary>
