@@ -60,7 +60,8 @@ namespace EMOTM.ViewModel
 
         private bool CanStartTimer()
         {
-            System.Diagnostics.Debug.WriteLine("CanStartTimer: {0}", (TimerState == TimerState.Stopped || TimerState == TimerState.Paused));
+            System.Diagnostics.Debug.WriteLine("CanStartTimer: {0}",
+                (TimerState == TimerState.Stopped || TimerState == TimerState.Paused));
             return (TimerState == TimerState.Stopped || TimerState == TimerState.Paused);
         }
 
@@ -78,7 +79,7 @@ namespace EMOTM.ViewModel
         }
 
         private TimeSpan timeSpan;
-        
+
         private void ExecuteStartTimer()
         {
             if (TimerState == TimerState.Stopped)
@@ -117,10 +118,7 @@ namespace EMOTM.ViewModel
         /// </summary>
         public TimerState TimerState
         {
-            get
-            {
-                return _timerState;
-            }
+            get { return _timerState; }
 
             set
             {
@@ -136,7 +134,6 @@ namespace EMOTM.ViewModel
                 StartTimerCmd.RaiseCanExecuteChanged();
                 StopTimerCmd.RaiseCanExecuteChanged();
                 PauseTimerCmd.RaiseCanExecuteChanged();
-
             }
         }
 
@@ -153,10 +150,7 @@ namespace EMOTM.ViewModel
         /// </summary>
         public ThisThatMin WhichMinute
         {
-            get
-            {
-                return _whichMinute;
-            }
+            get { return _whichMinute; }
 
             set
             {
@@ -184,10 +178,7 @@ namespace EMOTM.ViewModel
         /// </summary>
         public ListCntEnums ListCnt
         {
-            get
-            {
-                return _listCnt;
-            }
+            get { return _listCnt; }
 
             set
             {
@@ -214,10 +205,7 @@ namespace EMOTM.ViewModel
         /// </summary>
         public int TotalTime
         {
-            get
-            {
-                return _totalTime;
-            }
+            get { return _totalTime; }
 
             set
             {
@@ -248,10 +236,7 @@ namespace EMOTM.ViewModel
         /// </summary>
         public WindowState WindowState
         {
-            get
-            {
-                return _windowState;
-            }
+            get { return _windowState; }
 
             set
             {
@@ -278,10 +263,7 @@ namespace EMOTM.ViewModel
         /// </summary>
         public bool DoTenSecondCountdown
         {
-            get
-            {
-                return _doTenSecCountdown;
-            }
+            get { return _doTenSecCountdown; }
 
             set
             {
@@ -295,11 +277,11 @@ namespace EMOTM.ViewModel
             }
         }
 
-        readonly SolidColorBrush BlackBrush = new SolidColorBrush(Colors.Black);
-        readonly SolidColorBrush OrangeBrush = new SolidColorBrush(Colors.DarkOrange);
-        readonly SolidColorBrush RedBrush = new SolidColorBrush(Colors.Red);
-        readonly SolidColorBrush BlueBrush = new SolidColorBrush(Colors.Blue);
-        readonly SolidColorBrush GrayBrush = new SolidColorBrush(Colors.LightGray);
+        private readonly SolidColorBrush BlackBrush = new SolidColorBrush(Colors.Black);
+        private readonly SolidColorBrush OrangeBrush = new SolidColorBrush(Colors.DarkOrange);
+        private readonly SolidColorBrush RedBrush = new SolidColorBrush(Colors.Red);
+        private readonly SolidColorBrush BlueBrush = new SolidColorBrush(Colors.Blue);
+        private readonly SolidColorBrush GrayBrush = new SolidColorBrush(Colors.LightGray);
 
         /// <summary>
         /// The <see cref="TimerDisplayForeground" /> property's name.
@@ -314,10 +296,7 @@ namespace EMOTM.ViewModel
         /// </summary>
         public SolidColorBrush TimerDisplayForeground
         {
-            get
-            {
-                return _timerDisplayBrush;
-            }
+            get { return _timerDisplayBrush; }
 
             set
             {
@@ -344,10 +323,7 @@ namespace EMOTM.ViewModel
         /// </summary>
         public string TimerText
         {
-            get
-            {
-                return _timerText;
-            }
+            get { return _timerText; }
 
             set
             {
@@ -369,7 +345,7 @@ namespace EMOTM.ViewModel
             {
                 if (_theTimer == null)
                 {
-                    _theTimer = new Timer() { Interval = 1000 };
+                    _theTimer = new Timer() {Interval = 1000};
                     _theTimer.Elapsed += TheTimerOnElapsed;
                 }
                 return _theTimer;

@@ -5,14 +5,14 @@ using System.Windows.Data;
 
 namespace EMOTM.Infrastructure
 {
-    class WorkItemFontSizeConverter : IValueConverter
+    internal class WorkItemFontSizeConverter : IValueConverter
     {
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
             WindowState state = (WindowState) value;
             if (state == WindowState.Maximized)
             {
-                return 32   ;
+                return 32;
             }
             return 14;
         }

@@ -4,7 +4,7 @@ using System.Windows.Data;
 
 namespace EMOTM.Infrastructure
 {
-    class TimerStateToEnabledConverter : IValueConverter
+    internal class TimerStateToEnabledConverter : IValueConverter
     {
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {

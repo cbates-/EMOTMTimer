@@ -7,6 +7,7 @@ namespace EMOTM.Infrastructure
     public class EnumBooleanConverter : IValueConverter
     {
         #region IValueConverter Members
+
         public object Convert(object value, Type targetType, object parameter, System.Globalization.CultureInfo culture)
         {
             string parameterString = parameter as string;
@@ -21,7 +22,8 @@ namespace EMOTM.Infrastructure
             return parameterValue.Equals(value);
         }
 
-        public object ConvertBack(object value, Type targetType, object parameter, System.Globalization.CultureInfo culture)
+        public object ConvertBack(object value, Type targetType, object parameter,
+            System.Globalization.CultureInfo culture)
         {
             string parameterString = parameter as string;
             if (parameterString == null)
@@ -29,6 +31,7 @@ namespace EMOTM.Infrastructure
 
             return Enum.Parse(targetType, parameterString);
         }
+
         #endregion
     }
 }
