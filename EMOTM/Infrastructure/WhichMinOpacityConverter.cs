@@ -13,7 +13,7 @@ namespace EMOTM.Infrastructure
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
             double ret = 1.0;
-            ThisThatMin whichMin = (ThisThatMin)value;
+            ThisThatMin whichMin = (ThisThatMin) value;
             string s = parameter as string;
 
             switch (whichMin)

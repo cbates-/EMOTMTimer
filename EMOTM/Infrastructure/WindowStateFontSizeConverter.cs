@@ -9,7 +9,7 @@ using System.Windows.Data;
 
 namespace EMOTM.Infrastructure
 {
-    class WindowStateFontSizeConverter : IValueConverter
+    internal class WindowStateFontSizeConverter : IValueConverter
     {
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {

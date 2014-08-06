@@ -1,0 +1,14 @@
+<<<<<<< HEAD
+
+
+Edit to test rebase.
+
+- This readme created in the PauseButton branch.
+Add a Pause button that allows the timer to be stopped and resumed.
+||||||| merged common ancestors
+=======
+
+
+- This readme created in the PauseButton branch.
+Add a Pause button that allows the timer to be stopped and resumed.
+>>>>>>> fe0357f7a8ee40689be4b9bcc2a17da72b84c97f

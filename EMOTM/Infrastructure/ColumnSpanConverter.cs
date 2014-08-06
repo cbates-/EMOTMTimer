@@ -4,7 +4,7 @@ using System.Windows.Data;
 
 namespace EMOTM.Infrastructure
 {
-    class ColumnSpanConverter : IValueConverter
+    internal class ColumnSpanConverter : IValueConverter
     {
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
@@ -22,7 +22,6 @@ namespace EMOTM.Infrastructure
                 case "Three":
                     colWidth = (cnt == ListCntEnums.Three) ? 1 : 0;
                     break;
-
             }
             return colWidth;
         }

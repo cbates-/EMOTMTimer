@@ -6,11 +6,11 @@ using System.Windows.Data;
 
 namespace EMOTM.Infrastructure
 {
-    class ListsColumnWidthConverter : IValueConverter
+    internal class ListsColumnWidthConverter : IValueConverter
     {
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            ListCntEnums cnt = (ListCntEnums)value;
+            ListCntEnums cnt = (ListCntEnums) value;
             string whichCol = (string) parameter;
             GridLength width = new GridLength(1, GridUnitType.Star);
 #if ZIGGY
@@ -30,10 +30,14 @@ namespace EMOTM.Infrastructure
                     width = new GridLength(1, GridUnitType.Star);
                     break;
                 case "Two":
-                    width = (cnt != ListCntEnums.One) ? new GridLength(1, GridUnitType.Star) : new GridLength(0, GridUnitType.Star);
+                    width = (cnt != ListCntEnums.One)
+                        ? new GridLength(1, GridUnitType.Star)
+                        : new GridLength(0, GridUnitType.Star);
                     break;
                 case "Three":
-                    width = (cnt == ListCntEnums.Three) ? new GridLength(1, GridUnitType.Star) : new GridLength(0, GridUnitType.Star);
+                    width = (cnt == ListCntEnums.Three)
+                        ? new GridLength(1, GridUnitType.Star)
+                        : new GridLength(0, GridUnitType.Star);
                     break;
             }
 #endif

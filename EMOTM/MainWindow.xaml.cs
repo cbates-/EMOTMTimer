@@ -17,6 +17,5 @@ namespace EMOTM
             InitializeComponent();
             Closing += (s, e) => ViewModelLocator.Cleanup();
         }
-
     }
 }

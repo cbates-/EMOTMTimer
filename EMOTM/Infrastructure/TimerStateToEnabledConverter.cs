@@ -1,18 +1,25 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Globalization;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Data;
 
 namespace EMOTM.Infrastructure
 {
-    class TimerStateToEnabledConverter : IValueConverter
+    internal class TimerStateToEnabledConverter : IValueConverter
     {
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            return ((TimerState) value == TimerState.Stopped) ? true : false;
+            bool ret = false;
+            ret = ((TimerState) value == TimerState.Stopped) ? true : false;
+            if (parameter != null)
+            {
+                string p = parameter as string;
+                System.Diagnostics.Debug.WriteLine("p: {0}", p.GetType());
+                if (String.Equals(p, "false"))
+                {
+                    ret = !ret;
+                }
+            }
+            return ret;
         }
 
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)

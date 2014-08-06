@@ -1,4 +1,6 @@
-﻿using System.Windows;
+﻿using System.ComponentModel;
+using System.Diagnostics;
+using System.Windows;
 using System.Windows.Media;
 using EMOTM.Infrastructure;
 using EMOTM.Model;
@@ -20,6 +22,7 @@ namespace EMOTM.ViewModel
         private readonly IDataService _dataService;
 
 
+
         /// <summary>
         /// Initializes a new instance of the MainViewModel class.
         /// </summary>
@@ -32,28 +35,78 @@ namespace EMOTM.ViewModel
                     if (error != null)
                     {
                         // Report error here
-                        return;
                     }
                 });
 
             TimerDisplayForeground = BlackBrush;
-            StartTimerCmd = new RelayCommand(() => ExecuteStartTimer());
+            StartTimerCmd = new RelayCommand(ExecuteStartTimer, CanStartTimer);
 
-            StopTimerCmd = new RelayCommand(() =>
-            {
-                TheTimer.Stop();
-                TimerState = TimerState.Stopped;
-            });
+            StopTimerCmd = new RelayCommand(StopTimer, CanStopTimer);
+
+            PauseTimerCmd = new RelayCommand(PauseTimer, CanPauseTimer);
 
             TimerText = string.Format("{0}:00", TotalTime);
+
+            PropertyChanged += OnPropertyChanged;
+        }
+
+        private void OnPropertyChanged(object sender, PropertyChangedEventArgs propertyChangedEventArgs)
+        {
+            System.Diagnostics.Debug.WriteLine("OnPropertyChanged: {0}", sender.ToString());
+            switch (propertyChangedEventArgs.PropertyName)
+            {
+                case TimerStatePropertyName:
+                    StartTimerCmd.RaiseCanExecuteChanged();
+                    StopTimerCmd.RaiseCanExecuteChanged();
+                    PauseTimerCmd.RaiseCanExecuteChanged();
+                    break;
+                default:
+                    break;
+            }
+        }
+
+
+        private bool CanStopTimer()
+        {
+            return (TimerState == TimerState.Started || TimerState == TimerState.Paused);
+        }
+
+        private void StopTimer()
+        {
+            TheTimer.Stop();
+            TimerState = TimerState.Stopped;
+            TimerDisplayForeground = GrayBrush;
+        }
+
+        private bool CanStartTimer()
+        {
+            Debug.WriteLine("CanStartTimer: {0}",
+                (TimerState == TimerState.Stopped || TimerState == TimerState.Paused));
+            return (TimerState == TimerState.Stopped || TimerState == TimerState.Paused);
+        }
+
+        private bool CanPauseTimer()
+        {
+            return TimerState == TimerState.Started;
+        }
+
+        private void PauseTimer()
+        {
+            //throw new NotImplementedException();
+            TheTimer.Stop();
+            TimerState = TimerState.Paused;
+            TimerDisplayForeground = BlueBrush;
         }
 
         private TimeSpan timeSpan;
 
         private void ExecuteStartTimer()
         {
-            WhichMinute = ThisThatMin.ThisMinute;
-            timeSpan = new TimeSpan(0, TotalTime, 0);
+            if (TimerState == TimerState.Stopped)
+            {
+                WhichMinute = ThisThatMin.ThisMinute;
+                timeSpan = new TimeSpan(0, TotalTime, 0);
+            }
             runTimer(timeSpan);
         }
 
@@ -71,12 +124,13 @@ namespace EMOTM.ViewModel
             TheTimer.Start();
         }
 
+
         /// <summary>
         /// The <see cref="TimerState" /> property's name.
         /// </summary>
         public const string TimerStatePropertyName = "TimerState";
 
-        private TimerState _timerState = Infrastructure.TimerState.Stopped;
+        private TimerState _timerState = TimerState.Stopped;
 
         /// <summary>
         /// Sets and gets the TimerState property.
@@ -84,10 +138,7 @@ namespace EMOTM.ViewModel
         /// </summary>
         public TimerState TimerState
         {
-            get
-            {
-                return _timerState;
-            }
+            get { return _timerState; }
 
             set
             {
@@ -96,9 +147,13 @@ namespace EMOTM.ViewModel
                     return;
                 }
 
-                RaisePropertyChanging(TimerStatePropertyName);
+                //RaisePropertyChanging(TimerStatePropertyName);
                 _timerState = value;
                 RaisePropertyChanged(TimerStatePropertyName);
+
+                //StartTimerCmd.RaiseCanExecuteChanged();
+                //StopTimerCmd.RaiseCanExecuteChanged();
+                //PauseTimerCmd.RaiseCanExecuteChanged();
             }
         }
 
@@ -115,10 +170,7 @@ namespace EMOTM.ViewModel
         /// </summary>
         public ThisThatMin WhichMinute
         {
-            get
-            {
-                return _whichMinute;
-            }
+            get { return _whichMinute; }
 
             set
             {
@@ -146,10 +198,7 @@ namespace EMOTM.ViewModel
         /// </summary>
         public ListCntEnums ListCnt
         {
-            get
-            {
-                return _listCnt;
-            }
+            get { return _listCnt; }
 
             set
             {
@@ -176,10 +225,7 @@ namespace EMOTM.ViewModel
         /// </summary>
         public int TotalTime
         {
-            get
-            {
-                return _totalTime;
-            }
+            get { return _totalTime; }
 
             set
             {
@@ -202,7 +248,7 @@ namespace EMOTM.ViewModel
         /// </summary>
         public const string WindowStatePropertyName = "WindowState";
 
-        private WindowState _windowState = System.Windows.WindowState.Normal;
+        private WindowState _windowState = WindowState.Normal;
 
         /// <summary>
         /// Sets and gets the WindowState property.
@@ -210,10 +256,7 @@ namespace EMOTM.ViewModel
         /// </summary>
         public WindowState WindowState
         {
-            get
-            {
-                return _windowState;
-            }
+            get { return _windowState; }
 
             set
             {
@@ -232,7 +275,7 @@ namespace EMOTM.ViewModel
         /// </summary>
         public const string DoTenSecondCountdownPropertyName = "DoTenSecondCountdown";
 
-        private bool _doTenSecCountdown = false;
+        private bool _doTenSecCountdown;
 
         /// <summary>
         /// Sets and gets the DoTenSecondCountdown property.
@@ -240,10 +283,7 @@ namespace EMOTM.ViewModel
         /// </summary>
         public bool DoTenSecondCountdown
         {
-            get
-            {
-                return _doTenSecCountdown;
-            }
+            get { return _doTenSecCountdown; }
 
             set
             {
@@ -257,15 +297,19 @@ namespace EMOTM.ViewModel
             }
         }
 
-        readonly SolidColorBrush BlackBrush = new SolidColorBrush(Colors.Black);
-        readonly SolidColorBrush OrangeBrush = new SolidColorBrush(Colors.DarkOrange);
-        readonly SolidColorBrush RedBrush = new SolidColorBrush(Colors.Red);
+        private readonly SolidColorBrush BlackBrush = new SolidColorBrush(Colors.Black);
+        private readonly SolidColorBrush OrangeBrush = new SolidColorBrush(Colors.DarkOrange);
+        private readonly SolidColorBrush RedBrush = new SolidColorBrush(Colors.Red);
+        private readonly SolidColorBrush BlueBrush = new SolidColorBrush(Colors.Blue);
+        private readonly SolidColorBrush GrayBrush = new SolidColorBrush(Colors.LightGray);
+
         /// <summary>
         /// The <see cref="TimerDisplayForeground" /> property's name.
         /// </summary>
         public const string TimerDisplayForegroundPropertyName = "TimerDisplayForeground";
 
-        private SolidColorBrush  _timerDisplayBrush = null;
+        private SolidColorBrush _timerDisplayBrush = new SolidColorBrush(Colors.Black);
+
 
         /// <summary>
         /// Sets and gets the TimerDisplayForeground property.
@@ -273,14 +317,11 @@ namespace EMOTM.ViewModel
         /// </summary>
         public SolidColorBrush TimerDisplayForeground
         {
-            get
-            {
-                return _timerDisplayBrush ;
-            }
+            get { return _timerDisplayBrush; }
 
             set
             {
-                if (_timerDisplayBrush == value)
+                if (_timerDisplayBrush.Equals(value))
                 {
                     return;
                 }
@@ -303,10 +344,7 @@ namespace EMOTM.ViewModel
         /// </summary>
         public string TimerText
         {
-            get
-            {
-                return _timerText;
-            }
+            get { return _timerText; }
 
             set
             {
@@ -393,6 +431,8 @@ namespace EMOTM.ViewModel
         public RelayCommand StartTimerCmd { get; private set; }
 
         public RelayCommand StopTimerCmd { get; private set; }
+
+        public RelayCommand PauseTimerCmd { get; private set; }
 
         ////public override void Cleanup()
         ////{
