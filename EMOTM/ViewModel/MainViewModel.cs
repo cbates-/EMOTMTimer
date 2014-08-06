@@ -37,15 +37,39 @@ namespace EMOTM.ViewModel
                 });
 
             TimerDisplayForeground = BlackBrush;
-            StartTimerCmd = new RelayCommand(() => ExecuteStartTimer());
+            StartTimerCmd = new RelayCommand(ExecuteStartTimer, CanStartTimer);
 
-            StopTimerCmd = new RelayCommand(() =>
-            {
-                TheTimer.Stop();
-                TimerState = TimerState.Stopped;
-            });
+            StopTimerCmd = new RelayCommand(StopTimer, CanStopTimer);
+
+            PauseTimerCmd = new RelayCommand(PauseTimer, CanPauseTimer);
 
             TimerText = string.Format("{0}:00", TotalTime);
+        }
+
+        private bool CanStopTimer()
+        {
+            return TimerState == Infrastructure.TimerState.Started;
+        }
+
+        private void StopTimer()
+        {
+            TheTimer.Stop();
+            TimerState = TimerState.Stopped;
+        }
+
+        private bool CanStartTimer()
+        {
+            return TimerState == TimerState.Stopped;
+        }
+
+        private bool CanPauseTimer()
+        {
+            return TimerState == TimerState.Started;
+        }
+
+        private void PauseTimer()
+        {
+            //throw new NotImplementedException();
         }
 
         private TimeSpan timeSpan;
@@ -70,6 +94,7 @@ namespace EMOTM.ViewModel
             TimerState = TimerState.Started;
             TheTimer.Start();
         }
+
 
         /// <summary>
         /// The <see cref="TimerState" /> property's name.
@@ -96,9 +121,14 @@ namespace EMOTM.ViewModel
                     return;
                 }
 
-                RaisePropertyChanging(TimerStatePropertyName);
+                //RaisePropertyChanging(TimerStatePropertyName);
                 _timerState = value;
                 RaisePropertyChanged(TimerStatePropertyName);
+
+                StartTimerCmd.RaiseCanExecuteChanged();
+                StopTimerCmd.RaiseCanExecuteChanged();
+                PauseTimerCmd.RaiseCanExecuteChanged();
+
             }
         }
 
@@ -257,6 +287,38 @@ namespace EMOTM.ViewModel
             }
         }
 
+        /// <summary>
+        /// The <see cref="IsTimerRunning" /> property's name.
+        /// </summary>
+        public const string IsTimerRunningPropertyName = "IsTimerRunning";
+
+        private bool _isTimerRunning = false;
+
+        /// <summary>
+        /// Sets and gets the IsTimerRunning property.
+        /// Changes to that property's value raise the PropertyChanged event. 
+        /// </summary>
+        public bool IsTimerRunning
+        {
+            get
+            {
+                return _isTimerRunning;
+            }
+
+            set
+            {
+                if (_isTimerRunning == value)
+                {
+                    return;
+                }
+
+                RaisePropertyChanging(IsTimerRunningPropertyName);
+                _isTimerRunning = value;
+                RaisePropertyChanged(IsTimerRunningPropertyName);
+            }
+        }
+
+
         readonly SolidColorBrush BlackBrush = new SolidColorBrush(Colors.Black);
         readonly SolidColorBrush OrangeBrush = new SolidColorBrush(Colors.DarkOrange);
         readonly SolidColorBrush RedBrush = new SolidColorBrush(Colors.Red);
@@ -265,7 +327,7 @@ namespace EMOTM.ViewModel
         /// </summary>
         public const string TimerDisplayForegroundPropertyName = "TimerDisplayForeground";
 
-        private SolidColorBrush  _timerDisplayBrush = null;
+        private SolidColorBrush _timerDisplayBrush = null;
 
         /// <summary>
         /// Sets and gets the TimerDisplayForeground property.
@@ -275,7 +337,7 @@ namespace EMOTM.ViewModel
         {
             get
             {
-                return _timerDisplayBrush ;
+                return _timerDisplayBrush;
             }
 
             set
@@ -393,6 +455,8 @@ namespace EMOTM.ViewModel
         public RelayCommand StartTimerCmd { get; private set; }
 
         public RelayCommand StopTimerCmd { get; private set; }
+
+        public RelayCommand PauseTimerCmd { get; private set; }
 
         ////public override void Cleanup()
         ////{
