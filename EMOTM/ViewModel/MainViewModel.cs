@@ -50,9 +50,16 @@ namespace EMOTM.ViewModel
             PropertyChanged += OnPropertyChanged;
         }
 
+        
+        // 
+        // We want the Start/Stop/Pause commands' enable state to respond to TimerState.
+        // Rather than add junk to the TimerState setter, put things that are dependant on 
+        // TimerState here.
+        //
         private void OnPropertyChanged(object sender, PropertyChangedEventArgs propertyChangedEventArgs)
         {
-            System.Diagnostics.Debug.WriteLine("OnPropertyChanged: {0}", sender.ToString());
+            System.Diagnostics.Debug.WriteLine(String.Format("OnPropertyChanged: {0}", propertyChangedEventArgs.PropertyName));
+
             switch (propertyChangedEventArgs.PropertyName)
             {
                 case TimerStatePropertyName:
@@ -182,6 +189,37 @@ namespace EMOTM.ViewModel
                 // RaisePropertyChanging(WhichMinutePropertyName);
                 _whichMinute = value;
                 RaisePropertyChanged(WhichMinutePropertyName);
+            }
+        }
+
+        /// <summary>
+        /// The <see cref="StartBtnCaption" /> property's name.
+        /// </summary>
+        public const string StartBtnCaptionPropertyName = "StartBtnCaption";
+
+        private string _startBtnCaption = "Start";
+
+
+        /// <summary>
+        /// Sets and gets the StartBtnCaption property.
+        /// Changes to that property's value raise the PropertyChanged event. 
+        /// </summary>
+        public string StartBtnCaption
+        {
+            get
+            {
+                return _startBtnCaption;
+            }
+
+            set
+            {
+                if (_startBtnCaption == value)
+                {
+                    return;
+                }
+
+                _startBtnCaption = value;
+                RaisePropertyChanged(StartBtnCaptionPropertyName);
             }
         }
 

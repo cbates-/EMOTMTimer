@@ -34,6 +34,7 @@
             <converters:TimerStateToEnabledConverter x:Key="timerStateConverter" />
             <converters:ListsColumnWidthConverter x:Key="listsColWidthConverter" />
             <converters:WorkItemFontSizeConverter x:Key="workItemFontSizeConverter" />
+            <converters:StartBtnCaptionConverter x:Key="startBtnCptnConverter" />
         </ResourceDictionary>
     </controls:MetroWindow.Resources>
 
@@ -182,9 +183,7 @@
                 10 sec.
             </CheckBox>
             <Button x:Name="StartBtn" Command="{Binding StartTimerCmd}" Grid.Column="2" HorizontalAlignment="Center"
-                    VerticalAlignment="Center" Grid.Row="1" IsDefault="True">
-                Start
-            </Button>
+                    VerticalAlignment="Center" IsDefault="True" Content="{Binding TimerState, Mode=TwoWay, Converter={StaticResource startBtnCptnConverter}}"  />
             <Button x:Name="StopBtn" Command="{Binding StopTimerCmd}" Grid.Column="3" HorizontalAlignment="Center"
                     VerticalAlignment="Center" Content="Stop" />
             <!-- <Button x:Name="PauseBtn" Command="{Binding PauseTimerCmd}" IsEnabled="{Binding TimerState, Mode=TwoWay, Converter={StaticResource timerStateConverter}, ConverterParameter=false}"   Grid.Column="4"  HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Row="1">Pause</Button> 
