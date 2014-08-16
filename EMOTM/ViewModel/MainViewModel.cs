@@ -1,14 +1,12 @@
-﻿using System.ComponentModel;
-using System.Diagnostics;
-using System.Reflection.Emit;
-using System.Windows;
-using System.Windows.Media;
-using EMOTM.Infrastructure;
+﻿using EMOTM.Infrastructure;
 using EMOTM.Model;
 using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Command;
 using System;
+using System.ComponentModel;
 using System.Timers;
+using System.Windows;
+using System.Windows.Media;
 
 namespace EMOTM.ViewModel
 {
@@ -59,7 +57,7 @@ namespace EMOTM.ViewModel
         //
         private void OnPropertyChanged(object sender, PropertyChangedEventArgs propertyChangedEventArgs)
         {
-            System.Diagnostics.Debug.WriteLine(String.Format("OnPropertyChanged: {0}", propertyChangedEventArgs.PropertyName));
+            // Debug.WriteLine(String.Format("OnPropertyChanged: {0}", propertyChangedEventArgs.PropertyName));
 
             switch (propertyChangedEventArgs.PropertyName)
             {
@@ -78,7 +76,7 @@ namespace EMOTM.ViewModel
 
         private void SetMainWinTitle()
         {
-            string title = string.Format("E{0}OT{0}M", (LengthOfMinute > 1 ? LengthOfMinute.ToString() : string.Empty));
+            string title = string.Format("E{0}MOT{0}M", (LengthOfMinute > 1 ? LengthOfMinute.ToString() : string.Empty));
             MainWinTitle = title;
         }
 
@@ -97,8 +95,7 @@ namespace EMOTM.ViewModel
 
         private bool CanStartTimer()
         {
-            Debug.WriteLine("CanStartTimer: {0}",
-                (TimerState == TimerState.Stopped || TimerState == TimerState.Paused));
+            //Debug.WriteLine("CanStartTimer: {0}", (TimerState == TimerState.Stopped || TimerState == TimerState.Paused);
             return (TimerState == TimerState.Stopped || TimerState == TimerState.Paused);
         }
 
@@ -123,6 +120,7 @@ namespace EMOTM.ViewModel
             {
                 WhichMinute = ThisThatMin.ThisMinute;
                 timeSpan = new TimeSpan(0, TotalTime, 0);
+                TheMinute = TotalTime;
             }
             runTimer(timeSpan);
         }
@@ -171,6 +169,37 @@ namespace EMOTM.ViewModel
                 //StartTimerCmd.RaiseCanExecuteChanged();
                 //StopTimerCmd.RaiseCanExecuteChanged();
                 //PauseTimerCmd.RaiseCanExecuteChanged();
+            }
+        }
+
+        /// <summary>
+        /// The <see cref="TheMinute" /> property's name.
+        /// </summary>
+        public const string TheMinutePropertyName = "TheMinute";
+
+        private int _theMinute = 10;
+
+        /// <summary>
+        /// Sets and gets the TheMinute property.
+        /// Changes to that property's value raise the PropertyChanged event. 
+        /// </summary>
+        public int TheMinute
+        {
+            get
+            {
+                return _theMinute;
+            }
+
+            set
+            {
+                if (_theMinute == value)
+                {
+                    return;
+                }
+
+                RaisePropertyChanging(TheMinutePropertyName);
+                _theMinute = value;
+                RaisePropertyChanged(TheMinutePropertyName);
             }
         }
 
@@ -286,6 +315,7 @@ namespace EMOTM.ViewModel
                 if (!TheTimer.Enabled)
                 {
                     TimerText = string.Format("{0}:00", TotalTime);
+                    TheMinute = TotalTime;
                 }
                 RaisePropertyChanged(TotalTimePropertyName);
             }
@@ -488,18 +518,23 @@ namespace EMOTM.ViewModel
             // Use this to avoid comparing the time on every tick when AutoMinimize is true.
 
             timeSpan = timeSpan.Subtract(oneSecond);
-            TimerText = timeSpan.ToString(timerFormatString);
+            TimeSpan now = timeSpan;
+            
+            TimerText = now.ToString(timerFormatString);
+            // System.Diagnostics.Debug.WriteLine(string.Format("\t\t{0}", now.ToString()));
 
-            if (timeSpan.Seconds == 0)
+            if (now.Seconds == 0)
             {
-                if (timeSpan.Minutes == 0)
+                if (now.Minutes == 0)
                 {
                     // timerExpired();
                     TheTimer.Stop();
                 }
                 else
                 {
-                    bool isEndOfMinute = ((timeSpan.Minutes) % LengthOfMinute == 1);
+                    System.Diagnostics.Debug.Write(string.Format("now.Minutes : {0}\n", now.Minutes));
+                    bool isEndOfMinute = ((now.Minutes) % LengthOfMinute == 0);
+                    TheMinute = now.Minutes; // + 1;
                     TimerDisplayForeground = BlackBrush;
                     if (isEndOfMinute)
                     {
@@ -530,11 +565,11 @@ namespace EMOTM.ViewModel
                     }
                 }
             }
-            else if (timeSpan.Seconds <= 5)
+            else if (now.Seconds <= 5)
             {
                 TimerDisplayForeground = RedBrush;
             }
-            else if (timeSpan.Seconds <= 10)
+            else if (now.Seconds <= 10)
             {
                 TimerDisplayForeground = OrangeBrush;
             }

@@ -61,7 +61,7 @@
         </Grid.Resources>
 
         <Grid.RowDefinitions>
-            <RowDefinition Height="2*" />
+            <RowDefinition Height="3*" />
             <RowDefinition Height="0.5*" />
             <RowDefinition Height="3*" />
             <RowDefinition Height="1*" />
@@ -89,7 +89,7 @@
             <Grid ColumnSpan="1">
                 <Grid.RowDefinitions>
                     <RowDefinition />
-                    <RowDefinition Height="2*" />
+                    <RowDefinition Height="4*" />
                 </Grid.RowDefinitions>
                 <TextBlock x:Name="ThisMinTxt"
                            Opacity="{Binding WhichMinute, Mode=TwoWay, Converter={StaticResource whichMinConverter}, ConverterParameter=ThisMinute}"
@@ -108,7 +108,7 @@
                   Visibility="{Binding ListCnt, Converter={StaticResource ThatMinVisConverter}, ConverterParameter=Two}">
                 <Grid.RowDefinitions>
                     <RowDefinition />
-                    <RowDefinition Height="2*" />
+                    <RowDefinition Height="4*" />
                 </Grid.RowDefinitions>
                 <TextBlock x:Name="ThatMinTxt"
                            Opacity="{Binding WhichMinute, Mode=TwoWay, Converter={StaticResource whichMinConverter}, ConverterParameter=ThatMinute}"
@@ -158,11 +158,22 @@
                          IsChecked="{Binding Path=ListCnt, Converter={StaticResource enumBooleanConverter}, ConverterParameter=Three}"
                          GroupName="CntListsGroup" Margin="4,0" FontSize="9" Content="This - That - TheOther" />
         </StackPanel>
-        <TextBlock Grid.Row="2" x:Name="TimerDisplay" Text="{Binding TimerText, Mode=TwoWay}"
+        <Grid Grid.Row="2">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="0.2*" />
+            <RowDefinition />
+        </Grid.RowDefinitions>
+        <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="5,0">
+            <TextBlock Text="Minute: " />
+            <TextBlock Text="{Binding TheMinute, Mode=TwoWay}" />
+        </StackPanel>
+        <TextBlock  x:Name="TimerDisplay" Grid.Row="1"
+                    Text="{Binding TimerText, Mode=TwoWay}"
                    Foreground="{Binding TimerDisplayForeground, Mode=TwoWay}"
                    FontSize="{Binding WindowState, Mode=TwoWay, Converter={StaticResource winStateFontSizeConverter}}"
                    HorizontalAlignment="Center" VerticalAlignment="Center" />
         <!-- <TextBlock Grid.Row="3" HorizontalAlignment="Center" VerticalAlignment="Center">Placeholder</TextBlock> -->
+        </Grid>
         <Grid Grid.Row="3">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="1.1*" />
@@ -183,10 +194,13 @@
                                     Minimum="1" HorizontalAlignment="Center" VerticalAlignment="Center" />
             </StackPanel>
             <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Grid.Column="1">
-                <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center" Text="Total Time:" Margin="0,0,6,0" />
+                <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center" 
+                           FontSize="13"
+                           Text="Total Time:" Margin="0,0,6,0" />
                 <xctk:IntegerUpDown x:Name="TotalTime" Value="{Binding TotalTime, Mode=TwoWay}"
-                                    IsEnabled="{Binding TimerState, Mode=TwoWay, Converter={StaticResource timerStateConverter}}"
-                                    Minimum="2" HorizontalAlignment="Center" VerticalAlignment="Center" />
+                        FontSize="13"
+                        IsEnabled="{Binding TimerState, Mode=TwoWay, Converter={StaticResource timerStateConverter}}"
+                        Minimum="2" HorizontalAlignment="Center" VerticalAlignment="Center" />
             </StackPanel >
             <CheckBox x:Name="tenSecChk" IsChecked="{Binding DoTenSecondCountdown, Mode=TwoWay}" IsEnabled="False"
                       ToolTip="Count down last 10 secs." Grid.Column="2" HorizontalAlignment="Center"
