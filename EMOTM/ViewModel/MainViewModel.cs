@@ -76,7 +76,7 @@ namespace EMOTM.ViewModel
 
         private void SetMainWinTitle()
         {
-            string title = string.Format("E{0}MOT{0}M", (LengthOfMinute > 1 ? LengthOfMinute.ToString() : string.Empty));
+            string title = string.Format("E{0}MO{1}M", (LengthOfMinute > 1 ? LengthOfMinute.ToString() : string.Empty), (LengthOfMinute > 1 ? LengthOfMinute.ToString() : "T"));
             MainWinTitle = title;
         }
 
