@@ -1,5 +1,6 @@
 ﻿using System.ComponentModel;
 using System.Diagnostics;
+using System.Reflection.Emit;
 using System.Windows;
 using System.Windows.Media;
 using EMOTM.Infrastructure;
@@ -67,9 +68,18 @@ namespace EMOTM.ViewModel
                     StopTimerCmd.RaiseCanExecuteChanged();
                     PauseTimerCmd.RaiseCanExecuteChanged();
                     break;
+                case LengthOfMinutePropertyName:
+                    SetMainWinTitle();
+                    break;
                 default:
                     break;
             }
+        }
+
+        private void SetMainWinTitle()
+        {
+            string title = string.Format("E{0}OT{0}M", (LengthOfMinute > 1 ? LengthOfMinute.ToString() : string.Empty));
+            MainWinTitle = title;
         }
 
 
@@ -282,6 +292,36 @@ namespace EMOTM.ViewModel
         }
 
         /// <summary>
+        /// The <see cref="LengthOfMinute" /> property's name.
+        /// </summary>
+        public const string LengthOfMinutePropertyName = "LengthOfMinute";
+
+        private int _lengthOfMinute = 1;
+
+        /// <summary>
+        /// Sets and gets the LengthOfMinute property.
+        /// Changes to that property's value raise the PropertyChanged event. 
+        /// </summary>
+        public int LengthOfMinute
+        {
+            get
+            {
+                return _lengthOfMinute;
+            }
+
+            set
+            {
+                if (_lengthOfMinute == value)
+                {
+                    return;
+                }
+
+                _lengthOfMinute = value;
+                RaisePropertyChanged(LengthOfMinutePropertyName);
+            }
+        }
+
+        /// <summary>
         /// The <see cref="WindowState" /> property's name.
         /// </summary>
         public const string WindowStatePropertyName = "WindowState";
@@ -305,6 +345,36 @@ namespace EMOTM.ViewModel
 
                 _windowState = value;
                 RaisePropertyChanged(WindowStatePropertyName);
+            }
+        }
+
+        /// <summary>
+        /// The <see cref="MainWinTitle" /> property's name.
+        /// </summary>
+        public const string MainWinTitlePropertyName = "MainWinTitle";
+
+        private string _mainWinTitle = "EMOTM";
+
+        /// <summary>
+        /// Sets and gets the MainWinTitle property.
+        /// Changes to that property's value raise the PropertyChanged event. 
+        /// </summary>
+        public string MainWinTitle
+        {
+            get
+            {
+                return _mainWinTitle;
+            }
+
+            set
+            {
+                if (_mainWinTitle == value)
+                {
+                    return;
+                }
+
+                _mainWinTitle = value;
+                RaisePropertyChanged(MainWinTitlePropertyName);
             }
         }
 
@@ -429,30 +499,34 @@ namespace EMOTM.ViewModel
                 }
                 else
                 {
+                    bool isEndOfMinute = ((timeSpan.Minutes) % LengthOfMinute == 1);
                     TimerDisplayForeground = BlackBrush;
-                    switch (ListCnt)
+                    if (isEndOfMinute)
                     {
-                        case ListCntEnums.One:
-                            break;
-                        case ListCntEnums.Two:
-                            WhichMinute = _whichMinute == ThisThatMin.ThisMinute
-                                ? ThisThatMin.ThatMinute
-                                : ThisThatMin.ThisMinute;
-                            break;
-                        case ListCntEnums.Three:
-                            if (WhichMinute == ThisThatMin.ThisMinute)
-                            {
-                                WhichMinute = ThisThatMin.ThatMinute;
-                            }
-                            else if (WhichMinute == ThisThatMin.ThatMinute)
-                            {
-                                WhichMinute = ThisThatMin.TheOtherMinute;
-                            }
-                            else if (WhichMinute == ThisThatMin.TheOtherMinute)
-                            {
-                                WhichMinute = ThisThatMin.ThisMinute;
-                            }
-                            break;
+                        switch (ListCnt)
+                        {
+                            case ListCntEnums.One:
+                                break;
+                            case ListCntEnums.Two:
+                                WhichMinute = _whichMinute == ThisThatMin.ThisMinute
+                                    ? ThisThatMin.ThatMinute
+                                    : ThisThatMin.ThisMinute;
+                                break;
+                            case ListCntEnums.Three:
+                                if (WhichMinute == ThisThatMin.ThisMinute)
+                                {
+                                    WhichMinute = ThisThatMin.ThatMinute;
+                                }
+                                else if (WhichMinute == ThisThatMin.ThatMinute)
+                                {
+                                    WhichMinute = ThisThatMin.TheOtherMinute;
+                                }
+                                else if (WhichMinute == ThisThatMin.TheOtherMinute)
+                                {
+                                    WhichMinute = ThisThatMin.ThisMinute;
+                                }
+                                break;
+                        }
                     }
                 }
             }

@@ -13,7 +13,7 @@
     mc:Ignorable="d ignore"
     Height="400"
     Width="500"
-    Title="EMOTM">
+    Title="{Binding MainWinTitle, Mode=TwoWay}">
 
     <controls:MetroWindow.Resources>
         <ResourceDictionary>
@@ -35,6 +35,7 @@
             <converters:ListsColumnWidthConverter x:Key="listsColWidthConverter" />
             <converters:WorkItemFontSizeConverter x:Key="workItemFontSizeConverter" />
             <converters:StartBtnCaptionConverter x:Key="startBtnCptnConverter" />
+            <!--<converters:MainWinTitleConverter x:Key="mainWinTitleConverter" />-->
         </ResourceDictionary>
     </controls:MetroWindow.Resources>
 
@@ -164,31 +165,42 @@
         <!-- <TextBlock Grid.Row="3" HorizontalAlignment="Center" VerticalAlignment="Center">Placeholder</TextBlock> -->
         <Grid Grid.Row="3">
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="2*" />
-                <ColumnDefinition />
-                <ColumnDefinition />
-                <ColumnDefinition />
-                <ColumnDefinition />
+                <ColumnDefinition Width="1.1*" />
+                <ColumnDefinition Width="1.2*" />
+                <ColumnDefinition Width="0.7*" />
+                <ColumnDefinition Width="0.7*" />
+                <ColumnDefinition Width="0.7*" />
+                <ColumnDefinition Width="0.7*" />
             </Grid.ColumnDefinitions>
 
-            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Grid.Column="0">
+                <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center" Text="'Minute':" 
+                        ToolTip="How long a 'minute' lasts..."
+                           Margin="0,0,6,0" />
+                <xctk:IntegerUpDown x:Name="LengthOfMinute" Value="{Binding LengthOfMinute, Mode=TwoWay}"
+                
+                                    IsEnabled="{Binding TimerState, Mode=TwoWay, Converter={StaticResource timerStateConverter}}"
+                                    Minimum="1" HorizontalAlignment="Center" VerticalAlignment="Center" />
+            </StackPanel>
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Grid.Column="1">
                 <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center" Text="Total Time:" Margin="0,0,6,0" />
                 <xctk:IntegerUpDown x:Name="TotalTime" Value="{Binding TotalTime, Mode=TwoWay}"
                                     IsEnabled="{Binding TimerState, Mode=TwoWay, Converter={StaticResource timerStateConverter}}"
                                     Minimum="2" HorizontalAlignment="Center" VerticalAlignment="Center" />
-            </StackPanel>
+            </StackPanel >
             <CheckBox x:Name="tenSecChk" IsChecked="{Binding DoTenSecondCountdown, Mode=TwoWay}" IsEnabled="False"
-                      ToolTip="Count down last 10 secs." Grid.Column="1" HorizontalAlignment="Center"
+                      ToolTip="Count down last 10 secs." Grid.Column="2" HorizontalAlignment="Center"
+                      Visibility="Hidden"
                       VerticalAlignment="Center">
                 10 sec.
             </CheckBox>
-            <Button x:Name="StartBtn" Command="{Binding StartTimerCmd}" Grid.Column="2" HorizontalAlignment="Center"
+            <Button x:Name="StartBtn" Command="{Binding StartTimerCmd}" Grid.Column="3" HorizontalAlignment="Center"
                     VerticalAlignment="Center" IsDefault="True" Content="{Binding TimerState, Mode=TwoWay, Converter={StaticResource startBtnCptnConverter}}"  />
-            <Button x:Name="StopBtn" Command="{Binding StopTimerCmd}" Grid.Column="3" HorizontalAlignment="Center"
+            <Button x:Name="StopBtn" Command="{Binding StopTimerCmd}" Grid.Column="4" HorizontalAlignment="Center"
                     VerticalAlignment="Center" Content="Stop" />
             <!-- <Button x:Name="PauseBtn" Command="{Binding PauseTimerCmd}" IsEnabled="{Binding TimerState, Mode=TwoWay, Converter={StaticResource timerStateConverter}, ConverterParameter=false}"   Grid.Column="4"  HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Row="1">Pause</Button> 
             -->
-            <Button x:Name="PauseBtn" Command="{Binding PauseTimerCmd}" Grid.Column="4" HorizontalAlignment="Center"
+            <Button x:Name="PauseBtn" Command="{Binding PauseTimerCmd}" Grid.Column="5" HorizontalAlignment="Center"
                     VerticalAlignment="Center">
                 Pause
             </Button>
