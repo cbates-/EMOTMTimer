@@ -4,11 +4,11 @@ using System.Windows.Data;
 
 namespace EMOTM.Infrastructure
 {
-    class StartBtnCaptionConverter : IValueConverter
+    class StopBtnCaptionConverter : IValueConverter
     {
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            string caption = "Start";
+            string caption = "Stop";
             // value is TimerState
             // targetType is string
             TimerState ts = (TimerState) value;
@@ -17,10 +17,11 @@ namespace EMOTM.Infrastructure
                 case TimerState.Started:
                     break;
                 case TimerState.Stopped:
-                    caption = "Start";
+                    caption = "Stop";
                     break;
                 case TimerState.Paused:
-                    caption = "Continue";
+                    // caption = "Reset";
+                    caption = "Stop";
                     break;
                 default:
                     break;
