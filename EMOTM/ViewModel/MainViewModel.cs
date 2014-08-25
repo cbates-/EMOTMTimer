@@ -1,4 +1,5 @@
-﻿using EMOTM.Infrastructure;
+﻿using System.Diagnostics;
+using EMOTM.Infrastructure;
 using EMOTM.Model;
 using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Command;
@@ -69,6 +70,9 @@ namespace EMOTM.ViewModel
                 case LengthOfMinutePropertyName:
                     SetMainWinTitle();
                     break;
+                case TimerTypePropertyName:
+                    SetMainWinTitle();
+                    break;
                 default:
                     break;
             }
@@ -76,7 +80,17 @@ namespace EMOTM.ViewModel
 
         private void SetMainWinTitle()
         {
-            string title = string.Format("E{0}MO{1}M", (LengthOfMinute > 1 ? LengthOfMinute.ToString() : string.Empty), (LengthOfMinute > 1 ? LengthOfMinute.ToString() : "T"));
+            string title = "TROUBLE";
+
+            switch (TimerType)
+            {
+                case TimerType.EMOTM:
+                    title = string.Format("E{0}MO{1}M", (LengthOfMinute > 1 ? LengthOfMinute.ToString() : string.Empty), (LengthOfMinute > 1 ? LengthOfMinute.ToString() : "T"));
+                    break;
+                case TimerType.AMRAP:
+                    title = "AMRAP";
+                    break;
+            }
             MainWinTitle = title;
         }
 
@@ -169,6 +183,37 @@ namespace EMOTM.ViewModel
                 //StartTimerCmd.RaiseCanExecuteChanged();
                 //StopTimerCmd.RaiseCanExecuteChanged();
                 //PauseTimerCmd.RaiseCanExecuteChanged();
+            }
+        }
+
+        /// <summary>
+        /// The <see cref="TimerType" /> property's name.
+        /// </summary>
+        public const string TimerTypePropertyName = "TimerType";
+
+        private TimerType _timerType = TimerType.EMOTM;
+
+        /// <summary>
+        /// Sets and gets the TimerType property.
+        /// Changes to that property's value raise the PropertyChanged event. 
+        /// </summary>
+        public TimerType TimerType
+        {
+            get
+            {
+                return _timerType;
+            }
+
+            set
+            {
+                if (_timerType == value)
+                {
+                    return;
+                }
+
+                RaisePropertyChanging(TimerTypePropertyName);
+                _timerType = value;
+                RaisePropertyChanged(TimerTypePropertyName);
             }
         }
 
@@ -532,7 +577,7 @@ namespace EMOTM.ViewModel
                 }
                 else
                 {
-                    System.Diagnostics.Debug.Write(string.Format("now.Minutes : {0}\n", now.Minutes));
+                    Debug.Write(string.Format("now.Minutes : {0}\n", now.Minutes));
                     bool isEndOfMinute = ((now.Minutes) % LengthOfMinute == 0);
                     TheMinute = now.Minutes; // + 1;
                     TimerDisplayForeground = BlackBrush;

@@ -128,7 +128,7 @@
                   Visibility="{Binding ListCnt, Converter={StaticResource ThatMinVisConverter}, ConverterParameter=Three}">
                 <Grid.RowDefinitions>
                     <RowDefinition />
-                    <RowDefinition Height="2*" />
+                    <RowDefinition Height="4*" />
                 </Grid.RowDefinitions>
                 <TextBlock x:Name="TheOtherTxt"
                            Opacity="{Binding WhichMinute, Mode=TwoWay, Converter={StaticResource whichMinConverter}, ConverterParameter=TheOtherMinute}"
@@ -158,6 +158,10 @@
                          IsEnabled="{Binding TimerState, Mode=TwoWay, Converter={StaticResource timerStateConverter}}"
                          IsChecked="{Binding Path=ListCnt, Converter={StaticResource enumBooleanConverter}, ConverterParameter=Three}"
                          GroupName="CntListsGroup" Margin="4,0" FontSize="9" Content="This - That - TheOther" />
+            <RadioButton x:Name="AmrapRB"
+                         IsEnabled="False"
+                         GroupName="CntListsGroup" 
+                         Margin="4,0" FontSize="9" Content="AMRAP" />
         </StackPanel>
         <Grid Grid.Row="2">
         <Grid.RowDefinitions>
