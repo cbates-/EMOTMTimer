@@ -160,6 +160,7 @@
                          GroupName="CntListsGroup" Margin="4,0" FontSize="9" Content="This - That - TheOther" />
             <RadioButton x:Name="AmrapRB"
                          IsEnabled="False"
+                         Visibility="Collapsed"
                          GroupName="CntListsGroup" 
                          Margin="4,0" FontSize="9" Content="AMRAP" />
         </StackPanel>
@@ -194,9 +195,8 @@
                         ToolTip="How long a 'minute' lasts..."
                            Margin="0,0,6,0" />
                 <xctk:IntegerUpDown x:Name="LengthOfMinute" Value="{Binding LengthOfMinute, Mode=TwoWay}"
-                
-                                    IsEnabled="{Binding TimerState, Mode=TwoWay, Converter={StaticResource timerStateConverter}}"
-                                    Minimum="1" HorizontalAlignment="Center" VerticalAlignment="Center" />
+                    IsEnabled="{Binding TimerState, Mode=TwoWay, Converter={StaticResource timerStateConverter} }"
+                    Minimum="1" HorizontalAlignment="Center" VerticalAlignment="Center" />
             </StackPanel>
             <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Grid.Column="1">
                 <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center" 
