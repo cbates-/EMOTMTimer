@@ -89,6 +89,7 @@
     <Compile Include="Infrastructure\TimerState.cs" />
     <Compile Include="Infrastructure\TimerStateToEnabledConverter.cs" />
     <Compile Include="Infrastructure\WhichMinOpacityConverter.cs" />
+    <Compile Include="Infrastructure\WhichMinuteForegroundConverter.cs" />
     <Compile Include="Infrastructure\WorkItemFontSizeConverter.cs" />
     <Compile Include="Infrastructure\WindowStateFontSizeConverter.cs" />
     <Compile Include="Model\DataItem.cs" />

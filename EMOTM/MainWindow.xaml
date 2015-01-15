@@ -27,6 +27,7 @@
                     Source="pack://application:,,,/MahApps.Metro;component/Styles/Accents/BaseLight.xaml" />
             </ResourceDictionary.MergedDictionaries>
             <converters:WhichMinOpacityConverter x:Key="whichMinConverter" />
+            <converters:WhichMinuteForegroundConverter x:Key="whichMinFGConverter" />
             <converters:ThatMinVisConverter x:Key="ThatMinVisConverter" />
             <!-- <converters:ColumnSpanConverter x:Key="colSpanConverter" /> -->
             <converters:EnumBooleanConverter x:Key="enumBooleanConverter" />
@@ -94,6 +95,7 @@
                 </Grid.RowDefinitions>
                 <TextBlock x:Name="ThisMinTxt"
                            Opacity="{Binding WhichMinute, Mode=TwoWay, Converter={StaticResource whichMinConverter}, ConverterParameter=ThisMinute}"
+                           Foreground="{Binding WhichMinute, Mode=TwoWay, Converter={StaticResource whichMinFGConverter}, ConverterParameter=ThisMinute}"
                            HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="14">
                     <Bold>This</Bold> minute
                 </TextBlock>
@@ -101,6 +103,7 @@
                                        FontSize="{Binding WindowState, Mode=TwoWay, Converter={StaticResource workItemFontSizeConverter}}"
                                        Grid.Row="1"
                                        Opacity="{Binding WhichMinute, Mode=TwoWay, Converter={StaticResource whichMinConverter}, ConverterParameter=ThisMinute}"
+                                       Foreground="{Binding WhichMinute, Mode=TwoWay, Converter={StaticResource whichMinFGConverter}, ConverterParameter=ThisMinute}"
                                        HorizontalContentAlignment="Center" AcceptsReturn="True" />
             </Grid>
             <!-- ThatMinute -->
@@ -113,6 +116,7 @@
                 </Grid.RowDefinitions>
                 <TextBlock x:Name="ThatMinTxt"
                            Opacity="{Binding WhichMinute, Mode=TwoWay, Converter={StaticResource whichMinConverter}, ConverterParameter=ThatMinute}"
+                           Foreground="{Binding WhichMinute, Mode=TwoWay, Converter={StaticResource whichMinFGConverter}, ConverterParameter=ThatMinute}"
                            HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="14">
                     <Bold>That</Bold>
                     minute
@@ -120,6 +124,7 @@
                 <xctk:WatermarkTextBox Watermark="List work to do That minute" Grid.Row="1"
                                        FontSize="{Binding WindowState, Mode=TwoWay, Converter={StaticResource workItemFontSizeConverter}}"
                                        Opacity="{Binding WhichMinute, Mode=TwoWay, Converter={StaticResource whichMinConverter}, ConverterParameter=ThatMinute}"
+                                       Foreground="{Binding WhichMinute, Mode=TwoWay, Converter={StaticResource whichMinFGConverter}, ConverterParameter=ThatMinute}"
                                        HorizontalContentAlignment="Center" AcceptsReturn="True" />
             </Grid>
             <!-- TheOtherMinute -->
@@ -132,6 +137,7 @@
                 </Grid.RowDefinitions>
                 <TextBlock x:Name="TheOtherTxt"
                            Opacity="{Binding WhichMinute, Mode=TwoWay, Converter={StaticResource whichMinConverter}, ConverterParameter=TheOtherMinute}"
+                           Foreground="{Binding WhichMinute, Mode=TwoWay, Converter={StaticResource whichMinFGConverter}, ConverterParameter=TheOtherMinute}"
                            HorizontalAlignment="Center" VerticalAlignment="Center"
                            FontSize="14">
                     <Bold>The Other</Bold> minute
@@ -139,6 +145,7 @@
                 <xctk:WatermarkTextBox Watermark="List work to do The Other minute" Grid.Row="1"
                                        FontSize="{Binding WindowState, Mode=TwoWay, Converter={StaticResource workItemFontSizeConverter}}"
                                        Opacity="{Binding WhichMinute, Mode=TwoWay, Converter={StaticResource whichMinConverter}, ConverterParameter=TheOtherMinute}"
+                                       Foreground="{Binding WhichMinute, Mode=TwoWay, Converter={StaticResource whichMinFGConverter}, ConverterParameter=TheOtherMinute}"
                                        HorizontalContentAlignment="Center" AcceptsReturn="True" />
             </Grid>
         </Grid>
