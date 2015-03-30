@@ -211,7 +211,7 @@ namespace EMOTM.ViewModel
                     return;
                 }
 
-                RaisePropertyChanging(TimerTypePropertyName);
+                // RaisePropertyChanging(TimerTypePropertyName);
                 _timerType = value;
                 RaisePropertyChanged(TimerTypePropertyName);
             }
@@ -242,7 +242,7 @@ namespace EMOTM.ViewModel
                     return;
                 }
 
-                RaisePropertyChanging(TheMinutePropertyName);
+                //RaisePropertyChanging(TheMinutePropertyName);
                 _theMinute = value;
                 RaisePropertyChanged(TheMinutePropertyName);
             }

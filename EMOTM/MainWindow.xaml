@@ -13,6 +13,7 @@
     mc:Ignorable="d ignore"
     Height="400"
     Width="500"
+    Background="#FFF1F1E2"
     Title="{Binding MainWinTitle, Mode=TwoWay}">
 
     <controls:MetroWindow.Resources>
