@@ -29,6 +29,7 @@
                 <ResourceDictionary
                     Source="pack://application:,,,/MahApps.Metro;component/Styles/Accents/BaseLight.xaml" />
             </ResourceDictionary.MergedDictionaries>
+            <converters:MultiValueConverter x:Key="multiValueConverter" />
             <converters:WhichMinOpacityConverter x:Key="whichMinConverter" />
             <converters:WhichMinuteForegroundConverter x:Key="whichMinFGConverter" />
             <converters:ThatMinVisConverter x:Key="ThatMinVisConverter" />
@@ -105,9 +106,14 @@
                 </TextBlock>
                 -->
                 <TextBlock x:Name="ThisMinTxt"
-                           Opacity="{Binding WhichMinute, Mode=TwoWay, Converter={StaticResource whichMinConverter}, ConverterParameter=ThisMinute}"
                            Foreground="{Binding WhichMinute, Mode=TwoWay, Converter={StaticResource whichMinFGConverter}, ConverterParameter=ThisMinute}"
                            HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="14">
+                    <TextBlock.Opacity>
+                        <MultiBinding Converter="{StaticResource multiValueConverter}">
+                            <Binding Path="WhichMinute" />
+                            <Binding Path="TimerState" />
+                        </MultiBinding>
+                    </TextBlock.Opacity>
                     <Bold>This</Bold> minute
 
                 </TextBlock>
@@ -184,20 +190,20 @@
                          Margin="4,0" FontSize="9" Content="AMRAP" />
         </StackPanel>
         <Grid Grid.Row="2">
-        <Grid.RowDefinitions>
-            <RowDefinition Height="0.2*" />
-            <RowDefinition />
-        </Grid.RowDefinitions>
-        <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="5,0">
-            <TextBlock Text="Minute: " />
-            <TextBlock Text="{Binding TheMinute, Mode=TwoWay}" />
-        </StackPanel>
-        <TextBlock  x:Name="TimerDisplay" Grid.Row="1"
+            <Grid.RowDefinitions>
+                <RowDefinition Height="0.2*" />
+                <RowDefinition />
+            </Grid.RowDefinitions>
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="5,0">
+                <TextBlock Text="Minute: " />
+                <TextBlock Text="{Binding TheMinute, Mode=TwoWay}" />
+            </StackPanel>
+            <TextBlock  x:Name="TimerDisplay" Grid.Row="1"
                     Text="{Binding TimerText, Mode=TwoWay}"
                    Foreground="{Binding TimerDisplayForeground, Mode=TwoWay}"
                    FontSize="{Binding WindowState, Mode=TwoWay, Converter={StaticResource winStateFontSizeConverter}}"
                    HorizontalAlignment="Center" VerticalAlignment="Center" />
-        <!-- <TextBlock Grid.Row="3" HorizontalAlignment="Center" VerticalAlignment="Center">Placeholder</TextBlock> -->
+            <!-- <TextBlock Grid.Row="3" HorizontalAlignment="Center" VerticalAlignment="Center">Placeholder</TextBlock> -->
         </Grid>
         <Grid Grid.Row="3">
             <Grid.ColumnDefinitions>

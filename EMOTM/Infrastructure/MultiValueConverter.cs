@@ -8,23 +8,37 @@ using System.Windows.Data;
 
 namespace EMOTM.Infrastructure
 {
-public class MultiValueConverter : IMultiValueConverter
-{
-    public object Convert(object[] values, Type targetType, object parameter, CultureInfo culture)
-    {
-        string one = values[0] as string;
-        string two = values[1] as string;
-        string three = values[2] as string;
-        if(!string.IsNullOrEmpty(one) && !string.IsNullOrEmpty(two) && !string.IsNullOrEmpty(three))
-        {
-            return one + two + three;
-        }
-        return null;
-    }
+	public class MultiValueConverter : IMultiValueConverter
+	{
+		public object Convert(object[] values, Type targetType, object parameter, CultureInfo culture)
+		{
+			var one = (ThisThatMin)values[0];
+			var two = (TimerState)values[1];
+			switch (two)
+			{
+				case TimerState.Started:
+					{
+						switch (one)
+						{
+							case ThisThatMin.ThisMinute:
+								break;
+							case ThisThatMin.ThatMinute:
+								break;
+							case ThisThatMin.TheOtherMinute:
+								break;
+						}
+					}
+					break;
+				default:
+					return 0.90;
+					break;
+			}
+			return null;
+		}
 
-    public object[] ConvertBack(object value, Type[] targetTypes, object parameter, CultureInfo culture)
-    {
-        throw new NotImplementedException();
-    }
-}
+		public object[] ConvertBack(object value, Type[] targetTypes, object parameter, CultureInfo culture)
+		{
+			throw new NotImplementedException();
+		}
+	}
 }
