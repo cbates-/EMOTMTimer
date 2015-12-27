@@ -16,9 +16,9 @@ namespace EMOTM.Infrastructure
             WindowState state = (WindowState) value;
             if (state == WindowState.Maximized)
             {
-                return 256;
+                return 296;
             }
-            return 64;
+            return 96;
         }
 
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
