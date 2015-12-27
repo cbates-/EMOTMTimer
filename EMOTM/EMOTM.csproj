@@ -101,6 +101,7 @@
     <Compile Include="Infrastructure\ListCntEnums.cs" />
     <Compile Include="Infrastructure\ListsColumnWidthConverter.cs" />
     <Compile Include="Infrastructure\MainWinTitleConverter.cs" />
+    <Compile Include="Infrastructure\MultiValueConverter.cs" />
     <Compile Include="Infrastructure\StopBtnCaptionConverter.cs" />
     <Compile Include="Infrastructure\StartBtnCaptionConverter.cs" />
     <Compile Include="Infrastructure\ThatMinVisConverter.cs" />

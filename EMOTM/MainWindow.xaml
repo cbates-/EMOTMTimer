@@ -96,11 +96,20 @@
                     <RowDefinition />
                     <RowDefinition Height="4*" />
                 </Grid.RowDefinitions>
+                <!--
                 <TextBlock x:Name="ThisMinTxt"
                            Opacity="{Binding WhichMinute, Mode=TwoWay, Converter={StaticResource whichMinConverter}, ConverterParameter=ThisMinute}"
                            Foreground="{Binding WhichMinute, Mode=TwoWay, Converter={StaticResource whichMinFGConverter}, ConverterParameter=ThisMinute}"
                            HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="14">
                     <Bold>This</Bold> minute
+                </TextBlock>
+                -->
+                <TextBlock x:Name="ThisMinTxt"
+                           Opacity="{Binding WhichMinute, Mode=TwoWay, Converter={StaticResource whichMinConverter}, ConverterParameter=ThisMinute}"
+                           Foreground="{Binding WhichMinute, Mode=TwoWay, Converter={StaticResource whichMinFGConverter}, ConverterParameter=ThisMinute}"
+                           HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="14">
+                    <Bold>This</Bold> minute
+
                 </TextBlock>
                 <xctk:WatermarkTextBox Watermark="List work to do This minute"
                                        FontSize="{Binding WindowState, Mode=TwoWay, Converter={StaticResource workItemFontSizeConverter}}"
