@@ -9,6 +9,8 @@
 *.zip
 *.exe
 
+# Supercharger files
+*.csdat
 
 # mstest test results
 TestResults
