@@ -23,20 +23,6 @@ namespace EMOTM.Infrastructure
 					{
 
 						return name == whichMin.ToString() ? 1.0 : 0.5;
-						/*
-						switch (whichMin)
-						{
-						case ThisThatMin.ThisMinute:
-								return name == Names.ThisMinute ? 1.0 : 0.5;
-								break;
-							case ThisThatMin.ThatMinute:
-								return name == Names.ThatMinute ? 1.0 : 0.5;
-								break;
-							case ThisThatMin.TheOtherMinute:
-								return name == Names.TheOtherMinute ? 1.0 : 0.5;
-								break;
-						}
-						*/
 					}
 					break;
 				default:
