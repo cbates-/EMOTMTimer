@@ -32,7 +32,7 @@ namespace EMOTM.Infrastructure
 
 			switch (state)
 			{
-				case TimerState.Paused:
+				//case TimerState.Paused:
 				case TimerState.Stopped:
 					ret = blackBrush;
 					break;
@@ -42,13 +42,13 @@ namespace EMOTM.Infrastructure
 						switch (whichMin)
 						{
 							case ThisThatMin.ThisMinute:
-								ret = (String.Equals(name, ThisThatMin.ThisMinute.ToString())) ? blueBrush : grayBrush;
+								ret = (name.Contains(ThisThatMin.ThisMinute.ToString()) ) ? blueBrush : grayBrush;
 								break;
 							case ThisThatMin.ThatMinute:
-								ret = (String.Equals(name, ThisThatMin.ThatMinute.ToString())) ? blueBrush : grayBrush;
+								ret = (name.Contains(ThisThatMin.ThatMinute.ToString()) ) ? blueBrush : grayBrush;
 								break;
 							case ThisThatMin.TheOtherMinute:
-								ret = (String.Equals(name, ThisThatMin.TheOtherMinute.ToString())) ? blueBrush : grayBrush;
+								ret = (name.Contains(ThisThatMin.TheOtherMinute.ToString()) ) ? blueBrush : grayBrush;
 								break;
 						}
 					}

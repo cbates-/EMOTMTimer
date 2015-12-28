@@ -107,18 +107,18 @@
                     <Bold>This</Bold> minute
                 </TextBlock>
                 -->
-                <TextBlock x:Name="ThisMinute"
+                <TextBlock x:Name="ThisMinuteTxt"
                            HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="14">
                     <TextBlock.Foreground>
                         <MultiBinding Converter="{StaticResource multiValueFgColorConverter}">
-                            <Binding ElementName="ThisMinute" Path="Name" />
+                            <Binding ElementName="ThisMinuteTxt" Path="Name" />
                             <Binding Path="TimerState" Mode="TwoWay" />
                             <Binding Path="WhichMinute" Mode="TwoWay" />
                         </MultiBinding>
                     </TextBlock.Foreground>
                     <TextBlock.Opacity>
                         <MultiBinding Converter="{StaticResource multiValueOpacityConverter}" Mode="TwoWay" >
-                            <Binding ElementName="ThisMinute" Path="Name" />
+                            <Binding ElementName="ThisMinuteTxt" Path="Name" />
                             <Binding Path="TimerState" Mode="TwoWay" />
                             <Binding Path="WhichMinute" Mode="TwoWay" />
                         </MultiBinding>
@@ -126,12 +126,20 @@
                     <Bold>This</Bold> minute
 
                 </TextBlock>
-                <xctk:WatermarkTextBox Watermark="List work to do This minute"
+                <xctk:WatermarkTextBox x:Name="wmThisMinute"  Watermark="List work to do This minute"
                                        FontSize="{Binding WindowState, Mode=TwoWay, Converter={StaticResource workItemFontSizeConverter}}"
                                        Grid.Row="1"
-                                       Opacity="{Binding WhichMinute, Mode=TwoWay, Converter={StaticResource whichMinConverter}, ConverterParameter=ThisMinute}"
                                        Foreground="{Binding WhichMinute, Mode=TwoWay, Converter={StaticResource whichMinFGConverter}, ConverterParameter=ThisMinute}"
-                                       HorizontalContentAlignment="Center" AcceptsReturn="True" />
+                                       HorizontalContentAlignment="Center" AcceptsReturn="True" >
+                    <xctk:WatermarkTextBox.Opacity>
+                        <MultiBinding Converter="{StaticResource multiValueOpacityConverter}" Mode="TwoWay" >
+                            <Binding ElementName="wmThisMinute" Path="Name" />
+                            <Binding Path="TimerState" Mode="TwoWay" />
+                            <Binding Path="WhichMinute" Mode="TwoWay" />
+                        </MultiBinding>
+                    </xctk:WatermarkTextBox.Opacity>
+
+                </xctk:WatermarkTextBox>
             </Grid>
             <!-- ThatMinute -->
             <Grid Grid.Column="1"
@@ -169,11 +177,18 @@
                     <Bold>That</Bold>
                     minute
                 </TextBlock>
-                <xctk:WatermarkTextBox Watermark="List work to do That minute" Grid.Row="1"
+                <xctk:WatermarkTextBox x:Name="wmThatMinute"  Watermark="List work to do That minute" Grid.Row="1"
                                        FontSize="{Binding WindowState, Mode=TwoWay, Converter={StaticResource workItemFontSizeConverter}}"
-                                       Opacity="{Binding WhichMinute, Mode=TwoWay, Converter={StaticResource whichMinConverter}, ConverterParameter=ThatMinute}"
                                        Foreground="{Binding WhichMinute, Mode=TwoWay, Converter={StaticResource whichMinFGConverter}, ConverterParameter=ThatMinute}"
-                                       HorizontalContentAlignment="Center" AcceptsReturn="True" />
+                                       HorizontalContentAlignment="Center" AcceptsReturn="True" >
+                    <xctk:WatermarkTextBox.Opacity>
+                        <MultiBinding Converter="{StaticResource multiValueOpacityConverter}" Mode="TwoWay" >
+                            <Binding ElementName="wmThatMinute" Path="Name" />
+                            <Binding Path="TimerState" Mode="TwoWay" />
+                            <Binding Path="WhichMinute" Mode="TwoWay" />
+                        </MultiBinding>
+                    </xctk:WatermarkTextBox.Opacity>
+                </xctk:WatermarkTextBox>
             </Grid>
             <!-- TheOtherMinute -->
             <Grid Grid.Column="2"
@@ -211,11 +226,18 @@
                     </TextBlock.Opacity>
                     <Bold>The Other</Bold> minute
                 </TextBlock>
-                <xctk:WatermarkTextBox Watermark="List work to do The Other minute" Grid.Row="1"
+                <xctk:WatermarkTextBox x:Name="wmTheOtherMinute" Watermark="List work to do The Other minute" Grid.Row="1"
                                        FontSize="{Binding WindowState, Mode=TwoWay, Converter={StaticResource workItemFontSizeConverter}}"
-                                       Opacity="{Binding WhichMinute, Mode=TwoWay, Converter={StaticResource whichMinConverter}, ConverterParameter=TheOtherMinute}"
                                        Foreground="{Binding WhichMinute, Mode=TwoWay, Converter={StaticResource whichMinFGConverter}, ConverterParameter=TheOtherMinute}"
-                                       HorizontalContentAlignment="Center" AcceptsReturn="True" />
+                                       HorizontalContentAlignment="Center" AcceptsReturn="True" >
+                    <xctk:WatermarkTextBox.Opacity>
+                        <MultiBinding Converter="{StaticResource multiValueOpacityConverter}" Mode="TwoWay" >
+                            <Binding ElementName="wmTheOtherMinute" Path="Name" />
+                            <Binding Path="TimerState" Mode="TwoWay" />
+                            <Binding Path="WhichMinute" Mode="TwoWay" />
+                        </MultiBinding>
+                    </xctk:WatermarkTextBox.Opacity>
+                </xctk:WatermarkTextBox>
             </Grid>
         </Grid>
 

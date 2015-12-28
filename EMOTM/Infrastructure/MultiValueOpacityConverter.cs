@@ -20,9 +20,10 @@ namespace EMOTM.Infrastructure
 			switch (state)
 			{
 				case TimerState.Started:
-					{
+				{
+					bool gotIt = name.Contains(whichMin.ToString());
 
-						return name == whichMin.ToString() ? 1.0 : 0.5;
+						return gotIt ? Consts.ActiveOpacityValue : Consts.InactiveOpacityValue;
 					}
 					break;
 				default:

@@ -6,8 +6,8 @@ namespace EMOTM.Infrastructure
 {
     internal class WhichMinOpacityConverter : IValueConverter
     {
-        private readonly double activeOpacity = 1.0;
-        private readonly double inActiveOpacity = 0.50;
+        private readonly double activeOpacity = Consts.ActiveOpacityValue;
+        private readonly double inActiveOpacity = Consts.InactiveOpacityValue;
 
         // Parameter is the name of the control
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)

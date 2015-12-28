@@ -97,6 +97,7 @@
     </ApplicationDefinition>
     <Compile Include="Design\DesignDataService.cs" />
     <Compile Include="Infrastructure\ColumnSpanConverter.cs" />
+    <Compile Include="Infrastructure\Consts.cs" />
     <Compile Include="Infrastructure\EnumBooleanConverter.cs" />
     <Compile Include="Infrastructure\ListCntEnums.cs" />
     <Compile Include="Infrastructure\ListsColumnWidthConverter.cs" />
