@@ -5,28 +5,38 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Data;
+using EMOTM.ViewModel;
 
 namespace EMOTM.Infrastructure
 {
-	public class MultiValueConverter : IMultiValueConverter
+	public class MultiValueOpacityConverter : IMultiValueConverter
 	{
 		public object Convert(object[] values, Type targetType, object parameter, CultureInfo culture)
 		{
-			var one = (ThisThatMin)values[0];
-			var two = (TimerState)values[1];
-			switch (two)
+			var name = (string)values[0];
+			var state = (TimerState)values[1];
+			var whichMin = (ThisThatMin)values[2];
+
+			switch (state)
 			{
 				case TimerState.Started:
 					{
-						switch (one)
+
+						return name == whichMin.ToString() ? 1.0 : 0.5;
+						/*
+						switch (whichMin)
 						{
-							case ThisThatMin.ThisMinute:
+						case ThisThatMin.ThisMinute:
+								return name == Names.ThisMinute ? 1.0 : 0.5;
 								break;
 							case ThisThatMin.ThatMinute:
+								return name == Names.ThatMinute ? 1.0 : 0.5;
 								break;
 							case ThisThatMin.TheOtherMinute:
+								return name == Names.TheOtherMinute ? 1.0 : 0.5;
 								break;
 						}
+						*/
 					}
 					break;
 				default:

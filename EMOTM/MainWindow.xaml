@@ -29,9 +29,10 @@
                 <ResourceDictionary
                     Source="pack://application:,,,/MahApps.Metro;component/Styles/Accents/BaseLight.xaml" />
             </ResourceDictionary.MergedDictionaries>
-            <converters:MultiValueConverter x:Key="multiValueConverter" />
+            <converters:MultiValueOpacityConverter x:Key="multiValueOpacityConverter" />
             <converters:WhichMinOpacityConverter x:Key="whichMinConverter" />
             <converters:WhichMinuteForegroundConverter x:Key="whichMinFGConverter" />
+            <converters:MultiValueFgColorConverter x:Key="multiValueFgColorConverter" />
             <converters:ThatMinVisConverter x:Key="ThatMinVisConverter" />
             <!-- <converters:ColumnSpanConverter x:Key="colSpanConverter" /> -->
             <converters:EnumBooleanConverter x:Key="enumBooleanConverter" />
@@ -105,13 +106,20 @@
                     <Bold>This</Bold> minute
                 </TextBlock>
                 -->
-                <TextBlock x:Name="ThisMinTxt"
-                           Foreground="{Binding WhichMinute, Mode=TwoWay, Converter={StaticResource whichMinFGConverter}, ConverterParameter=ThisMinute}"
+                <TextBlock x:Name="ThisMinute"
                            HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="14">
+                    <TextBlock.Foreground>
+                        <MultiBinding Converter="{StaticResource multiValueFgColorConverter}">
+                            <Binding ElementName="ThisMinute" Path="Name" />
+                            <Binding Path="TimerState" Mode="TwoWay" />
+                            <Binding Path="WhichMinute" Mode="TwoWay" />
+                        </MultiBinding>
+                    </TextBlock.Foreground>
                     <TextBlock.Opacity>
-                        <MultiBinding Converter="{StaticResource multiValueConverter}">
-                            <Binding Path="WhichMinute" />
-                            <Binding Path="TimerState" />
+                        <MultiBinding Converter="{StaticResource multiValueOpacityConverter}" Mode="TwoWay" >
+                            <Binding ElementName="ThisMinute" Path="Name" />
+                            <Binding Path="TimerState" Mode="TwoWay" />
+                            <Binding Path="WhichMinute" Mode="TwoWay" />
                         </MultiBinding>
                     </TextBlock.Opacity>
                     <Bold>This</Bold> minute
@@ -132,10 +140,31 @@
                     <RowDefinition />
                     <RowDefinition Height="4*" />
                 </Grid.RowDefinitions>
+                <!--
                 <TextBlock x:Name="ThatMinTxt"
                            Opacity="{Binding WhichMinute, Mode=TwoWay, Converter={StaticResource whichMinConverter}, ConverterParameter=ThatMinute}"
                            Foreground="{Binding WhichMinute, Mode=TwoWay, Converter={StaticResource whichMinFGConverter}, ConverterParameter=ThatMinute}"
                            HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="14">
+                    <Bold>That</Bold>
+                    minute
+                </TextBlock>
+                -->
+                <TextBlock x:Name="ThatMinute"
+                           HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="14">
+                    <TextBlock.Foreground>
+                        <MultiBinding Converter="{StaticResource multiValueFgColorConverter}">
+                            <Binding ElementName="ThatMinute" Path="Name" />
+                            <Binding Path="TimerState" Mode="TwoWay" />
+                            <Binding Path="WhichMinute" Mode="TwoWay" />
+                        </MultiBinding>
+                    </TextBlock.Foreground>
+                    <TextBlock.Opacity>
+                        <MultiBinding Converter="{StaticResource multiValueOpacityConverter}" Mode="TwoWay" >
+                            <Binding ElementName="ThatMinute" Path="Name" />
+                            <Binding Path="TimerState" Mode="TwoWay" />
+                            <Binding Path="WhichMinute" Mode="TwoWay" />
+                        </MultiBinding>
+                    </TextBlock.Opacity>
                     <Bold>That</Bold>
                     minute
                 </TextBlock>
@@ -153,11 +182,32 @@
                     <RowDefinition />
                     <RowDefinition Height="4*" />
                 </Grid.RowDefinitions>
+                <!--
                 <TextBlock x:Name="TheOtherTxt"
                            Opacity="{Binding WhichMinute, Mode=TwoWay, Converter={StaticResource whichMinConverter}, ConverterParameter=TheOtherMinute}"
                            Foreground="{Binding WhichMinute, Mode=TwoWay, Converter={StaticResource whichMinFGConverter}, ConverterParameter=TheOtherMinute}"
                            HorizontalAlignment="Center" VerticalAlignment="Center"
                            FontSize="14">
+                    <Bold>The Other</Bold> minute
+                </TextBlock>
+                -->
+                <TextBlock x:Name="TheOtherMinute"
+                           HorizontalAlignment="Center" VerticalAlignment="Center"
+                           FontSize="14">
+                    <TextBlock.Foreground>
+                        <MultiBinding Converter="{StaticResource multiValueFgColorConverter}">
+                            <Binding ElementName="TheOtherMinute" Path="Name" />
+                            <Binding Path="TimerState" Mode="TwoWay" />
+                            <Binding Path="WhichMinute" Mode="TwoWay" />
+                        </MultiBinding>
+                    </TextBlock.Foreground>
+                    <TextBlock.Opacity>
+                        <MultiBinding Converter="{StaticResource multiValueOpacityConverter}">
+                            <Binding ElementName="TheOtherMinute" Path="Name" />
+                            <Binding Path="TimerState" Mode="TwoWay" />
+                            <Binding Path="WhichMinute" Mode="TwoWay" />
+                        </MultiBinding>
+                    </TextBlock.Opacity>
                     <Bold>The Other</Bold> minute
                 </TextBlock>
                 <xctk:WatermarkTextBox Watermark="List work to do The Other minute" Grid.Row="1"
