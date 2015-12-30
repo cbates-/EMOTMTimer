@@ -84,99 +84,27 @@
 				<ColumnDefinition
 					Width="{Binding ListCnt, ConverterParameter=Three, Converter={StaticResource listsColWidthConverter}, Mode=TwoWay}" />
 			</Grid.ColumnDefinitions>
-			<!--
-			<Grid.ColumnDefinitions>
-				<ColumnDefinition Width="1*"  />
-				<ColumnDefinition Width="0" />
-				<ColumnDefinition Width="0"  />
-			</Grid.ColumnDefinitions>
-			-->
-			<!-- ThisMinute -->
-			<!--
-			<Grid ColumnSpan="{Binding ListCnt, Converter={StaticResource colSpanConverter}}">
-			-->
+			<!--                       ThisMinute -->
 			<Grid Grid.ColumnSpan="1">
-	<!--
-				<Grid.RowDefinitions>
-					<RowDefinition />
-					<RowDefinition Height="4*" />
-				</Grid.RowDefinitions>
-	-->
 
 				<local:WhatMinuteControl ThisName="ThisMinute"/>
 
-	<!--
-				<xctk:WatermarkTextBox x:Name="wmThisMinute"  Watermark="List work to do This minute"
-					FontSize="{Binding WindowState, Converter={StaticResource workItemFontSizeConverter}, Mode=TwoWay}"
-					Grid.Row="1"
-					Foreground="{Binding WhichMinute, ConverterParameter=ThisMinute, Converter={StaticResource whichMinFGConverter}, Mode=TwoWay}"
-					HorizontalContentAlignment="Center" AcceptsReturn="True" >
-					<xctk:WatermarkTextBox.Opacity>
-						<MultiBinding Converter="{StaticResource multiValueOpacityConverter}" Mode="TwoWay" >
-							<Binding ElementName="wmThisMinute" Path="Name" />
-							<Binding Path="TimerState" Mode="TwoWay" />
-							<Binding Path="WhichMinute" Mode="TwoWay" />
-						</MultiBinding>
-					</xctk:WatermarkTextBox.Opacity>
-
-				</xctk:WatermarkTextBox>
-	-->
 			</Grid>
-			<!-- ThatMinute -->
+			<!--                       ThatMinute -->
 			<Grid Grid.Column="1"
 				Grid.ColumnSpan="{Binding ListCnt, ConverterParameter=Two, Converter={StaticResource listsColWidthConverter}, Mode=TwoWay}"
 				Visibility="{Binding ListCnt, ConverterParameter=Two, Converter={StaticResource ThatMinVisConverter}}">
-	<!--
-				<Grid.RowDefinitions>
-					<RowDefinition />
-					<RowDefinition Height="4*" />
-				</Grid.RowDefinitions>
-	-->
 
 				<local:WhatMinuteControl ThisName="ThatMinute"/>
 
-	<!--
-				<xctk:WatermarkTextBox x:Name="wmThatMinute"  Watermark="List work to do That minute" Grid.Row="1"
-					FontSize="{Binding WindowState, Converter={StaticResource workItemFontSizeConverter}, Mode=TwoWay}"
-					Foreground="{Binding WhichMinute, ConverterParameter=ThatMinute, Converter={StaticResource whichMinFGConverter}, Mode=TwoWay}"
-					HorizontalContentAlignment="Center" AcceptsReturn="True" >
-					<xctk:WatermarkTextBox.Opacity>
-						<MultiBinding Converter="{StaticResource multiValueOpacityConverter}" Mode="TwoWay" >
-							<Binding ElementName="wmThatMinute" Path="Name" />
-							<Binding Path="TimerState" Mode="TwoWay" />
-							<Binding Path="WhichMinute" Mode="TwoWay" />
-						</MultiBinding>
-					</xctk:WatermarkTextBox.Opacity>
-				</xctk:WatermarkTextBox>
-	-->
 			</Grid>
-			<!-- TheOtherMinute -->
+			<!--                       TheOtherMinute -->
 			<Grid Grid.Column="2"
 				Grid.ColumnSpan="{Binding ListCnt, ConverterParameter=Three, Converter={StaticResource listsColWidthConverter}, Mode=TwoWay}"
 				Visibility="{Binding ListCnt, ConverterParameter=Three, Converter={StaticResource ThatMinVisConverter}}">
-	<!--
-				<Grid.RowDefinitions>
-					<RowDefinition />
-					<RowDefinition Height="4*" />
-				</Grid.RowDefinitions>
-	-->
 
 				<local:WhatMinuteControl ThisName="TheOtherMinute"/>
 
-	<!--
-				<xctk:WatermarkTextBox x:Name="wmTheOtherMinute" Watermark="List work to do The Other minute" Grid.Row="1"
-					FontSize="{Binding WindowState, Converter={StaticResource workItemFontSizeConverter}, Mode=TwoWay}"
-					Foreground="{Binding WhichMinute, ConverterParameter=TheOtherMinute, Converter={StaticResource whichMinFGConverter}, Mode=TwoWay}"
-					HorizontalContentAlignment="Center" AcceptsReturn="True" >
-					<xctk:WatermarkTextBox.Opacity>
-						<MultiBinding Converter="{StaticResource multiValueOpacityConverter}" Mode="TwoWay" >
-							<Binding ElementName="wmTheOtherMinute" Path="Name" />
-							<Binding Path="TimerState" Mode="TwoWay" />
-							<Binding Path="WhichMinute" Mode="TwoWay" />
-						</MultiBinding>
-					</xctk:WatermarkTextBox.Opacity>
-				</xctk:WatermarkTextBox>
-	-->
 			</Grid>
 		</Grid>
 
