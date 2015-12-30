@@ -18,7 +18,7 @@ namespace EMOTM.Infrastructure
 					
 					case TimerState.Started:
 					case TimerState.Paused:
-					ret = Visibility.Collapsed;
+					ret = Visibility.Hidden;
 			        break;
 
 				default:
