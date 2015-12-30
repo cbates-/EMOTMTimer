@@ -14,9 +14,9 @@ using System.Windows.Shapes;
 namespace EMOTM
 {
 	/// <summary>
-	/// Interaction logic for ThisMinuteTxtControl.xaml
+	/// Interaction logic for WhatMinuteControl.xaml
 	/// </summary>
-	public partial class ThisMinuteTxtControl : UserControl
+	public partial class WhatMinuteControl : UserControl
 	{
 
 		/// <summary>
@@ -46,10 +46,10 @@ namespace EMOTM
 		public static readonly DependencyProperty ThisNameProperty = DependencyProperty.Register(
 			NamePropertyName,
 			typeof(string),
-			typeof(ThisMinuteTxtControl),
+			typeof(WhatMinuteControl),
 			new PropertyMetadata(null));
 		
-		public ThisMinuteTxtControl()
+		public WhatMinuteControl()
 		{
 			this.InitializeComponent();
 
