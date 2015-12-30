@@ -9,8 +9,15 @@
 *.zip
 *.exe
 
+<<<<<<< HEAD
 # Supercharger files
 *.csdat
+||||||| merged common ancestors
+=======
+# Supercharger
+*.csdat
+
+>>>>>>> master
 
 # mstest test results
 TestResults
