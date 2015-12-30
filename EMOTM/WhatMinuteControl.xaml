@@ -37,12 +37,22 @@
 					<Binding Mode="TwoWay" Path="TimerState"/>
 					<Binding Mode="TwoWay" Path="WhichMinute"/>
 				</MultiBinding>
-			</TextBlock.Foreground><Bold><Run Text="{Binding ThisName, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=UserControl}}"/></Bold></TextBlock>
-		<xctk:WatermarkTextBox x:Name="wrap"  Watermark="{Binding ThisName, RelativeSource={RelativeSource AncestorType=UserControl}, Converter={StaticResource waterMarkConverter}}"
+			</TextBlock.Foreground>
+            <Bold><Run Text="{Binding ThisName, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=UserControl}}"/></Bold>
+        </TextBlock>
+		<xctk:WatermarkTextBox x:Name="wrap"  
+                    Watermark="{Binding ThisName, RelativeSource={RelativeSource AncestorType=UserControl}, Converter={StaticResource waterMarkConverter}}"
 					FontSize="{Binding WindowState, Converter={StaticResource workItemFontSizeConverter}, Mode=TwoWay}"
+                    TextAlignment="Center"
 					Grid.Row="1"
-					Foreground="{Binding WhichMinute, ConverterParameter=ThisMinute, Converter={StaticResource whichMinFGConverter}, Mode=TwoWay}"
 					HorizontalContentAlignment="Center" AcceptsReturn="True" TextWrapping="Wrap" >
+			<xctk:WatermarkTextBox.Foreground>
+				<MultiBinding Converter="{StaticResource multiValueFgColorConverter}">
+					<Binding Path="ThisName" RelativeSource="{RelativeSource Mode=FindAncestor, AncestorType=UserControl}" />
+					<Binding Mode="TwoWay" Path="TimerState"/>
+					<Binding Mode="TwoWay" Path="WhichMinute"/>
+				</MultiBinding>
+			</xctk:WatermarkTextBox.Foreground>
 			<xctk:WatermarkTextBox.Opacity>
 				<MultiBinding Converter="{StaticResource multiValueOpacityConverter}" Mode="TwoWay" >
 					<Binding Path="ThisName" RelativeSource="{RelativeSource Mode=FindAncestor, AncestorType=UserControl}" />
