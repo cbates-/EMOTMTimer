@@ -10,6 +10,5 @@ namespace EMOTM.Infrastructure
 	{
 		public static double InactiveOpacityValue = 0.6;
 		public static double ActiveOpacityValue = 1.0;
-
 	}
 }

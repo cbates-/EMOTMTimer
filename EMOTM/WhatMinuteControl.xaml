@@ -1,66 +1,73 @@
 ﻿<UserControl
-	xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-	xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-	xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-	xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-	xmlns:Infrastructure="clr-namespace:EMOTM.Infrastructure"
-	xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
-	mc:Ignorable="d"
-	x:Class="EMOTM.WhatMinuteControl"
-	x:Name="UserControl"
-	d:DesignWidth="73.967" d:DesignHeight="18.62">
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:Infrastructure="clr-namespace:EMOTM.Infrastructure"
+    xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
+    mc:Ignorable="d"
+    x:Class="EMOTM.WhatMinuteControl"
+    x:Name="UserControl"
+    d:DesignWidth="73.967" d:DesignHeight="18.62">
 
-	<UserControl.Resources>
-		<Infrastructure:MultiValueFgColorConverter x:Key="multiValueFgColorConverter" />
-		<Infrastructure:MultiValueOpacityConverter x:Key="multiValueOpacityConverter" />
-		<Infrastructure:WorkItemFontSizeConverter x:Key="workItemFontSizeConverter" />
-		<Infrastructure:WhichMinuteForegroundConverter x:Key="whichMinFGConverter" />
-		<Infrastructure:WatermarkTextConverter x:Key="waterMarkConverter" />
-	</UserControl.Resources>
+    <UserControl.Resources>
+        <Infrastructure:MultiValueFgColorConverter x:Key="multiValueFgColorConverter" />
+        <Infrastructure:MultiValueOpacityConverter x:Key="multiValueOpacityConverter" />
+        <Infrastructure:WorkItemFontSizeConverter x:Key="workItemFontSizeConverter" />
+        <Infrastructure:WhichMinuteForegroundConverter x:Key="whichMinFGConverter" />
+        <Infrastructure:WatermarkTextConverter x:Key="waterMarkConverter" />
+    </UserControl.Resources>
 
-	<Grid x:Name="LayoutRoot"  >
-		<Grid.RowDefinitions>
-			<RowDefinition />
-			<RowDefinition Height="4*" />
-		</Grid.RowDefinitions>
-		<TextBlock VerticalAlignment="Center" Height="18.62" HorizontalAlignment="Center" FontSize="14">
-			<TextBlock.Opacity>
-				<MultiBinding Converter="{StaticResource multiValueOpacityConverter}" Mode="TwoWay">
-					<Binding Path="ThisName" RelativeSource="{RelativeSource Mode=FindAncestor, AncestorType=UserControl}" />
-					<Binding Mode="TwoWay" Path="TimerState"/>
-					<Binding Mode="TwoWay" Path="WhichMinute"/>
-				</MultiBinding>
-			</TextBlock.Opacity>
-			<TextBlock.Foreground>
-				<MultiBinding Converter="{StaticResource multiValueFgColorConverter}">
-					<Binding Path="ThisName" RelativeSource="{RelativeSource Mode=FindAncestor, AncestorType=UserControl}" />
-					<Binding Mode="TwoWay" Path="TimerState"/>
-					<Binding Mode="TwoWay" Path="WhichMinute"/>
-				</MultiBinding>
-			</TextBlock.Foreground>
-			<Bold><Run Text="{Binding ThisName, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=UserControl}}"/></Bold>
-		</TextBlock>
-		<xctk:WatermarkTextBox   
-					Watermark="{Binding ThisName, RelativeSource={RelativeSource AncestorType=UserControl}, Converter={StaticResource waterMarkConverter}}"
-					FontSize="{Binding WindowState, Converter={StaticResource workItemFontSizeConverter}, Mode=TwoWay}"
-					TextAlignment="Center"
-					Grid.Row="1"
-					HorizontalContentAlignment="Center" AcceptsReturn="True" TextWrapping="Wrap" >
-			<xctk:WatermarkTextBox.Foreground>
-				<MultiBinding Converter="{StaticResource multiValueFgColorConverter}">
-					<Binding Path="ThisName" RelativeSource="{RelativeSource Mode=FindAncestor, AncestorType=UserControl}" />
-					<Binding Mode="TwoWay" Path="TimerState"/>
-					<Binding Mode="TwoWay" Path="WhichMinute"/>
-				</MultiBinding>
-			</xctk:WatermarkTextBox.Foreground>
-			<xctk:WatermarkTextBox.Opacity>
-				<MultiBinding Converter="{StaticResource multiValueOpacityConverter}" Mode="TwoWay" >
-					<Binding Path="ThisName" RelativeSource="{RelativeSource Mode=FindAncestor, AncestorType=UserControl}" />
-					<Binding Path="TimerState" Mode="TwoWay" />
-					<Binding Path="WhichMinute" Mode="TwoWay" />
-				</MultiBinding>
-			</xctk:WatermarkTextBox.Opacity>
+    <Grid x:Name="LayoutRoot">
+        <Grid.RowDefinitions>
+            <RowDefinition />
+            <RowDefinition Height="4*" />
+        </Grid.RowDefinitions>
+        <TextBlock VerticalAlignment="Center" Height="18.62" HorizontalAlignment="Center" FontSize="14">
+            <TextBlock.Opacity>
+                <MultiBinding Converter="{StaticResource multiValueOpacityConverter}" Mode="TwoWay">
+                    <Binding Path="ThisName"
+                             RelativeSource="{RelativeSource Mode=FindAncestor, AncestorType=UserControl}" />
+                    <Binding Mode="TwoWay" Path="TimerState" />
+                    <Binding Mode="TwoWay" Path="WhichMinute" />
+                </MultiBinding>
+            </TextBlock.Opacity>
+            <TextBlock.Foreground>
+                <MultiBinding Converter="{StaticResource multiValueFgColorConverter}">
+                    <Binding Path="ThisName"
+                             RelativeSource="{RelativeSource Mode=FindAncestor, AncestorType=UserControl}" />
+                    <Binding Mode="TwoWay" Path="TimerState" />
+                    <Binding Mode="TwoWay" Path="WhichMinute" />
+                </MultiBinding>
+            </TextBlock.Foreground>
+            <Bold>
+                <Run
+                    Text="{Binding ThisName, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=UserControl}}" />
+            </Bold>
+        </TextBlock>
+        <xctk:WatermarkTextBox
+            Watermark="{Binding ThisName, RelativeSource={RelativeSource AncestorType=UserControl}, Converter={StaticResource waterMarkConverter}}"
+            FontSize="{Binding WindowState, Converter={StaticResource workItemFontSizeConverter}, Mode=TwoWay}"
+            TextAlignment="Center"
+            Grid.Row="1"
+            HorizontalContentAlignment="Center" AcceptsReturn="True" TextWrapping="Wrap">
+            <xctk:WatermarkTextBox.Foreground>
+                <MultiBinding Converter="{StaticResource multiValueFgColorConverter}">
+                    <Binding Path="ThisName"
+                             RelativeSource="{RelativeSource Mode=FindAncestor, AncestorType=UserControl}" />
+                    <Binding Mode="TwoWay" Path="TimerState" />
+                    <Binding Mode="TwoWay" Path="WhichMinute" />
+                </MultiBinding>
+            </xctk:WatermarkTextBox.Foreground>
+            <xctk:WatermarkTextBox.Opacity>
+                <MultiBinding Converter="{StaticResource multiValueOpacityConverter}" Mode="TwoWay">
+                    <Binding Path="ThisName"
+                             RelativeSource="{RelativeSource Mode=FindAncestor, AncestorType=UserControl}" />
+                    <Binding Path="TimerState" Mode="TwoWay" />
+                    <Binding Path="WhichMinute" Mode="TwoWay" />
+                </MultiBinding>
+            </xctk:WatermarkTextBox.Opacity>
 
-		</xctk:WatermarkTextBox>
-	</Grid>
+        </xctk:WatermarkTextBox>
+    </Grid>
 </UserControl>

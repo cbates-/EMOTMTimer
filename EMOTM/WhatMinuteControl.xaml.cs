@@ -8,7 +8,6 @@ namespace EMOTM
 	/// </summary>
 	public partial class WhatMinuteControl : UserControl
 	{
-
 		/// <summary>
 		/// The <see cref="ThisName" /> dependency property's name.
 		/// </summary>
@@ -20,14 +19,8 @@ namespace EMOTM
 		/// </summary>
 		public string ThisName
 		{
-			get
-			{
-				return (string)GetValue(ThisNameProperty);
-			}
-			set
-			{
-				SetValue(ThisNameProperty, value);
-			}
+			get { return (string) GetValue(ThisNameProperty); }
+			set { SetValue(ThisNameProperty, value); }
 		}
 
 		/// <summary>
@@ -35,10 +28,10 @@ namespace EMOTM
 		/// </summary>
 		public static readonly DependencyProperty ThisNameProperty = DependencyProperty.Register(
 			NamePropertyName,
-			typeof(string),
-			typeof(WhatMinuteControl),
+			typeof (string),
+			typeof (WhatMinuteControl),
 			new PropertyMetadata(null));
-		
+
 		public WhatMinuteControl()
 		{
 			this.InitializeComponent();

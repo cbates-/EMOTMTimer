@@ -22,13 +22,14 @@ namespace EMOTM.Infrastructure
 			grayBrush = new SolidColorBrush(Colors.DarkGray);
 			blackBrush = new SolidColorBrush(Colors.Black);
 		}
+
 		public object Convert(object[] values, Type targetType, object parameter, CultureInfo culture)
 		{
 			SolidColorBrush ret = grayBrush;
 
-			var name = (string)values[0];
-			var state = (TimerState)values[1];
-			var whichMin = (ThisThatMin)values[2];
+			var name = (string) values[0];
+			var state = (TimerState) values[1];
+			var whichMin = (ThisThatMin) values[2];
 
 			switch (state)
 			{
@@ -38,20 +39,20 @@ namespace EMOTM.Infrastructure
 					break;
 
 				default:
+				{
+					switch (whichMin)
 					{
-						switch (whichMin)
-						{
-							case ThisThatMin.ThisMinute:
-								ret = (name.Contains(ThisThatMin.ThisMinute.ToString()) ) ? blueBrush : grayBrush;
-								break;
-							case ThisThatMin.ThatMinute:
-								ret = (name.Contains(ThisThatMin.ThatMinute.ToString()) ) ? blueBrush : grayBrush;
-								break;
-							case ThisThatMin.TheOtherMinute:
-								ret = (name.Contains(ThisThatMin.TheOtherMinute.ToString()) ) ? blueBrush : grayBrush;
-								break;
-						}
+						case ThisThatMin.ThisMinute:
+							ret = (name.Contains(ThisThatMin.ThisMinute.ToString())) ? blueBrush : grayBrush;
+							break;
+						case ThisThatMin.ThatMinute:
+							ret = (name.Contains(ThisThatMin.ThatMinute.ToString())) ? blueBrush : grayBrush;
+							break;
+						case ThisThatMin.TheOtherMinute:
+							ret = (name.Contains(ThisThatMin.TheOtherMinute.ToString())) ? blueBrush : grayBrush;
+							break;
 					}
+				}
 					break;
 			}
 

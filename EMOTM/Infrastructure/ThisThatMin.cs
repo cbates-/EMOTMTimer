@@ -1,9 +1,9 @@
 ﻿namespace EMOTM.Infrastructure
 {
-    public enum ThisThatMin
-    {
-        ThisMinute,
-        ThatMinute,
-        TheOtherMinute
-    }
+	public enum ThisThatMin
+	{
+		ThisMinute,
+		ThatMinute,
+		TheOtherMinute
+	}
 }

@@ -10,7 +10,7 @@ namespace EMOTM.Infrastructure
 		public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
 		{
 			Visibility ret = Visibility.Collapsed;
-			switch ((TimerState)value)
+			switch ((TimerState) value)
 			{
 				case TimerState.Stopped:
 					ret = Visibility.Visible;

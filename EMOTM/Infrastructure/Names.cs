@@ -11,6 +11,5 @@ namespace EMOTM.Infrastructure
 		public static string ThisMinute = "ThisMinute";
 		public static string ThatMinute = "ThatMinute";
 		public static string TheOtherMinute = "TheOtherMinute";
-
 	}
 }
