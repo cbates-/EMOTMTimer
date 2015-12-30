@@ -110,6 +110,7 @@
     <Compile Include="Infrastructure\StartBtnCaptionConverter.cs" />
     <Compile Include="Infrastructure\ThatMinVisConverter.cs" />
     <Compile Include="Infrastructure\ThisThatMin.cs" />
+    <Compile Include="Infrastructure\TimerStateToVisibilityConverter.cs" />
     <Compile Include="Infrastructure\TimerTypeToCheckedConverter.cs" />
     <Compile Include="Infrastructure\TimerType.cs" />
     <Compile Include="Infrastructure\TimerState.cs" />
