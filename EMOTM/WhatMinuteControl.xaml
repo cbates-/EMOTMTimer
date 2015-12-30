@@ -38,12 +38,12 @@
 					<Binding Mode="TwoWay" Path="WhichMinute"/>
 				</MultiBinding>
 			</TextBlock.Foreground>
-            <Bold><Run Text="{Binding ThisName, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=UserControl}}"/></Bold>
-        </TextBlock>
+			<Bold><Run Text="{Binding ThisName, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=UserControl}}"/></Bold>
+		</TextBlock>
 		<xctk:WatermarkTextBox x:Name="wrap"  
-                    Watermark="{Binding ThisName, RelativeSource={RelativeSource AncestorType=UserControl}, Converter={StaticResource waterMarkConverter}}"
+					Watermark="{Binding ThisName, RelativeSource={RelativeSource AncestorType=UserControl}, Converter={StaticResource waterMarkConverter}}"
 					FontSize="{Binding WindowState, Converter={StaticResource workItemFontSizeConverter}, Mode=TwoWay}"
-                    TextAlignment="Center"
+					TextAlignment="Center"
 					Grid.Row="1"
 					HorizontalContentAlignment="Center" AcceptsReturn="True" TextWrapping="Wrap" >
 			<xctk:WatermarkTextBox.Foreground>
