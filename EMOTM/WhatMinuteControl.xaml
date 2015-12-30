@@ -15,6 +15,7 @@
 		<Infrastructure:MultiValueOpacityConverter x:Key="multiValueOpacityConverter" />
 		<Infrastructure:WorkItemFontSizeConverter x:Key="workItemFontSizeConverter" />
 		<Infrastructure:WhichMinuteForegroundConverter x:Key="whichMinFGConverter" />
+		<Infrastructure:WatermarkTextConverter x:Key="waterMarkConverter" />
 	</UserControl.Resources>
 
 	<Grid x:Name="LayoutRoot"  >
@@ -37,11 +38,11 @@
 					<Binding Mode="TwoWay" Path="WhichMinute"/>
 				</MultiBinding>
 			</TextBlock.Foreground><Bold><Run Text="{Binding ThisName, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=UserControl}}"/></Bold></TextBlock>
-		<xctk:WatermarkTextBox  Watermark="List work to do this minute"
+		<xctk:WatermarkTextBox x:Name="wrap"  Watermark="{Binding ThisName, RelativeSource={RelativeSource AncestorType=UserControl}, Converter={StaticResource waterMarkConverter}}"
 					FontSize="{Binding WindowState, Converter={StaticResource workItemFontSizeConverter}, Mode=TwoWay}"
 					Grid.Row="1"
 					Foreground="{Binding WhichMinute, ConverterParameter=ThisMinute, Converter={StaticResource whichMinFGConverter}, Mode=TwoWay}"
-					HorizontalContentAlignment="Center" AcceptsReturn="True" >
+					HorizontalContentAlignment="Center" AcceptsReturn="True" TextWrapping="Wrap" >
 			<xctk:WatermarkTextBox.Opacity>
 				<MultiBinding Converter="{StaticResource multiValueOpacityConverter}" Mode="TwoWay" >
 					<Binding Path="ThisName" RelativeSource="{RelativeSource Mode=FindAncestor, AncestorType=UserControl}" />

@@ -150,6 +150,8 @@
 				<ColumnDefinition />
 				<ColumnDefinition />
 				<ColumnDefinition />
+				<ColumnDefinition />
+				<ColumnDefinition />
 			</Grid.ColumnDefinitions>
 
 			<CheckBox x:Name="tenSecChk" IsChecked="{Binding DoTenSecondCountdown, Mode=TwoWay}" IsEnabled="False"
@@ -157,17 +159,21 @@
 				Visibility="Hidden"
 				VerticalAlignment="Center" Content="10 sec."/>
 			<Button x:Name="StartBtn" Command="{Binding StartTimerCmd}"  HorizontalAlignment="Center"
+                Grid.Column="1"
 				VerticalAlignment="Center" IsDefault="True" 
-				Content="{Binding TimerState, Converter={StaticResource startBtnCptnConverter}, Mode=TwoWay}"  
+				Content="{Binding TimerState, Converter={StaticResource startBtnCptnConverter}, Mode=TwoWay}" 
+                    Height="28"  MinWidth="48"
 					/>
-			<Button x:Name="StopBtn" Command="{Binding StopTimerCmd}" Grid.Column="1" HorizontalAlignment="Center"
+			<Button x:Name="StopBtn" Command="{Binding StopTimerCmd}" Grid.Column="2" HorizontalAlignment="Center"
 				VerticalAlignment="Center" 
-				Content="{Binding TimerState, Converter={StaticResource stopBtnCptnConverter}, Mode=TwoWay}"  
+				Content="{Binding TimerState, Converter={StaticResource stopBtnCptnConverter}, Mode=TwoWay}" 
+                    MinWidth="48" Height="28"  
 					 />
 			<!-- <Button x:Name="PauseBtn" Command="{Binding PauseTimerCmd}" IsEnabled="{Binding TimerState, Mode=TwoWay, Converter={StaticResource timerStateConverter}, ConverterParameter=false}"   Grid.Column="4"  HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Row="1">Pause</Button> 
 			-->
-			<Button x:Name="PauseBtn" Command="{Binding PauseTimerCmd}" Grid.Column="2" HorizontalAlignment="Center"
-				VerticalAlignment="Center" Content="Pause"/>
+			<Button x:Name="PauseBtn" Command="{Binding PauseTimerCmd}" Grid.Column="3" HorizontalAlignment="Center"
+				VerticalAlignment="Center" Content="Pause" 
+                    MinWidth="48" Height="28"/>
 		</Grid>
 		<Grid Grid.Row="4" Visibility="{Binding TimerState, Mode=TwoWay, Converter={StaticResource timerStateVisibilityConverter}}">
 			<Grid.ColumnDefinitions>
