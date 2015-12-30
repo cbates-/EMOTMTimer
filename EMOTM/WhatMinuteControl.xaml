@@ -40,7 +40,7 @@
 			</TextBlock.Foreground>
 			<Bold><Run Text="{Binding ThisName, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=UserControl}}"/></Bold>
 		</TextBlock>
-		<xctk:WatermarkTextBox x:Name="wrap"  
+		<xctk:WatermarkTextBox   
 					Watermark="{Binding ThisName, RelativeSource={RelativeSource AncestorType=UserControl}, Converter={StaticResource waterMarkConverter}}"
 					FontSize="{Binding WindowState, Converter={StaticResource workItemFontSizeConverter}, Mode=TwoWay}"
 					TextAlignment="Center"
