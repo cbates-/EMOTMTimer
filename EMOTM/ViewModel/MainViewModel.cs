@@ -491,14 +491,14 @@ namespace EMOTM.ViewModel
         /// </summary>
         public const string TimerDisplayForegroundPropertyName = "TimerDisplayForeground";
 
-        private SolidColorBrush _timerDisplayBrush = new SolidColorBrush(Colors.Black);
+        private Brush _timerDisplayBrush = new SolidColorBrush(Colors.Black);
 
 
         /// <summary>
         /// Sets and gets the TimerDisplayForeground property.
         /// Changes to that property's value raise the PropertyChanged event. 
         /// </summary>
-        public SolidColorBrush TimerDisplayForeground
+        public Brush TimerDisplayForeground
         {
             get { return _timerDisplayBrush; }
 
