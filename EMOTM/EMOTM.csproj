@@ -115,6 +115,7 @@
     <Compile Include="Infrastructure\TimerType.cs" />
     <Compile Include="Infrastructure\TimerState.cs" />
     <Compile Include="Infrastructure\TimerStateToEnabledConverter.cs" />
+    <Compile Include="Infrastructure\WatermarkTextConverter.cs" />
     <Compile Include="Infrastructure\WhichMinOpacityConverter.cs" />
     <Compile Include="Infrastructure\WhichMinuteForegroundConverter.cs" />
     <Compile Include="Infrastructure\WorkItemFontSizeConverter.cs" />
@@ -122,8 +123,8 @@
     <Compile Include="Model\DataItem.cs" />
     <Compile Include="Model\DataService.cs" />
     <Compile Include="Model\IDataService.cs" />
-    <Compile Include="ThisMinuteTxtControl.xaml.cs">
-      <DependentUpon>ThisMinuteTxtControl.xaml</DependentUpon>
+    <Compile Include="WhatMinuteControl.xaml.cs">
+      <DependentUpon>WhatMinuteControl.xaml</DependentUpon>
     </Compile>
     <Compile Include="ViewModel\MainViewModel.cs" />
     <Compile Include="ViewModel\ViewModelLocator.cs" />
@@ -143,7 +144,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="ThisMinuteTxtControl.xaml">
+    <Page Include="WhatMinuteControl.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>

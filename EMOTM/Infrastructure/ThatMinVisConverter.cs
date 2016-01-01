@@ -5,13 +5,13 @@ using System.Windows.Data;
 
 namespace EMOTM.Infrastructure
 {
-    internal class ThatMinVisConverter : IValueConverter
-    {
-        public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
-        {
-            Visibility vis = Visibility.Collapsed;
-            ListCntEnums cnt = (ListCntEnums) value;
-            string whichCol = (string) parameter;
+	internal class ThatMinVisConverter : IValueConverter
+	{
+		public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
+		{
+			Visibility vis = Visibility.Collapsed;
+			ListCntEnums cnt = (ListCntEnums) value;
+			string whichCol = (string) parameter;
 #if ZIGGY
             switch (cnt)
             {
@@ -27,27 +27,27 @@ namespace EMOTM.Infrastructure
 
             }
 #else
-            switch (whichCol)
-            {
-                case "One":
-                    vis = Visibility.Visible;
-                    break;
-                case "Two":
-                    vis = (cnt == ListCntEnums.Two) || (cnt == ListCntEnums.Three)
-                        ? Visibility.Visible
-                        : Visibility.Collapsed;
-                    break;
-                case "Three":
-                    vis = (cnt == ListCntEnums.Three) ? Visibility.Visible : Visibility.Collapsed;
-                    break;
-            }
+			switch (whichCol)
+			{
+				case "One":
+					vis = Visibility.Visible;
+					break;
+				case "Two":
+					vis = (cnt == ListCntEnums.Two) || (cnt == ListCntEnums.Three)
+						? Visibility.Visible
+						: Visibility.Collapsed;
+					break;
+				case "Three":
+					vis = (cnt == ListCntEnums.Three) ? Visibility.Visible : Visibility.Collapsed;
+					break;
+			}
 #endif
-            return vis;
-        }
+			return vis;
+		}
 
-        public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
-        {
-            return Visibility.Visible;
-        }
-    }
+		public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
+		{
+			return Visibility.Visible;
+		}
+	}
 }

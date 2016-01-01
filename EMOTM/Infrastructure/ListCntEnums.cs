@@ -6,10 +6,10 @@ using System.Threading.Tasks;
 
 namespace EMOTM.Infrastructure
 {
-    public enum ListCntEnums
-    {
-        One,
-        Two,
-        Three
-    }
+	public enum ListCntEnums
+	{
+		One,
+		Two,
+		Three
+	}
 }

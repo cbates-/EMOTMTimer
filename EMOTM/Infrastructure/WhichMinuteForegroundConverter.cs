@@ -9,9 +9,9 @@ namespace EMOTM.Infrastructure
 {
 	class WhichMinuteForegroundConverter : IValueConverter
 	{
-
 		private readonly SolidColorBrush blueBrush;
 		private readonly SolidColorBrush grayBrush;
+
 		public WhichMinuteForegroundConverter()
 		{
 			blueBrush = new SolidColorBrush(Colors.Blue);
@@ -21,7 +21,7 @@ namespace EMOTM.Infrastructure
 		public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
 		{
 			SolidColorBrush ret = grayBrush;
-			ThisThatMin whichMin = (ThisThatMin)value;
+			ThisThatMin whichMin = (ThisThatMin) value;
 			string s = parameter as string;
 
 			switch (whichMin)
@@ -52,8 +52,8 @@ namespace EMOTM.Infrastructure
 			SolidColorBrush ret = grayBrush;
 
 
-			var name = (string)values[0];
-			var dc = (MainViewModel)values[1];
+			var name = (string) values[0];
+			var dc = (MainViewModel) values[1];
 
 			switch (dc.TimerState)
 			{
@@ -62,22 +62,21 @@ namespace EMOTM.Infrastructure
 					break;
 
 				default:
+				{
+					switch (dc.WhichMinute)
 					{
-						switch (dc.WhichMinute)
-						{
-							case ThisThatMin.ThisMinute:
-								ret = (String.Equals(name, ThisThatMin.ThisMinute.ToString())) ? blueBrush : grayBrush;
-								break;
-							case ThisThatMin.ThatMinute:
-								ret = (String.Equals(name, ThisThatMin.ThatMinute.ToString())) ? blueBrush : grayBrush;
-								break;
-							case ThisThatMin.TheOtherMinute:
-								ret = (String.Equals(name, ThisThatMin.TheOtherMinute.ToString())) ? blueBrush : grayBrush;
-								break;
-						}
+						case ThisThatMin.ThisMinute:
+							ret = (String.Equals(name, ThisThatMin.ThisMinute.ToString())) ? blueBrush : grayBrush;
+							break;
+						case ThisThatMin.ThatMinute:
+							ret = (String.Equals(name, ThisThatMin.ThatMinute.ToString())) ? blueBrush : grayBrush;
+							break;
+						case ThisThatMin.TheOtherMinute:
+							ret = (String.Equals(name, ThisThatMin.TheOtherMinute.ToString())) ? blueBrush : grayBrush;
+							break;
 					}
+				}
 					break;
-
 			}
 
 			return ret;

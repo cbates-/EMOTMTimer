@@ -1,9 +1,8 @@
-﻿
-namespace EMOTM.Infrastructure
+﻿namespace EMOTM.Infrastructure
 {
-    public enum TimerType
-    {
-        EMOTM,
-        AMRAP
-    }
+	public enum TimerType
+	{
+		EMOTM,
+		AMRAP
+	}
 }

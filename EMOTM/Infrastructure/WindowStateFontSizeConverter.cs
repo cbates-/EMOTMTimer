@@ -9,21 +9,21 @@ using System.Windows.Data;
 
 namespace EMOTM.Infrastructure
 {
-    internal class WindowStateFontSizeConverter : IValueConverter
-    {
-        public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
-        {
-            WindowState state = (WindowState) value;
-            if (state == WindowState.Maximized)
-            {
-                return 296;
-            }
-            return 96;
-        }
+	internal class WindowStateFontSizeConverter : IValueConverter
+	{
+		public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
+		{
+			WindowState state = (WindowState) value;
+			if (state == WindowState.Maximized)
+			{
+				return 296;
+			}
+			return 96;
+		}
 
-        public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
-        {
-            return null;
-        }
-    }
+		public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
+		{
+			return null;
+		}
+	}
 }

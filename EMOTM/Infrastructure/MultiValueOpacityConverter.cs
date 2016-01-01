@@ -13,9 +13,9 @@ namespace EMOTM.Infrastructure
 	{
 		public object Convert(object[] values, Type targetType, object parameter, CultureInfo culture)
 		{
-			var name = (string)values[0];
-			var state = (TimerState)values[1];
-			var whichMin = (ThisThatMin)values[2];
+			var name = (string) values[0];
+			var state = (TimerState) values[1];
+			var whichMin = (ThisThatMin) values[2];
 
 			switch (state)
 			{
@@ -23,8 +23,8 @@ namespace EMOTM.Infrastructure
 				{
 					bool gotIt = name.Contains(whichMin.ToString());
 
-						return gotIt ? Consts.ActiveOpacityValue : Consts.InactiveOpacityValue;
-					}
+					return gotIt ? Consts.ActiveOpacityValue : Consts.InactiveOpacityValue;
+				}
 					break;
 				default:
 					return 0.90;
