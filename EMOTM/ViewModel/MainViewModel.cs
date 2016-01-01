@@ -123,6 +123,7 @@ namespace EMOTM.ViewModel
             //throw new NotImplementedException();
             TheTimer.Stop();
             TimerState = TimerState.Paused;
+            //TimerDisplayForeground = _blueGradBrush;
             TimerDisplayForeground = BlueBrush;
         }
 
@@ -485,13 +486,15 @@ namespace EMOTM.ViewModel
         private readonly SolidColorBrush RedBrush = new SolidColorBrush(Colors.Red);
         private readonly SolidColorBrush BlueBrush = new SolidColorBrush(Colors.Blue);
         private readonly SolidColorBrush GrayBrush = new SolidColorBrush(Colors.LightGray);
+        private readonly LinearGradientBrush _blueGradBrush = new LinearGradientBrush(Colors.Blue, Colors.LightGray, 45.0);
 
         /// <summary>
         /// The <see cref="TimerDisplayForeground" /> property's name.
         /// </summary>
         public const string TimerDisplayForegroundPropertyName = "TimerDisplayForeground";
 
-        private Brush _timerDisplayBrush = new SolidColorBrush(Colors.Black);
+        //private Brush _timerDisplayBrush = new SolidColorBrush(Colors.Black);
+        private Brush _timerDisplayBrush = new LinearGradientBrush(Colors.Blue, Colors.WhiteSmoke, 90.0);
 
 
         /// <summary>

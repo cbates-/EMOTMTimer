@@ -17,7 +17,6 @@
 	Width="500"
 	MinHeight="300"
 	MinWidth="450"
-	Background="#FFF1F1E2"
 	Title="{Binding MainWinTitle, Mode=TwoWay}">
 
 	<controls:MetroWindow.Resources>
@@ -48,6 +47,12 @@
 			<converters:StopBtnCaptionConverter x:Key="stopBtnCptnConverter" />
 		</ResourceDictionary>
 	</controls:MetroWindow.Resources>
+	<controls:MetroWindow.Background>
+		<LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+			<GradientStop Color="#FFA9C6F7" Offset="0"/>
+			<GradientStop Color="White" Offset="1"/>
+		</LinearGradientBrush>
+	</controls:MetroWindow.Background>
 
 	<controls:MetroWindow.DataContext>
 		<Binding Path="Main" Source="{StaticResource Locator}" />
