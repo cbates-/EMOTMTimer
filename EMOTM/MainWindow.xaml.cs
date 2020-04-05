@@ -1,5 +1,6 @@
 ﻿using EMOTM.ViewModel;
 
+// ReSharper disable once IdentifierTypo
 namespace EMOTM
 {
 	/// <summary>
