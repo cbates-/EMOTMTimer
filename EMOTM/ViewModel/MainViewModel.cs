@@ -19,8 +19,8 @@ namespace EMOTM.ViewModel
     /// </summary>
     public class MainViewModel : ViewModelBase
     {
+        // ReSharper disable once PrivateFieldCanBeConvertedToLocalVariable
         private readonly IDataService _dataService;
-
 
 
         /// <summary>
@@ -38,7 +38,7 @@ namespace EMOTM.ViewModel
                     }
                 });
 
-            TimerDisplayForeground = BlackBrush;
+            TimerDisplayForeground = _blackBrush;
             StartTimerCmd = new RelayCommand(ExecuteStartTimer, CanStartTimer);
 
             StopTimerCmd = new RelayCommand(StopTimer, CanStopTimer);
@@ -73,8 +73,6 @@ namespace EMOTM.ViewModel
                 case TimerTypePropertyName:
                     SetMainWinTitle();
                     break;
-                default:
-                    break;
             }
         }
 
@@ -104,7 +102,7 @@ namespace EMOTM.ViewModel
         {
             TheTimer.Stop();
             TimerState = TimerState.Stopped;
-            TimerDisplayForeground = GrayBrush;
+            TimerDisplayForeground = _grayBrush;
         }
 
         private bool CanStartTimer()
@@ -124,20 +122,20 @@ namespace EMOTM.ViewModel
             TheTimer.Stop();
             TimerState = TimerState.Paused;
             //TimerDisplayForeground = _blueGradBrush;
-            TimerDisplayForeground = BlueBrush;
+            TimerDisplayForeground = _blueBrush;
         }
 
-        private TimeSpan timeSpan;
+        private TimeSpan _timeSpan;
 
         private void ExecuteStartTimer()
         {
             if (TimerState == TimerState.Stopped)
             {
                 WhichMinute = ThisThatMin.ThisMinute;
-                timeSpan = new TimeSpan(0, TotalTime, 0);
+                _timeSpan = new TimeSpan(0, TotalTime, 0);
                 TheMinute = TotalTime;
             }
-            runTimer(timeSpan);
+            runTimer(_timeSpan);
         }
 
 
@@ -147,7 +145,7 @@ namespace EMOTM.ViewModel
         {
             TheTimer.Stop();
 
-            TimerDisplayForeground = BlackBrush;
+            TimerDisplayForeground = _blackBrush;
             TimerText = ts.ToString(timerFormatString);
 
             TimerState = TimerState.Started;
@@ -179,6 +177,7 @@ namespace EMOTM.ViewModel
 
                 //RaisePropertyChanging(TimerStatePropertyName);
                 _timerState = value;
+                // ReSharper disable once ExplicitCallerInfoArgument
                 RaisePropertyChanged(TimerStatePropertyName);
 
                 //StartTimerCmd.RaiseCanExecuteChanged();
@@ -214,6 +213,7 @@ namespace EMOTM.ViewModel
 
                 // RaisePropertyChanging(TimerTypePropertyName);
                 _timerType = value;
+                // ReSharper disable once ExplicitCallerInfoArgument
                 RaisePropertyChanged(TimerTypePropertyName);
             }
         }
@@ -245,6 +245,7 @@ namespace EMOTM.ViewModel
 
                 //RaisePropertyChanging(TheMinutePropertyName);
                 _theMinute = value;
+                // ReSharper disable once ExplicitCallerInfoArgument
                 RaisePropertyChanged(TheMinutePropertyName);
             }
         }
@@ -273,6 +274,7 @@ namespace EMOTM.ViewModel
 
                 // RaisePropertyChanging(WhichMinutePropertyName);
                 _whichMinute = value;
+                // ReSharper disable once ExplicitCallerInfoArgument
                 RaisePropertyChanged(WhichMinutePropertyName);
             }
         }
@@ -304,6 +306,7 @@ namespace EMOTM.ViewModel
                 }
 
                 _startBtnCaption = value;
+                // ReSharper disable once ExplicitCallerInfoArgument
                 RaisePropertyChanged(StartBtnCaptionPropertyName);
             }
         }
@@ -331,6 +334,7 @@ namespace EMOTM.ViewModel
                 }
 
                 _listCnt = value;
+                // ReSharper disable once ExplicitCallerInfoArgument
                 RaisePropertyChanged(ListCntPropertyName);
             }
         }
@@ -363,6 +367,7 @@ namespace EMOTM.ViewModel
                     TimerText = string.Format("{0}:00", TotalTime);
                     TheMinute = TotalTime;
                 }
+                // ReSharper disable once ExplicitCallerInfoArgument
                 RaisePropertyChanged(TotalTimePropertyName);
             }
         }
@@ -393,6 +398,7 @@ namespace EMOTM.ViewModel
                 }
 
                 _lengthOfMinute = value;
+                // ReSharper disable once ExplicitCallerInfoArgument
                 RaisePropertyChanged(LengthOfMinutePropertyName);
             }
         }
@@ -420,6 +426,7 @@ namespace EMOTM.ViewModel
                 }
 
                 _windowState = value;
+                // ReSharper disable once ExplicitCallerInfoArgument
                 RaisePropertyChanged(WindowStatePropertyName);
             }
         }
@@ -450,6 +457,7 @@ namespace EMOTM.ViewModel
                 }
 
                 _mainWinTitle = value;
+                // ReSharper disable once ExplicitCallerInfoArgument
                 RaisePropertyChanged(MainWinTitlePropertyName);
             }
         }
@@ -477,15 +485,17 @@ namespace EMOTM.ViewModel
                 }
 
                 _doTenSecCountdown = value;
+                // ReSharper disable once ExplicitCallerInfoArgument
                 RaisePropertyChanged(DoTenSecondCountdownPropertyName);
             }
         }
 
-        private readonly SolidColorBrush BlackBrush = new SolidColorBrush(Colors.Black);
-        private readonly SolidColorBrush OrangeBrush = new SolidColorBrush(Colors.DarkOrange);
-        private readonly SolidColorBrush RedBrush = new SolidColorBrush(Colors.Red);
-        private readonly SolidColorBrush BlueBrush = new SolidColorBrush(Colors.Blue);
-        private readonly SolidColorBrush GrayBrush = new SolidColorBrush(Colors.LightGray);
+        private readonly SolidColorBrush _blackBrush = new SolidColorBrush(Colors.Black);
+        private readonly SolidColorBrush _orangeBrush = new SolidColorBrush(Colors.DarkOrange);
+        private readonly SolidColorBrush _redBrush = new SolidColorBrush(Colors.Red);
+        private readonly SolidColorBrush _blueBrush = new SolidColorBrush(Colors.Blue);
+        private readonly SolidColorBrush _grayBrush = new SolidColorBrush(Colors.LightGray);
+        // ReSharper disable once UnusedMember.Local
         private readonly LinearGradientBrush _blueGradBrush = new LinearGradientBrush(Colors.Blue, Colors.LightGray, 45.0);
 
         /// <summary>
@@ -513,6 +523,7 @@ namespace EMOTM.ViewModel
                 }
 
                 _timerDisplayBrush = value;
+                // ReSharper disable once ExplicitCallerInfoArgument
                 RaisePropertyChanged(TimerDisplayForegroundPropertyName);
             }
         }
@@ -540,6 +551,7 @@ namespace EMOTM.ViewModel
                 }
 
                 _timerText = value;
+                // ReSharper disable once ExplicitCallerInfoArgument
                 RaisePropertyChanged(TimerTextPropertyName);
             }
         }
@@ -559,14 +571,14 @@ namespace EMOTM.ViewModel
             }
         }
 
-        private readonly TimeSpan oneSecond = new TimeSpan(0, 0, 1);
+        private readonly TimeSpan _oneSecond = new TimeSpan(0, 0, 1);
 
         private void TheTimerOnElapsed(object sender, ElapsedEventArgs elapsedEventArgs)
         {
             // Use this to avoid comparing the time on every tick when AutoMinimize is true.
 
-            timeSpan = timeSpan.Subtract(oneSecond);
-            TimeSpan now = timeSpan;
+            _timeSpan = _timeSpan.Subtract(_oneSecond);
+            TimeSpan now = _timeSpan;
             
             TimerText = now.ToString(timerFormatString);
             // System.Diagnostics.Debug.WriteLine(string.Format("\t\t{0}", now.ToString()));
@@ -583,7 +595,7 @@ namespace EMOTM.ViewModel
                     Debug.Write(string.Format("now.Minutes : {0}\n", now.Minutes));
                     bool isEndOfMinute = ((now.Minutes) % LengthOfMinute == 0);
                     TheMinute = now.Minutes; // + 1;
-                    TimerDisplayForeground = BlackBrush;
+                    TimerDisplayForeground = _blackBrush;
                     if (isEndOfMinute)
                     {
                         switch (ListCnt)
@@ -615,11 +627,11 @@ namespace EMOTM.ViewModel
             }
             else if (now.Seconds <= 5)
             {
-                TimerDisplayForeground = RedBrush;
+                TimerDisplayForeground = _redBrush;
             }
             else if (now.Seconds <= 10)
             {
-                TimerDisplayForeground = OrangeBrush;
+                TimerDisplayForeground = _orangeBrush;
             }
         }
 

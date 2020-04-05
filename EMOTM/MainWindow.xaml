@@ -7,7 +7,6 @@
     xmlns:controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
     xmlns:ignore="http://www.ignore.com"
     xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
-    xmlns:p="clr-namespace:EMOTM.Properties"
     xmlns:local="clr-namespace:EMOTM"
     WindowState="{Binding WindowState}"
     ResizeMode="CanResizeWithGrip"
@@ -37,14 +36,14 @@
             <converters:ThatMinVisConverter x:Key="ThatMinVisConverter" />
             <!--<converters:MainWinTitleConverter x:Key="mainWinTitleConverter" />-->
             <!-- <converters:ColumnSpanConverter x:Key="colSpanConverter" /> -->
-            <converters:EnumBooleanConverter x:Key="enumBooleanConverter" />
-            <converters:WindowStateFontSizeConverter x:Key="winStateFontSizeConverter" />
-            <converters:TimerStateToEnabledConverter x:Key="timerStateConverter" />
-            <converters:TimerStateToVisibilityConverter x:Key="timerStateVisibilityConverter" />
-            <converters:ListsColumnWidthConverter x:Key="listsColWidthConverter" />
-            <converters:WorkItemFontSizeConverter x:Key="workItemFontSizeConverter" />
-            <converters:StartBtnCaptionConverter x:Key="startBtnCptnConverter" />
-            <converters:StopBtnCaptionConverter x:Key="stopBtnCptnConverter" />
+            <converters:EnumBooleanConverter x:Key="EnumBooleanConverter" />
+            <converters:WindowStateFontSizeConverter x:Key="WinStateFontSizeConverter" />
+            <converters:TimerStateToEnabledConverter x:Key="TimerStateConverter" />
+            <converters:TimerStateToVisibilityConverter x:Key="TimerStateVisibilityConverter" />
+            <converters:ListsColumnWidthConverter x:Key="ListsColWidthConverter" />
+            <converters:WorkItemFontSizeConverter x:Key="WorkItemFontSizeConverter" />
+            <converters:StartBtnCaptionConverter x:Key="StartBtnCptnConverter" />
+            <converters:StopBtnCaptionConverter x:Key="StopBtnCptnConverter" />
         </ResourceDictionary>
     </controls:MetroWindow.Resources>
     <controls:MetroWindow.Background>
@@ -60,7 +59,7 @@
 
     <Grid x:Name="LayoutRoot">
         <Grid.Resources>
-            <!-- 
+            <!--
                  From:  https://github.com/MahApps/MahApps.Metro/issues/676#issuecomment-25429570
                  Fixes problem when tooltip is data-bound
             -->
@@ -85,11 +84,11 @@
         <Grid Grid.Row="0" x:Name="WorkLists">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition
-                    Width="{Binding ListCnt, ConverterParameter=One, Converter={StaticResource listsColWidthConverter}, Mode=TwoWay}" />
+                    Width="{Binding ListCnt, ConverterParameter=One, Converter={StaticResource ListsColWidthConverter}, Mode=TwoWay}" />
                 <ColumnDefinition
-                    Width="{Binding ListCnt, ConverterParameter=Two, Converter={StaticResource listsColWidthConverter}, Mode=TwoWay}" />
+                    Width="{Binding ListCnt, ConverterParameter=Two, Converter={StaticResource ListsColWidthConverter}, Mode=TwoWay}" />
                 <ColumnDefinition
-                    Width="{Binding ListCnt, ConverterParameter=Three, Converter={StaticResource listsColWidthConverter}, Mode=TwoWay}" />
+                    Width="{Binding ListCnt, ConverterParameter=Three, Converter={StaticResource ListsColWidthConverter}, Mode=TwoWay}" />
             </Grid.ColumnDefinitions>
             <!--                       ThisMinute -->
             <Grid Grid.ColumnSpan="1">
@@ -99,7 +98,7 @@
             </Grid>
             <!--                       ThatMinute -->
             <Grid Grid.Column="1"
-                  Grid.ColumnSpan="{Binding ListCnt, ConverterParameter=Two, Converter={StaticResource listsColWidthConverter}, Mode=TwoWay}"
+                  Grid.ColumnSpan="{Binding ListCnt, ConverterParameter=Two, Converter={StaticResource ListsColWidthConverter}, Mode=TwoWay}"
                   Visibility="{Binding ListCnt, ConverterParameter=Two, Converter={StaticResource ThatMinVisConverter}}">
 
                 <local:WhatMinuteControl ThisName="ThatMinute" />
@@ -107,7 +106,7 @@
             </Grid>
             <!--                       TheOtherMinute -->
             <Grid Grid.Column="2"
-                  Grid.ColumnSpan="{Binding ListCnt, ConverterParameter=Three, Converter={StaticResource listsColWidthConverter}, Mode=TwoWay}"
+                  Grid.ColumnSpan="{Binding ListCnt, ConverterParameter=Three, Converter={StaticResource ListsColWidthConverter}, Mode=TwoWay}"
                   Visibility="{Binding ListCnt, ConverterParameter=Three, Converter={StaticResource ThatMinVisConverter}}">
 
                 <local:WhatMinuteControl ThisName="TheOtherMinute" />
@@ -116,19 +115,23 @@
         </Grid>
 
         <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Grid.Row="1"
-                    Visibility="{Binding TimerState, Mode=TwoWay, Converter={StaticResource timerStateVisibilityConverter}}">
+                    Visibility="{Binding TimerState, Mode=TwoWay, Converter={StaticResource TimerStateVisibilityConverter}}">
+            <!-- ReSharper disable once InconsistentNaming -->
             <RadioButton x:Name="OneListRB"
-                         IsEnabled="{Binding TimerState, Converter={StaticResource timerStateConverter}, Mode=TwoWay}"
-                         IsChecked="{Binding ListCnt, ConverterParameter=One, Converter={StaticResource enumBooleanConverter}}"
+                         IsEnabled="{Binding TimerState, Converter={StaticResource TimerStateConverter}, Mode=TwoWay}"
+                         IsChecked="{Binding ListCnt, ConverterParameter=One, Converter={StaticResource EnumBooleanConverter}}"
                          GroupName="CntListsGroup" Margin="4,0" FontSize="9" Content="This" />
+            <!-- ReSharper disable once InconsistentNaming -->
             <RadioButton x:Name="TwoListRB"
-                         IsEnabled="{Binding TimerState, Converter={StaticResource timerStateConverter}, Mode=TwoWay}"
-                         IsChecked="{Binding ListCnt, ConverterParameter=Two, Converter={StaticResource enumBooleanConverter}}"
+                         IsEnabled="{Binding TimerState, Converter={StaticResource TimerStateConverter}, Mode=TwoWay}"
+                         IsChecked="{Binding ListCnt, ConverterParameter=Two, Converter={StaticResource EnumBooleanConverter}}"
                          GroupName="CntListsGroup" Margin="4,0" FontSize="9" Content="This - That" />
+            <!-- ReSharper disable once InconsistentNaming -->
             <RadioButton x:Name="ThreeListRB"
-                         IsEnabled="{Binding TimerState, Converter={StaticResource timerStateConverter}, Mode=TwoWay}"
-                         IsChecked="{Binding ListCnt, ConverterParameter=Three, Converter={StaticResource enumBooleanConverter}}"
+                         IsEnabled="{Binding TimerState, Converter={StaticResource TimerStateConverter}, Mode=TwoWay}"
+                         IsChecked="{Binding ListCnt, ConverterParameter=Three, Converter={StaticResource EnumBooleanConverter}}"
                          GroupName="CntListsGroup" Margin="4,0" FontSize="9" Content="This - That - TheOther" />
+            <!-- ReSharper disable once InconsistentNaming -->
             <RadioButton x:Name="AmrapRB"
                          IsEnabled="False"
                          Visibility="Collapsed"
@@ -147,7 +150,7 @@
             <TextBlock x:Name="TimerDisplay" Grid.Row="1"
                        Text="{Binding TimerText, Mode=TwoWay}"
                        Foreground="{Binding TimerDisplayForeground, Mode=TwoWay}"
-                       FontSize="{Binding WindowState, Converter={StaticResource winStateFontSizeConverter}, Mode=TwoWay}"
+                       FontSize="{Binding WindowState, Converter={StaticResource WinStateFontSizeConverter}, Mode=TwoWay}"
                        HorizontalAlignment="Center" VerticalAlignment="Center" />
             <!-- <TextBlock Grid.Row="3" HorizontalAlignment="Center" VerticalAlignment="Center">Placeholder</TextBlock> -->
         </Grid>
@@ -160,27 +163,27 @@
                 <ColumnDefinition />
             </Grid.ColumnDefinitions>
 
-            <CheckBox x:Name="tenSecChk" IsChecked="{Binding DoTenSecondCountdown, Mode=TwoWay}" IsEnabled="False"
+            <CheckBox x:Name="TenSecChk" IsChecked="{Binding DoTenSecondCountdown, Mode=TwoWay}" IsEnabled="False"
                       ToolTip="Count down last 10 secs." Grid.Column="2" HorizontalAlignment="Center"
                       Visibility="Hidden"
                       VerticalAlignment="Center" Content="10 sec." />
             <Button x:Name="StartBtn" Command="{Binding StartTimerCmd}" HorizontalAlignment="Center"
                     Grid.Column="1"
                     VerticalAlignment="Center" IsDefault="True"
-                    Content="{Binding TimerState, Converter={StaticResource startBtnCptnConverter}, Mode=TwoWay}"
+                    Content="{Binding TimerState, Converter={StaticResource StartBtnCptnConverter}, Mode=TwoWay}"
                     Height="28" MinWidth="48" />
             <Button x:Name="StopBtn" Command="{Binding StopTimerCmd}" Grid.Column="2" HorizontalAlignment="Center"
                     VerticalAlignment="Center"
-                    Content="{Binding TimerState, Converter={StaticResource stopBtnCptnConverter}, Mode=TwoWay}"
+                    Content="{Binding TimerState, Converter={StaticResource StopBtnCptnConverter}, Mode=TwoWay}"
                     MinWidth="48" Height="28" />
-            <!-- <Button x:Name="PauseBtn" Command="{Binding PauseTimerCmd}" IsEnabled="{Binding TimerState, Mode=TwoWay, Converter={StaticResource timerStateConverter}, ConverterParameter=false}"   Grid.Column="4"  HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Row="1">Pause</Button> 
+            <!-- <Button x:Name="PauseBtn" Command="{Binding PauseTimerCmd}" IsEnabled="{Binding TimerState, Mode=TwoWay, Converter={StaticResource timerStateConverter}, ConverterParameter=false}"   Grid.Column="4"  HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Row="1">Pause</Button>
             -->
             <Button x:Name="PauseBtn" Command="{Binding PauseTimerCmd}" Grid.Column="3" HorizontalAlignment="Center"
                     VerticalAlignment="Center" Content="Pause"
                     MinWidth="48" Height="28" />
         </Grid>
         <Grid Grid.Row="4"
-              Visibility="{Binding TimerState, Mode=TwoWay, Converter={StaticResource timerStateVisibilityConverter}}">
+              Visibility="{Binding TimerState, Mode=TwoWay, Converter={StaticResource TimerStateVisibilityConverter}}">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition />
                 <ColumnDefinition />
@@ -190,7 +193,7 @@
                            ToolTip="How long a 'minute' lasts..."
                            Margin="0,0,6,0" />
                 <xctk:IntegerUpDown x:Name="LengthOfMinute" Value="{Binding LengthOfMinute, Mode=TwoWay}"
-                                    IsEnabled="{Binding TimerState, Converter={StaticResource timerStateConverter}, Mode=TwoWay}"
+                                    IsEnabled="{Binding TimerState, Converter={StaticResource TimerStateConverter}, Mode=TwoWay}"
                                     Minimum="1" HorizontalAlignment="Center" VerticalAlignment="Center" />
             </StackPanel>
             <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Grid.Column="1" Margin="0,4">
@@ -199,7 +202,7 @@
                            Text="Total Time:" Margin="0,0,6,0" />
                 <xctk:IntegerUpDown x:Name="TotalTime" Value="{Binding TotalTime, Mode=TwoWay}"
                                     FontSize="13"
-                                    IsEnabled="{Binding TimerState, Converter={StaticResource timerStateConverter}, Mode=TwoWay}"
+                                    IsEnabled="{Binding TimerState, Converter={StaticResource TimerStateConverter}, Mode=TwoWay}"
                                     Minimum="2" HorizontalAlignment="Center" VerticalAlignment="Center" />
             </StackPanel>
         </Grid>
