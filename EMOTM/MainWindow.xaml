@@ -4,7 +4,6 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:converters="clr-namespace:EMOTM.Infrastructure"
-    xmlns:controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
     xmlns:ignore="http://www.ignore.com"
     xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
     xmlns:local="clr-namespace:EMOTM"
