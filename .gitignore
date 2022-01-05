@@ -2,6 +2,9 @@
 [Bb]in/
 [Oo]bj/
 
+# NuGet Packages Directory
+# packages
+
 # WebStorm's dir, I think
 .idea/
 
@@ -95,9 +98,6 @@ publish
 
 # Publish Web Output
 *.Publish.xml
-
-# NuGet Packages Directory
-packages
 
 # Windows Azure Build Output
 csx
