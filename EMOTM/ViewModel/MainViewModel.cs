@@ -50,10 +50,10 @@ namespace EMOTM.ViewModel
             PropertyChanged += OnPropertyChanged;
         }
 
-        
-        // 
+
+        //
         // We want the Start/Stop/Pause commands' enable state to respond to TimerState.
-        // Rather than add junk to the TimerState setter, put things that are dependant on 
+        // Rather than add junk to the TimerState setter, put things that are dependant on
         // TimerState here.
         //
         private void OnPropertyChanged(object sender, PropertyChangedEventArgs propertyChangedEventArgs)
@@ -162,7 +162,7 @@ namespace EMOTM.ViewModel
 
         /// <summary>
         /// Sets and gets the TimerState property.
-        /// Changes to that property's value raise the PropertyChanged event. 
+        /// Changes to that property's value raise the PropertyChanged event.
         /// </summary>
         public TimerState TimerState
         {
@@ -195,7 +195,7 @@ namespace EMOTM.ViewModel
 
         /// <summary>
         /// Sets and gets the TimerType property.
-        /// Changes to that property's value raise the PropertyChanged event. 
+        /// Changes to that property's value raise the PropertyChanged event.
         /// </summary>
         public TimerType TimerType
         {
@@ -227,7 +227,7 @@ namespace EMOTM.ViewModel
 
         /// <summary>
         /// Sets and gets the TheMinute property.
-        /// Changes to that property's value raise the PropertyChanged event. 
+        /// Changes to that property's value raise the PropertyChanged event.
         /// </summary>
         public int TheMinute
         {
@@ -289,7 +289,7 @@ namespace EMOTM.ViewModel
 
         /// <summary>
         /// Sets and gets the StartBtnCaption property.
-        /// Changes to that property's value raise the PropertyChanged event. 
+        /// Changes to that property's value raise the PropertyChanged event.
         /// </summary>
         public string StartBtnCaption
         {
@@ -320,7 +320,7 @@ namespace EMOTM.ViewModel
 
         /// <summary>
         /// Sets and gets the ListCnt property.
-        /// Changes to that property's value raise the PropertyChanged event. 
+        /// Changes to that property's value raise the PropertyChanged event.
         /// </summary>
         public ListCntEnums ListCnt
         {
@@ -381,7 +381,7 @@ namespace EMOTM.ViewModel
 
         /// <summary>
         /// Sets and gets the LengthOfMinute property.
-        /// Changes to that property's value raise the PropertyChanged event. 
+        /// Changes to that property's value raise the PropertyChanged event.
         /// </summary>
         public int LengthOfMinute
         {
@@ -412,7 +412,7 @@ namespace EMOTM.ViewModel
 
         /// <summary>
         /// Sets and gets the WindowState property.
-        /// Changes to that property's value raise the PropertyChanged event. 
+        /// Changes to that property's value raise the PropertyChanged event.
         /// </summary>
         public WindowState WindowState
         {
@@ -440,7 +440,7 @@ namespace EMOTM.ViewModel
 
         /// <summary>
         /// Sets and gets the MainWinTitle property.
-        /// Changes to that property's value raise the PropertyChanged event. 
+        /// Changes to that property's value raise the PropertyChanged event.
         /// </summary>
         public string MainWinTitle
         {
@@ -471,7 +471,7 @@ namespace EMOTM.ViewModel
 
         /// <summary>
         /// Sets and gets the DoTenSecondCountdown property.
-        /// Changes to that property's value raise the PropertyChanged event. 
+        /// Changes to that property's value raise the PropertyChanged event.
         /// </summary>
         public bool DoTenSecondCountdown
         {
@@ -509,7 +509,7 @@ namespace EMOTM.ViewModel
 
         /// <summary>
         /// Sets and gets the TimerDisplayForeground property.
-        /// Changes to that property's value raise the PropertyChanged event. 
+        /// Changes to that property's value raise the PropertyChanged event.
         /// </summary>
         public Brush TimerDisplayForeground
         {
@@ -579,7 +579,7 @@ namespace EMOTM.ViewModel
 
             _timeSpan = _timeSpan.Subtract(_oneSecond);
             TimeSpan now = _timeSpan;
-            
+
             TimerText = now.ToString(timerFormatString);
             // System.Diagnostics.Debug.WriteLine(string.Format("\t\t{0}", now.ToString()));
 

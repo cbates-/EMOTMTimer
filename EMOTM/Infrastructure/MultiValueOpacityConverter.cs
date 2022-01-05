@@ -25,10 +25,8 @@ namespace EMOTM.Infrastructure
 
 					return gotIt ? Consts.ActiveOpacityValue : Consts.InactiveOpacityValue;
 				}
-					break;
 				default:
 					return 0.90;
-					break;
 			}
 			return null;
 		}
