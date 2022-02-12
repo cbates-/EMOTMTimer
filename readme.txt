@@ -1,4 +1,6 @@
 
+A note for cat-fork to fetch.
+
 Another note.
 
 In master, tinkering with Ungit.
